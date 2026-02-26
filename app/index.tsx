@@ -1,55 +1,52 @@
 import { useEffect, useState } from 'react';
-import * as SplashScreen from 'expo-splash-screen';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { Image, StyleSheet } from 'react-native';
+import { useFonts } from 'expo-font';
 
-SplashScreen.preventAutoHideAsync();
+const { width, height } = Dimensions.get('window');
 
 export default function App() {
-  const [isReady, setIsReady] = useState(false);
+    const [fontsLoaded] = useFonts({
+        ADLaMDisplay: require('../assets/fonts/ADLaMDisplay-Regular.ttf'),
+    });
 
-  useEffect(() => {
-    async function prepareApp() {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setIsReady(true);
-      await SplashScreen.hideAsync();
+    if (!fontsLoaded) {
+        return null;
     }
 
-    prepareApp();
-  }, []);
-
-  if (!isReady) {
     return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <View style={styles.box}>
-            <Image
-                source={require('../assets/logo.png')}
-                  style={{
-                    width: 300,
-                    height: 300,
-                }}
-            />
-            <Text style={styles.text}>Zhiyuan</Text>
+            <View style={{
+                position: 'relative',
+            }}>
+                <Image
+                    source={require('../assets/logo.png')}
+                        style={{
+                        width: 300,
+                        height: 300,
+                    }}
+                />
+                <Text style={{
+                ...styles.text,
+                position: 'absolute',
+                right: '-10%', 
+                bottom: '30%',
+                }}>Zhiyuan</Text>
+            </View>
+        </View>
+        <Text style={{...styles.text, marginTop: 40 }}>ENTERPRISE{'\n'}GROUP INC.</Text>
     </View>
-    </View>
-  }
 
-  return (
-    <View>
-      <Text>App Loaded</Text>
-    </View>
-  );
 }
 
 const styles = StyleSheet.create({
   box: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 10
   },
   text: {
-    fontSize: 24,
-    fontWeight: 'bold'
-
+    fontSize: 35,
+    fontFamily: 'ADLaMDisplay',
   }
 });
