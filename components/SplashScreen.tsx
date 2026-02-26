@@ -11,15 +11,15 @@ const SplashScreen = () => {
                     <Image
                         source={require('../assets/logo.png')}
                             style={{
-                            width: 300,
-                            height: 300,
+                            width: 250,
+                            height: 250,
                         }}
                     />
                     <Text style={{
                     ...styles.text,
                     position: 'absolute',
                     right: '-10%', 
-                    bottom: '30%',
+                    bottom: '25%',
                     }}>Zhiyuan</Text>
                 </View>
             </View>
