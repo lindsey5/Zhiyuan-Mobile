@@ -56,17 +56,7 @@ export default function ProductScreen() {
 				numberOfLines={3}
 			>{product.description}</CustomizedText>
 			<TouchableOpacity 
-				style={{
-					marginTop: 20, 
-					backgroundColor: "#000000", 
-					paddingVertical: 10, 
-					paddingHorizontal: 20, 
-					width: "100%",
-					flexDirection: "row",
-					alignItems: "center",
-					borderRadius: 50,
-					justifyContent: "space-between"
-				}}
+				style={styles.button}
 			>
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 10}}>
 					<ShoppingBasket color="#72aa28" size={35} />
@@ -121,4 +111,15 @@ const styles = StyleSheet.create({
 		borderRadius: 12,
 		resizeMode: "contain",
 	},
+	button: {
+		marginTop: 20, 
+		backgroundColor: "#000000", 
+		paddingVertical: 10, 
+		paddingHorizontal: 20, 
+		width: "100%",
+		flexDirection: "row",
+		alignItems: "center",
+		borderRadius: 50,
+		justifyContent: "space-between"
+	}
 });
