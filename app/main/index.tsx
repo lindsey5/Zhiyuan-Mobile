@@ -1,6 +1,6 @@
 import CustomizedText from "@/components/ui/Text";
-import { View, TouchableOpacity, StyleSheet } from "react-native"
-import { Menu } from "lucide-react-native";
+import { View, TouchableOpacity, StyleSheet, ScrollView } from "react-native"
+import { Menu, Scroll } from "lucide-react-native";
 import { useState } from "react";
 import CategoryTab from "@/components/Home/CategoryTab";
 import ProductScreen from "@/components/Home/ProductScreen";
@@ -20,7 +20,9 @@ const Home = () => {
                 selectedCategory={selectedCategory} 
                 setSelectedCategory={setSelectedCategory} 
             />
-            <ProductScreen />
+            <ScrollView style={{ marginTop: 20, flex: 1 }}>
+                <ProductScreen />
+            </ScrollView>
         </View>
     )
 }

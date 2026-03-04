@@ -28,7 +28,7 @@ export const products : Product[] = [
         id: 3,
         name: "Billiard Stick",
         description: "Perfect for beginners or anyone looking for a stick.",
-        image: require("../assets/billiard.png"),
+        image: require("../assets/ball.png"),
         price: 420,
     },
     {
