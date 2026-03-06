@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-// Ensure you have run: npx expo install react-native-svg
 import Svg, { Path, Rect } from 'react-native-svg'; 
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
