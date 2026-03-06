@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 25,
-        paddingTop: 12, // Offset for the notch dip
+        paddingTop: 12,
     },
     left: { flexDirection: 'row', alignItems: 'center' },
     badge: {
