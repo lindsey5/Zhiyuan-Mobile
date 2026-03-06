@@ -1,6 +1,6 @@
 import { categories } from "@/constants/data";
 import { ScrollView, StyleSheet} from "react-native";
-import TabButton from "../ui/TabButton";
+import TabButton from "./TabButton";
 
 export default function CategoryTab({ selectedCategory, setSelectedCategory }: { selectedCategory: number, setSelectedCategory: (category: number) => void }) {
     return (
