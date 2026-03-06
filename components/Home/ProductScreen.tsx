@@ -6,7 +6,7 @@ import Carousel from "react-native-reanimated-carousel";
 import CustomizedText from "../ui/Text";
 import { products } from "@/constants/data";
 import responsiveFontSize from "@/utils/responsiveFontSize";
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function ProductScreen() {
 	const { width } = useWindowDimensions();
@@ -64,11 +64,13 @@ export default function ProductScreen() {
 			<TouchableOpacity 
 				style={styles.button}
 			>
-				<View style={{ flexDirection: "row", alignItems: "center", gap: 10}}>
-					<Ionicons name="basket" size={responsiveFontSize(30)} color="#72aa28" />
-				<CustomizedText style={{ color: "#fff", fontSize: responsiveFontSize(18) }}>Add to Cart</CustomizedText>
+				<View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
+					<FontAwesome5
+						name="shopping-basket"
+					size={responsiveFontSize(30)} color="#A4E000" />
+				<CustomizedText style={{ color: "#fff", fontSize: responsiveFontSize(20) }}>Add to Cart</CustomizedText>
 				</View>
-				<CustomizedText style={{ color: "#fff", fontSize: responsiveFontSize(18) }}>P {product.price.toFixed(2)}</CustomizedText>
+				<CustomizedText style={{ color: "#fff", fontSize: responsiveFontSize(20) }}>P {product.price.toFixed(2)}</CustomizedText>
 			</TouchableOpacity>
 		</Animated.View>
 		);
@@ -99,6 +101,7 @@ export default function ProductScreen() {
 
 const styles = StyleSheet.create({
 	carouselContainer: {
+		flex: 2,
 		width: "100%",
 		alignItems: "center",
 		justifyContent: "center",
@@ -121,11 +124,12 @@ const styles = StyleSheet.create({
 		maxWidth: 400,
 		marginTop: 20, 
 		backgroundColor: "#000000", 
-		padding: 12,
+		paddingHorizontal: 12,
+		paddingVertical: 20,
 		width: "100%",
 		flexDirection: "row",
 		alignItems: "center",
 		borderRadius: 50,
-		justifyContent: "space-between"
+		justifyContent: "space-between",
 	}
 });

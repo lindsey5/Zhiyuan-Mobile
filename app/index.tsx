@@ -12,7 +12,7 @@ export default function App() {
     useEffect(() => {
         const timer = setTimeout(() => {
             router.replace("./main");
-        }, 5000);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, []);

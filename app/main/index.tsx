@@ -4,6 +4,7 @@ import { Menu, Scroll } from "lucide-react-native";
 import { useState } from "react";
 import CategoryTab from "@/components/Home/CategoryTab";
 import ProductScreen from "@/components/Home/ProductScreen";
+import CartSummary from "@/components/Home/CartSummary";
 
 const Home = () => {
     const [selectedCategory, setSelectedCategory] = useState(0);
@@ -23,6 +24,7 @@ const Home = () => {
             <ScrollView style={{ marginTop: 20, flex: 1 }}>
                 <ProductScreen />
             </ScrollView>
+            <CartSummary />
         </View>
     )
 }
@@ -32,13 +34,13 @@ export default Home;
 const styles = StyleSheet.create({
     container: { 
         flex: 1, 
-        paddingHorizontal: 20,
-        paddingTop: 60
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingTop: 50,
     },
     title: {
         fontSize: 32,
