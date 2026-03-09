@@ -1,10 +1,8 @@
 import { Menu } from "lucide-react-native";
 import { useState } from "react";
-import { TouchableOpacity, View, StyleSheet, Text, Dimensions, Image } from "react-native";
+import { TouchableOpacity, View, StyleSheet } from "react-native";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import Sidebar from "./Sidebar";
-
-const { width, height } = Dimensions.get("window");
 
 export default function MenuButton() {
     const [show, setShow] = useState(false);

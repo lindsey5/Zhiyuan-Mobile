@@ -1,10 +1,9 @@
-import responsiveFontSize from "@/hooks/useResponsiveFont";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { TouchableOpacity, View, StyleSheet, Text, Image, Animated, Pressable } from "react-native";
+import MenuItem from "./MenuItem";
 
 export default function Sidebar({ setShow } : { setShow: Dispatch<SetStateAction<boolean>>}) {
     const slideAnim = useRef(new Animated.Value(300)).current;
-    const closeButtonFontSize = responsiveFontSize(24);
 
     useEffect(() => {
         Animated.timing(slideAnim, {
@@ -23,7 +22,7 @@ export default function Sidebar({ setShow } : { setShow: Dispatch<SetStateAction
     };
 
     return (
-        <Animated.View style={[styles.container, { transform: [{ translateX: slideAnim }] }]}>                
+        <Animated.View style={[styles.sidebar, { transform: [{ translateX: slideAnim }] }]}>                
             <Image 
                 source={require("../../assets/sidebar.png")}
                 resizeMode="stretch"
@@ -34,17 +33,10 @@ export default function Sidebar({ setShow } : { setShow: Dispatch<SetStateAction
                 
             />
 
-            <View style={styles.menu}>
-                <Pressable>
-                    <Text style={styles.item}>Home</Text>
-                </Pressable>
-                <Pressable>
-                    <Text style={styles.item}>Products</Text>
-                </Pressable>
-            </View>
+            <MenuItem />
 
             <TouchableOpacity style={styles.close} onPress={closeSidebar}>
-                <Text style={{ fontSize: closeButtonFontSize, color: 'white', fontWeight: "bold" }}>✕</Text>
+                <Text style={{ fontSize: 24, color: 'white', fontWeight: "bold" }}>✕</Text>
             </TouchableOpacity>
 
         </Animated.View>
@@ -52,7 +44,7 @@ export default function Sidebar({ setShow } : { setShow: Dispatch<SetStateAction
 }
 
 const styles = StyleSheet.create({
-    container: {
+    sidebar: {
         position: "absolute",
         right: 0,
         top: 0,
@@ -62,19 +54,6 @@ const styles = StyleSheet.create({
         zIndex: 1,
         padding: 5,
     },
-
-    menu: {
-        position: "absolute",
-        top: "20%",
-        right: 50,
-    },
-
-    item: {
-        marginVertical: 10,
-        fontWeight: "bold",
-        fontSize: 16,
-    },
-
     close: {
         position: "absolute",
         top: "15%",
