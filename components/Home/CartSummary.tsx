@@ -5,11 +5,10 @@ import Svg, { Path, Rect } from 'react-native-svg';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const CartSummary = () => {
-    const containerWidth = SCREEN_WIDTH; 
+    const containerWidth = SCREEN_WIDTH - 10; 
     const h = 100; 
     const r = 40;
 
-    // Precise SVG Path for the "Trapezoid Notch" look
     const d = `
         M 0,${r} 
         A ${r},${r} 0 0 1 ${r},0 
@@ -60,6 +59,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F0F4F8',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingBottom: 10,
     },
     svgWrapper: {
         position: 'absolute',

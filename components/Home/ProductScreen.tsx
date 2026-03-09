@@ -5,7 +5,7 @@ import { useSharedValue } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
 import CustomizedText from "../ui/Text";
 import { products } from "@/constants/data";
-import responsiveFontSize from "@/utils/responsiveFontSize";
+import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function ProductScreen() {
@@ -55,9 +55,9 @@ export default function ProductScreen() {
 				}
 				style={styles.image}
 			/>
-			<CustomizedText style={{ fontSize: responsiveFontSize(32), marginTop: 20 }}>{product.name}</CustomizedText>
+			<CustomizedText style={{ fontSize: useResponsiveFontSize(32), marginTop: 20 }}>{product.name}</CustomizedText>
 			<CustomizedText 
-				style={{ fontSize: responsiveFontSize(18), marginVertical: 16, textAlign: "center", opacity: 0.6 }} 
+				style={{ fontSize: useResponsiveFontSize(18), marginVertical: 16, textAlign: "center", opacity: 0.6 }} 
 				ellipsizeMode="tail" 
 				numberOfLines={3}
 			>{product.description}</CustomizedText>
@@ -67,10 +67,10 @@ export default function ProductScreen() {
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
 					<FontAwesome5
 						name="shopping-basket"
-					size={responsiveFontSize(30)} color="#A4E000" />
-				<CustomizedText style={{ color: "#fff", fontSize: responsiveFontSize(20) }}>Add to Cart</CustomizedText>
+					size={useResponsiveFontSize(30)} color="#A4E000" />
+				<CustomizedText style={[styles.buttonText, { fontSize: useResponsiveFontSize(20) }]}>Add to Cart</CustomizedText>
 				</View>
-				<CustomizedText style={{ color: "#fff", fontSize: responsiveFontSize(20) }}>P {product.price.toFixed(2)}</CustomizedText>
+				<CustomizedText style={[styles.buttonText, { fontSize: useResponsiveFontSize(20) }]}>P {product.price.toFixed(2)}</CustomizedText>
 			</TouchableOpacity>
 		</Animated.View>
 		);
@@ -131,5 +131,9 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		borderRadius: 50,
 		justifyContent: "space-between",
+	},
+	buttonText: {
+		color: "#fff", 
+		fontWeight: '500'
 	}
 });

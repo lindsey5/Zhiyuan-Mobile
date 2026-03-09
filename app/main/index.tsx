@@ -5,6 +5,7 @@ import { useState } from "react";
 import CategoryTab from "@/components/Home/CategoryTab";
 import ProductScreen from "@/components/Home/ProductScreen";
 import CartSummary from "@/components/Home/CartSummary";
+import MenuButton from "@/components/ui/Menu";
 
 const Home = () => {
     const [selectedCategory, setSelectedCategory] = useState(0);
@@ -13,10 +14,8 @@ const Home = () => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <CustomizedText style={styles.title}>Paul N Ballin {"\n"}Let's Play</CustomizedText>
-                <TouchableOpacity>
-                    <Menu color="rgba(235, 168, 74, 0.55)" />
-                </TouchableOpacity>
             </View>
+            <MenuButton />
             <CategoryTab 
                 selectedCategory={selectedCategory} 
                 setSelectedCategory={setSelectedCategory} 
@@ -34,6 +33,7 @@ export default Home;
 const styles = StyleSheet.create({
     container: { 
         flex: 1, 
+        position: 'relative'
     },
     header: {
         flexDirection: 'row',
