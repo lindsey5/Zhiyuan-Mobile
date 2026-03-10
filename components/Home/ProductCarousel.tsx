@@ -1,4 +1,3 @@
-import * as React from "react";
 import { View, Dimensions, Image, StyleSheet, TouchableOpacity, useWindowDimensions, ImageSourcePropType } from "react-native";
 import Animated, { useAnimatedStyle, interpolate } from "react-native-reanimated";
 import { useSharedValue } from "react-native-reanimated";

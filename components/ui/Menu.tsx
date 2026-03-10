@@ -6,7 +6,6 @@ import Sidebar from "./Sidebar";
 
 export default function MenuButton() {
     const [show, setShow] = useState(false);
-    const iconSize = useResponsiveFontSize(30);
 
     return (
         <>
@@ -14,7 +13,7 @@ export default function MenuButton() {
                 <Sidebar setShow={setShow} />
             ) : (
                 <TouchableOpacity style={styles.menuButton} onPress={() => setShow(true)}>
-                    <Menu color="hsla(35, 80%, 61%, 0.55)" size={iconSize} strokeWidth={3} />
+                    <Menu color="hsla(35, 80%, 61%, 0.55)" size={24} strokeWidth={3} />
                 </TouchableOpacity>
             )}
         </>

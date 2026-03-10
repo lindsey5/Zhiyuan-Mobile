@@ -50,14 +50,14 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         bottom: 0,
-        width: "70%",
-        maxWidth: 400,
+        width: "80%",
+        maxWidth: 300,
         zIndex: 1,
         padding: 5,
     },
     close: {
         position: "absolute",
-        top: "15%",
-        right: 20,
+        top: 60,
+        right: 25,
     },
 });

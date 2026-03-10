@@ -1,5 +1,5 @@
 import CustomizedText from "@/components/ui/Text";
-import { View, TouchableOpacity, StyleSheet, ScrollView } from "react-native"
+import { View, Text, StyleSheet, ScrollView } from "react-native"
 import { useState } from "react";
 import CategoryTab from "@/components/Home/CategoryTab";
 import ProductCarousel from "@/components/Home/ProductCarousel";
@@ -19,7 +19,16 @@ const Home = () => {
                 selectedCategory={selectedCategory} 
                 setSelectedCategory={setSelectedCategory} 
             />
-            <ScrollView style={{ marginTop: 20, flex: 1 }}>
+            <Text
+                style={{
+                    fontSize: 24,
+                    marginTop: 20,
+                    marginLeft: 10,
+                    fontWeight: 'bold'
+
+                }}
+            >Most Selling Products</Text>
+            <ScrollView style={{ flex: 1 }}>
                 <ProductCarousel />
             </ScrollView>
             <CartSummary />
