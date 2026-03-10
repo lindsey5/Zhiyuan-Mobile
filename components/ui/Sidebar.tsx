@@ -28,7 +28,8 @@ export default function Sidebar({ setShow } : { setShow: Dispatch<SetStateAction
                 resizeMode="stretch"
                 style={{
                     width: "100%",
-                    height: "100%"
+                    height: "100%",
+                    borderRadius: 30,
                 }}
                 
             />
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         bottom: 0,
-        width: "80%",
+        width: "70%",
         maxWidth: 400,
         zIndex: 1,
         padding: 5,

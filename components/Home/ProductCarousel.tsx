@@ -8,7 +8,7 @@ import { products } from "@/constants/data";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function ProductScreen() {
+export default function ProductCarousel() {
 	const { width } = useWindowDimensions();
 	const progress = useSharedValue<number>(0);
 	const windowWidth = Dimensions.get("window").width;

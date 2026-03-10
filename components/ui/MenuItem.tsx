@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
     item: {
         marginVertical: 10,
         fontWeight: "bold",
-        fontSize: 18,
+        fontSize: 16,
     },
 });
