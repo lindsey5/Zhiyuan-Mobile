@@ -25,10 +25,10 @@ export default function CategoryTab({ selectedCategory, setSelectedCategory }: {
 const styles = StyleSheet.create({
     category: {
         fontSize: 24,
-        marginVertical: 10,
+        marginVertical: 20,
     },
     categoryContainer: {
-        marginTop: 40,
+        marginVertical: 20,
         maxHeight: 30,
         flexDirection: 'row',
         paddingHorizontal: 10

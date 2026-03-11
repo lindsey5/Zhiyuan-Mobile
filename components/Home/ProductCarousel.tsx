@@ -1,4 +1,4 @@
-import { View, Dimensions, Image, StyleSheet, TouchableOpacity, useWindowDimensions, ImageSourcePropType } from "react-native";
+import { View, Dimensions, Image, StyleSheet, TouchableOpacity, useWindowDimensions, Text } from "react-native";
 import Animated, { useAnimatedStyle, interpolate } from "react-native-reanimated";
 import { useSharedValue } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
@@ -12,6 +12,7 @@ export default function ProductCarousel() {
 	const progress = useSharedValue<number>(0);
 	const windowWidth = Dimensions.get("window").width;
 	const windowHeight = Dimensions.get("window").height;
+	const font20 = useResponsiveFontSize(20);
 
 	const itemWidth = windowWidth * 0.7;
 	const sideSpacing = (windowWidth - itemWidth) / 0.8;
@@ -54,9 +55,9 @@ export default function ProductCarousel() {
 				}
 				style={styles.image}
 			/>
-			<CustomizedText style={{ fontSize: useResponsiveFontSize(32), marginTop: 20 }}>{product.name}</CustomizedText>
+			<CustomizedText style={{ fontSize: 32, marginTop: 20 }}>{product.name}</CustomizedText>
 			<CustomizedText 
-				style={{ fontSize: useResponsiveFontSize(18), marginVertical: 16, textAlign: "center", opacity: 0.6 }} 
+				style={{ fontSize: 18, marginVertical: 16, textAlign: "center", opacity: 0.6 }} 
 				ellipsizeMode="tail" 
 				numberOfLines={3}
 			>{product.description}</CustomizedText>
@@ -66,10 +67,10 @@ export default function ProductCarousel() {
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
 					<FontAwesome5
 						name="shopping-basket"
-					size={useResponsiveFontSize(30)} color="#A4E000" />
-				<CustomizedText style={[styles.buttonText, { fontSize: useResponsiveFontSize(20) }]}>Add to Cart</CustomizedText>
+					size={font20} color="#A4E000" />
+				<CustomizedText style={[styles.buttonText, { fontSize: font20 }]}>Add to Cart</CustomizedText>
 				</View>
-				<CustomizedText style={[styles.buttonText, { fontSize: useResponsiveFontSize(20) }]}>P {product.price.toFixed(2)}</CustomizedText>
+				<CustomizedText style={[styles.buttonText, { fontSize: font20 }]}>P {product.price.toFixed(2)}</CustomizedText>
 			</TouchableOpacity>
 		</Animated.View>
 		);
@@ -77,41 +78,45 @@ export default function ProductCarousel() {
 
 	return (
 		<View style={styles.carouselContainer}>
-		<Carousel
-			data={products}
-			loop
-			width={width >= 768 ? itemWidth : windowWidth * 0.9}
-			height={Math.max(windowHeight * 0.6, 500)}
-			mode="parallax"
-			modeConfig={{
-				parallaxScrollingScale: 0.8, 
-				parallaxScrollingOffset: sideSpacing,
-			}}
-			pagingEnabled
-			snapEnabled
-			onProgressChange={(_, absoluteProgress) => {
-			progress.value = absoluteProgress;
-			}}
-			renderItem={renderItem}
-		/>
+			<Carousel
+				data={products}
+				loop
+				width={width >= 768 ? itemWidth : windowWidth * 0.9}
+				height={Math.max(windowHeight * 0.6, 500)}
+				mode="parallax"
+				modeConfig={{
+					parallaxScrollingScale: 0.8, 
+					parallaxScrollingOffset: sideSpacing,
+				}}
+				pagingEnabled
+				snapEnabled
+				onProgressChange={(_, absoluteProgress) => {
+				progress.value = absoluteProgress;
+				}}
+				renderItem={renderItem}
+			/>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
 	carouselContainer: {
-		flex: 2,
+		flex: 1,
 		width: "100%",
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	itemContainer: {
 		flex: 1,
-		borderRadius: 25,
-		padding: 30,
-		backgroundColor: "#fff",
-		boxShadow: "0 7px 15px rgba(0,0,0, 0.3)",
-		alignItems: "center",
+        borderRadius: 25,
+        padding: 30,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        elevation: 4,
+        shadowColor: "#000", 
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        shadowOffset: { width: 0, height: 4 }
 	},
 	image: {
 		width: "100%",

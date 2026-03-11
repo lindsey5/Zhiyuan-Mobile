@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         right: 20,
     },
     item: { 
-        flexDirection: 'row', 
+        flexDirection: 'row',
         gap: 5,
         marginVertical: 10,
     },

@@ -5,6 +5,7 @@ import CategoryTab from "@/components/Home/CategoryTab";
 import ProductCarousel from "@/components/Home/ProductCarousel";
 import CartSummary from "@/components/Home/CartSummary";
 import MenuButton from "@/components/ui/Menu";
+import Products from "@/components/Home/Products";
 
 const Home = () => {
     const [selectedCategory, setSelectedCategory] = useState(0);
@@ -15,21 +16,15 @@ const Home = () => {
                 <CustomizedText style={styles.title}>Paul N Ballin {"\n"}Let's Play</CustomizedText>
             </View>
             <MenuButton />
-            <CategoryTab 
-                selectedCategory={selectedCategory} 
-                setSelectedCategory={setSelectedCategory} 
-            />
-            <Text
-                style={{
-                    fontSize: 24,
-                    marginTop: 20,
-                    marginLeft: 10,
-                    fontWeight: 'bold'
-
-                }}
-            >Most Selling Products</Text>
             <ScrollView style={{ flex: 1 }}>
+                <Text style={styles.text}>Most Selling Products</Text>
                 <ProductCarousel />
+                <Text style={styles.text}>All Products</Text>
+                <CategoryTab 
+                    selectedCategory={selectedCategory} 
+                    setSelectedCategory={setSelectedCategory} 
+                />
+                <Products />
             </ScrollView>
             <CartSummary />
         </View>
@@ -40,7 +35,7 @@ export default Home;
 
 const styles = StyleSheet.create({
     container: { 
-        flex: 1, 
+        flex: 2, 
         position: 'relative'
     },
     header: {
@@ -53,4 +48,11 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 32,
     },
+    text: {
+        fontSize: 24,
+        marginTop: 20,
+        marginLeft: 20,
+        fontWeight: 'bold',
+        width: '100%'
+    }
 });
