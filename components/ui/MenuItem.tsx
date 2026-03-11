@@ -7,7 +7,7 @@ export default function MenuItem(){
                 <Text style={styles.itemText}>Home</Text>
             </Pressable>
             <Pressable style={styles.item}>
-                <Text style={styles.itemText}>Products</Text>
+                <Text style={styles.itemText}>Search Product</Text>
             </Pressable>
         </View>
     )
@@ -16,8 +16,8 @@ export default function MenuItem(){
 const styles = StyleSheet.create({
     menu: {
         position: "absolute",
-        top: 130,
-        right: 50,
+        top: "20%",
+        right: 20,
     },
     item: { 
         flexDirection: 'row',
@@ -27,6 +27,5 @@ const styles = StyleSheet.create({
     itemText: {
         fontWeight: "bold",
         fontSize: 16,
-        textDecorationLine: 'underline'
     },
 });

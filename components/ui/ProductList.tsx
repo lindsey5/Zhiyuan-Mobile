@@ -11,10 +11,10 @@ export default function ProductList() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-    padding: 20
-  },
+    container: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 10,
+        padding: 20
+    },
 });
