@@ -1,6 +1,7 @@
 import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from "react-native"
 import CustomizedText from "../ui/Text";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
+import { useRouter } from "expo-router";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -10,6 +11,7 @@ const getItemWidth = (numColumns : number, containerPadding = 20, spacing = 10) 
 
 export default function ProductCard ({ item } : { item: Product  }) {
     const font20 = useResponsiveFontSize(20);
+    const router = useRouter();
     let numColumns = 2;
 
     if (screenWidth > 900) {
@@ -18,6 +20,19 @@ export default function ProductCard ({ item } : { item: Product  }) {
         numColumns = 3;
     }
     const itemWidth = getItemWidth(numColumns);
+
+    const handleAddToCart = () => {
+        // Navigate to the ProductDetailScreen and pass product details as route parameters
+        router.push({
+          pathname: "/products/productDetails",
+          params: {
+            id: item.id, // Pass the product ID
+            name: item.name, // Pass the product name
+            image: typeof item.image === "string" ? item.image : "", // Pass the product image URL
+            price: item.price, // Pass the product price
+          },
+        });
+      };
 
     return (
         <View style={[styles.card, { width: itemWidth }]}>
@@ -34,7 +49,7 @@ export default function ProductCard ({ item } : { item: Product  }) {
                 {item.name}
             </CustomizedText>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={handleAddToCart}>
                 <CustomizedText style={[styles.buttonText, { fontSize: font20 }]}>
                     Add to Cart
                 </CustomizedText>
