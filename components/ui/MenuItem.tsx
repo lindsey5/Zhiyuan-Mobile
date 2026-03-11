@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     menu: {
         position: "absolute",
         top: 130,
-        right: 20,
+        right: 50,
     },
     item: { 
         flexDirection: 'row',

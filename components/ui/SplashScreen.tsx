@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { View, Animated, Dimensions } from 'react-native';
 import { Image, StyleSheet } from 'react-native';
-import CustomizedText from './Text';
 
 const { width } = Dimensions.get('window');
 
@@ -31,30 +30,18 @@ const SplashScreen = () => {
 
     return (
         <View style={styles.container}>
-            <Animated.View style={[styles.box, { opacity: fadeAnim }]}>
+            <Animated.View style={{ opacity: fadeAnim }}>
                 <Image
-                    source={require('../../assets/logo.png')}
+                    source={require('../../assets/logo.jpg')}
                     style={{
-                        width: width * 0.5,
-                        height: width * 0.7,
+                        width: width * 0.9,
+                        height: width * 0.9,
+                        maxWidth: 400,
+                        maxHeight: 600,
                     }}
+                    resizeMode='contain'
                 />
-                <CustomizedText
-                    style={{
-                        position: 'absolute',
-                        left: '70%',
-                        bottom: '35%',
-                    }}
-                >
-                    Zhiyuan
-                </CustomizedText>
             </Animated.View>
-
-            <Animated.Text
-                style={[styles.animatedText, { opacity: fadeAnim }]}
-            >
-                ENTERPRISE{'\n'}GROUP INC.
-            </Animated.Text>
         </View>
     );
 };
@@ -66,10 +53,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    box: {
-        width: width * 0.5,
-        position: 'relative',
     },
     animatedText: {
         fontSize: 32,

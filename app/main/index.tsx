@@ -5,7 +5,7 @@ import CategoryTab from "@/components/Home/CategoryTab";
 import ProductCarousel from "@/components/Home/ProductCarousel";
 import CartSummary from "@/components/Home/CartSummary";
 import MenuButton from "@/components/ui/Menu";
-import Products from "@/components/Home/Products";
+import ProductList from "@/components/ui/ProductList";
 
 const Home = () => {
     const [selectedCategory, setSelectedCategory] = useState(0);
@@ -24,7 +24,7 @@ const Home = () => {
                     selectedCategory={selectedCategory} 
                     setSelectedCategory={setSelectedCategory} 
                 />
-                <Products />
+                <ProductList />
             </ScrollView>
             <CartSummary />
         </View>
@@ -36,7 +36,7 @@ export default Home;
 const styles = StyleSheet.create({
     container: { 
         flex: 2, 
-        position: 'relative'
+        position: 'relative',
     },
     header: {
         flexDirection: 'row',
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 20,
         paddingTop: 50,
+        paddingBottom: 10,
     },
     title: {
         fontSize: 32,

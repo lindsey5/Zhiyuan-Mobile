@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
-import { TouchableOpacity, View, StyleSheet, Text, Image, Animated, Pressable } from "react-native";
+import { TouchableOpacity, View, StyleSheet, Text, Image, Animated } from "react-native";
 import MenuItem from "./MenuItem";
 
 export default function Sidebar({ setShow } : { setShow: Dispatch<SetStateAction<boolean>>}) {
@@ -51,9 +51,10 @@ const styles = StyleSheet.create({
         top: 0,
         bottom: 0,
         width: "80%",
-        maxWidth: 300,
+        maxWidth: 400,
         zIndex: 1,
-        padding: 5,
+        paddingRight: 10,
+        paddingVertical: 20,
     },
     close: {
         position: "absolute",
