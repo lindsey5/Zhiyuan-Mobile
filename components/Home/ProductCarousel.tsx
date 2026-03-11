@@ -12,7 +12,7 @@ export default function ProductCarousel() {
 	const progress = useSharedValue<number>(0);
 	const windowWidth = Dimensions.get("window").width;
 	const windowHeight = Dimensions.get("window").height;
-	const font20 = useResponsiveFontSize(20);
+	const font22 = useResponsiveFontSize(22);
 
 	const itemWidth = windowWidth * 0.7;
 	const sideSpacing = (windowWidth - itemWidth) / 0.8;
@@ -67,10 +67,10 @@ export default function ProductCarousel() {
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
 					<FontAwesome5
 						name="shopping-basket"
-					size={font20} color="#A4E000" />
-				<CustomizedText style={[styles.buttonText, { fontSize: font20 }]}>Add to Cart</CustomizedText>
+					size={font22} color="#A4E000" />
+				<CustomizedText style={[styles.buttonText, { fontSize: font22 }]}>Add to Cart</CustomizedText>
 				</View>
-				<CustomizedText style={[styles.buttonText, { fontSize: font20 }]}>P {product.price.toFixed(2)}</CustomizedText>
+				<CustomizedText style={[styles.buttonText, { fontSize: font22 }]}>P {product.price.toFixed(2)}</CustomizedText>
 			</TouchableOpacity>
 		</Animated.View>
 		);

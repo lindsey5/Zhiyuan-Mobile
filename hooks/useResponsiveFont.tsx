@@ -10,7 +10,7 @@ export default function responsiveFontSize(size: number) {
         case 'md':
         return size;
         case 'lg':
-        return size * 1.5;
+        return size * 1.1;
         default:
         return size;
     }
