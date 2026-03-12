@@ -19,6 +19,7 @@ const items : Item[] = [
 
 export default function MenuItem(){
     const router = useRouter();
+    
     return (
         <View style={styles.menu}>
             {items.map(item => (

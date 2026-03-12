@@ -49,11 +49,7 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: "#fff",
         alignItems: "center",
-        elevation: 4,
-        shadowColor: "#000", 
-        shadowOpacity: 0.3,
-        shadowRadius: 6,
-        shadowOffset: { width: 0, height: 4 }
+        boxShadow: "0px 4px 6px rgba(0,0,0,0.3)"
     },
     image: {
         width: "100%",
