@@ -1,14 +1,31 @@
+import { Href, useRouter } from "expo-router";
 import { Pressable, View, Text, StyleSheet } from "react-native";
 
+type Item = {
+    text: string;
+    path: Href;
+};
+
+const items : Item[] = [
+    { 
+        text: "Home",
+        path: "./main",
+    },
+    {
+        text: "Products",
+        path: "./products",
+    }
+]
+
 export default function MenuItem(){
+    const router = useRouter();
     return (
         <View style={styles.menu}>
-            <Pressable style={styles.item}>
-                <Text style={styles.itemText}>Home</Text>
-            </Pressable>
-            <Pressable style={styles.item}>
-                <Text style={styles.itemText}>Search Product</Text>
-            </Pressable>
+            {items.map(item => (
+                <Pressable key={item.text} style={styles.item} onPress={() => router.replace(item.path)}>
+                    <Text style={styles.itemText}>{item.text}</Text>
+                </Pressable>
+            ))}
         </View>
     )
 }

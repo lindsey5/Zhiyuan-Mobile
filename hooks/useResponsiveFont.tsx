@@ -1,6 +1,6 @@
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
-export default function responsiveFontSize(size: number) {
+export default function useResponsiveFontSize(size: number) {
     const screen = useBreakpoint();
     switch (screen) {
         case 'xs':

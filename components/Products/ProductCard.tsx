@@ -1,5 +1,5 @@
 import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from "react-native"
-import CustomizedText from "./Text";
+import CustomizedText from "../ui/Text";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 
 const { width: screenWidth } = Dimensions.get("window");
@@ -39,7 +39,7 @@ export default function ProductCard ({ item } : { item: Product  }) {
                     Add to Cart
                 </CustomizedText>
             </TouchableOpacity>
-        </View>
+        </View> 
     )
 }
 

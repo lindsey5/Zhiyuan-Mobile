@@ -11,7 +11,6 @@ export default function App() {
     });
 
     useEffect(() => {
-        NavigationBar.setBehaviorAsync("overlay-swipe");
         NavigationBar.setVisibilityAsync("hidden");
 
         const timer = setTimeout(() => {
