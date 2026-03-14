@@ -1,16 +1,17 @@
 import { useMemo, useState } from 'react';
-import { View, Text, StyleSheet, Image, SafeAreaView, Dimensions,} from 'react-native';
+import { View, StyleSheet, Image, ScrollView, Dimensions} from 'react-native';
 import { useLocalSearchParams } from "expo-router";
 import AddToCartButton from '@/components/Products/AddToCartButton';
 import { products } from '@/constants/data';
 import CustomizedText from '@/components/ui/Text';
 import QuantitySelector from '@/components/Products/QuantitySelector';
+import MenuButton from '@/components/ui/Menu';
 
-const { width } = Dimensions.get('window');
+const { height } = Dimensions.get('screen');
 
 const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
-  const [quantity, setQuantity] = useState<number>(2);
+  const [quantity, setQuantity] = useState<number>(1);
 
   const product = products.find(product => product.id === Number(id))
 
@@ -33,17 +34,27 @@ const ProductDetailsScreen = () => {
   if(!product) return null
 
   return (
-    <View style={styles.container}>
+    <ScrollView 
+      style={styles.container} 
+      contentContainerStyle={{ 
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}
+    >
+       <View style={styles.header}>
+        <CustomizedText style={styles.headerText}>{product.name}</CustomizedText>
+      </View>
+      <MenuButton />
       <View style={styles.content}>
         <View style={styles.imageContainer}>
-          <Text style={styles.category}>{product.category}</Text>
           <Image
             source= {product.image}
             style={styles.productImage}
             resizeMode="contain"
           />
         </View>
-
+        <CustomizedText style={styles.text}>{product.name}</CustomizedText>
         <CustomizedText 
           style={styles.description} 
           numberOfLines={3}
@@ -61,44 +72,46 @@ const ProductDetailsScreen = () => {
           price={totalPrice}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    position: 'relative'
+  },
+  header: {
+    width: '100%',
+    paddingTop: 60,
+  },
+  headerText: {
+    width: '40%',
+    fontSize: 32,
+    paddingLeft: 20,
+  },
+  text: {
+    fontSize: 24,
   },
   content: {
-    flex: 1,
+    gap: 10,
     alignItems: 'center',
     justifyContent: 'flex-end',
     position: 'relative',
     backgroundColor: 'transparent',
-    width: '100%'
-  },
-  category: {
-    fontSize: 200,
-    position: 'absolute',
-    top: -100,
-    fontWeight: '700',
-    color: 'rgba(235, 168, 74, 0.55)'
+    width: '100%',
   },
   imageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
     width: "80%",
-    height: "60%",
-    maxWidth: 400,
-    maxHeight: 400,
-    marginBottom: 50,
+    height: height * 0.25,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    marginTop: 50,
   },
   productImage: {
     width: '100%',
     height: '100%',
-    zIndex: 2,
   },
   description: {
     fontSize: 20,
@@ -111,6 +124,7 @@ const styles = StyleSheet.create({
   
   bottomContainer: {
     width: '95%',
+    marginBottom: 10,
   },
 });
 

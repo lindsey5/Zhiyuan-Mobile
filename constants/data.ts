@@ -28,7 +28,7 @@ export const products : Product[] = [
     },
     {
         id: 3,
-        name: "Potted Head",
+        name: "The Potted Head",
         description: "Wala",
         image: require("../assets/ball.png"),
         price: 420,

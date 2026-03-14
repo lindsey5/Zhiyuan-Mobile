@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    overflow: 'hidden',
+    height: '10%',
   },
 });
 
