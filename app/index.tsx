@@ -10,8 +10,16 @@ export default function App() {
         ADLaMDisplay: require('../assets/fonts/ADLaMDisplay-Regular.ttf'),
     });
 
+    async function setupNavBar() {
+      // Hide nav bar
+      await NavigationBar.setVisibilityAsync("hidden");
+
+      // Enable swipe to temporarily show it
+      await NavigationBar.setBehaviorAsync("overlay-swipe");
+    }
+
     useEffect(() => {
-        NavigationBar.setVisibilityAsync("hidden");
+        setupNavBar();
 
         const timer = setTimeout(() => {
             router.replace("./main");
