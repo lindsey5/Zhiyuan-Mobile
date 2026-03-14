@@ -1,0 +1,83 @@
+import React from 'react';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ImageSourcePropType,
+} from 'react-native';
+
+interface AddToCartButtonProps {
+  onPress: () => void;
+  cartIconSource: ImageSourcePropType;
+  buttonText?: string;
+  price: string;
+  disabled?: boolean;
+}
+
+const AddToCartButton: React.FC<AddToCartButtonProps> = ({
+  onPress,
+  cartIconSource,
+  buttonText = 'Add to Cart',
+  price,
+  disabled = false,
+}) => {
+  return (
+    <TouchableOpacity
+      style={[styles.button, { opacity: disabled ? 0.6 : 1 }]}
+      onPress={onPress}
+      activeOpacity={0.9}
+      disabled={disabled}
+    >
+      <View style={styles.iconContainer}>
+        <Image
+          source={cartIconSource}
+          style={styles.cartIcon}
+          resizeMode="contain"
+        />
+      </View>
+      <Text style={styles.buttonText}>{buttonText}</Text>
+      <Text style={styles.priceText}>{price}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1A1A1A',
+    borderRadius: 40,
+    paddingVertical: 14,
+    paddingHorizontal: 8,
+    paddingRight: 24,
+  },
+  iconContainer: {
+    width: 52,
+    height: 52,
+    backgroundColor: '#E8B84A',
+    borderRadius: 26,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  cartIcon: {
+    width: 24,
+    height: 24,
+    tintColor: '#FFFFFF',
+  },
+  buttonText: {
+    flex: 1,
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#FFFFFF',
+  },
+  priceText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+});
+
+export default AddToCartButton;

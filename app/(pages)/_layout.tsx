@@ -1,25 +1,30 @@
 import CartSummary from "@/components/Home/CartSummary";
 import MenuButton from "@/components/ui/Menu";
-import { Slot } from "expo-router";
+import { Slot, usePathname } from "expo-router";
 import { View, Image, StyleSheet } from "react-native";
 
 export default function Layout () {
+    const pathname = usePathname();
+
+    const hideLayout = pathname.includes("productDetails");
 
     return (
          <View style={styles.container}>
-            <View style={styles.header}>
+            {!hideLayout && (
+              <View style={styles.header}>
                 <Image 
-                    style={{ 
-                        width: 70,
-                        height: 70
-                    }}
+                    style={{ width: 70, height: 70 }}
                     resizeMode="contain"
-                    source={require('../../assets/logo.png')}
+                    source={require('../../assets/logo.jpg')}
                 />
-            </View>
-            <MenuButton />
+              </View>
+            )}
+
+            {!hideLayout && <MenuButton />}
+
             <Slot />
-            <CartSummary />
+
+            {!hideLayout && <CartSummary />}
         </View>
     )
 }
