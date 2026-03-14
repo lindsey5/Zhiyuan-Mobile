@@ -54,7 +54,6 @@ const ProductDetailsScreen = () => {
             resizeMode="contain"
           />
         </View>
-        <CustomizedText style={styles.text}>{product.name}</CustomizedText>
         <CustomizedText 
           style={styles.description} 
           numberOfLines={3}
@@ -89,9 +88,6 @@ const styles = StyleSheet.create({
     width: '40%',
     fontSize: 32,
     paddingLeft: 20,
-  },
-  text: {
-    fontSize: 24,
   },
   content: {
     gap: 10,
