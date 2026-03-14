@@ -1,24 +1,20 @@
-import React from 'react';
 import {
   TouchableOpacity,
   View,
   Text,
-  Image,
   StyleSheet,
-  ImageSourcePropType,
+  Image
 } from 'react-native';
 
 interface AddToCartButtonProps {
   onPress: () => void;
-  cartIconSource: ImageSourcePropType;
   buttonText?: string;
-  price: string;
+  price: number;
   disabled?: boolean;
 }
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   onPress,
-  cartIconSource,
   buttonText = 'Add to Cart',
   price,
   disabled = false,
@@ -32,13 +28,13 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
     >
       <View style={styles.iconContainer}>
         <Image
-          source={cartIconSource}
+          source={require('../../assets/basket.png')}
           style={styles.cartIcon}
           resizeMode="contain"
         />
       </View>
       <Text style={styles.buttonText}>{buttonText}</Text>
-      <Text style={styles.priceText}>{price}</Text>
+      <Text style={styles.priceText}>₱ {price.toFixed(2)}</Text>
     </TouchableOpacity>
   );
 };
@@ -65,7 +61,6 @@ const styles = StyleSheet.create({
   cartIcon: {
     width: 24,
     height: 24,
-    tintColor: '#FFFFFF',
   },
   buttonText: {
     flex: 1,

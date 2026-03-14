@@ -6,7 +6,7 @@ import CustomizedText from "../ui/Text";
 import { products } from "@/constants/data";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import { FontAwesome5 } from '@expo/vector-icons';
-import { useRouter } from "expo-router";
+import { Href, useRouter } from "expo-router";
 
 
 export default function ProductCarousel() {
@@ -50,17 +50,8 @@ export default function ProductCarousel() {
 		});
 
 		const handleAddToCart = () => {
-			// Navigate to the ProductDetailScreen and pass product details as route parameters
-			router.push({
-			  pathname: "/products/productDetails",
-			  params: {
-				id: product.id, // Pass the product ID
-				name: product.name, // Pass the product name
-				image: typeof product.image === "string" ? product.image : "", // Pass the product image URL
-				price: product.price, // Pass the product price
-			  },
-			});
-		  };
+			router.push(`/product/${product.id}`);
+		};
 
 		return (
 		<Animated.View style={[styles.itemContainer, animatedStyle]}>
@@ -80,11 +71,14 @@ export default function ProductCarousel() {
 			>{product.description}</CustomizedText>
 			<TouchableOpacity 
 				style={styles.button}
+				onPress={handleAddToCart}
 			>
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-					<FontAwesome5
-						name="shopping-basket"
-					size={font22} color="#A4E000" />
+					<Image
+						source={require('../../assets/basket.png')}
+						style={{ tintColor: '#A4E000', width: 32, height: 32 }}
+						resizeMode="contain"
+					/>
 				<CustomizedText style={[styles.buttonText, { fontSize: font22 }]} onPress={handleAddToCart}>Add to Cart</CustomizedText>
 				</View>
 				<CustomizedText style={[styles.buttonText, { fontSize: font22 }]}>P {product.price.toFixed(2)}</CustomizedText>

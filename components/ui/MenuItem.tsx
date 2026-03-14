@@ -9,11 +9,11 @@ type Item = {
 const items : Item[] = [
     { 
         text: "Home",
-        path: "./main",
+        path: "/main",
     },
     {
         text: "Products",
-        path: "./products",
+        path: "/products",
     }
 ]
 

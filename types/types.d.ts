@@ -5,4 +5,5 @@ interface Product {
     description: string;
     price: number;
     image: string | ImageSourcePropType;
+    category: string;
 }

@@ -17,16 +17,12 @@ const QuantitySelectorButton: React.FC<QuantitySelectorButtonProps> = ({
   onPress,
   imageSource,
   disabled = false,
-  size = 56,
 }) => {
   return (
     <TouchableOpacity
       style={[
         styles.button,
         {
-          width: size,
-          height: size,
-          borderRadius: size / 2,
           opacity: disabled ? 0.5 : 1,
         },
       ]}
@@ -36,7 +32,6 @@ const QuantitySelectorButton: React.FC<QuantitySelectorButtonProps> = ({
     >
       <Image
         source={imageSource}
-        style={[styles.buttonImage, { width: size, height: size }]}
         resizeMode="contain"
       />
     </TouchableOpacity>
@@ -48,8 +43,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
-  },
-  buttonImage: {
   },
 });
 

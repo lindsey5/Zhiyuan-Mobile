@@ -22,17 +22,8 @@ export default function ProductCard ({ item } : { item: Product  }) {
     const itemWidth = getItemWidth(numColumns);
 
     const handleAddToCart = () => {
-        // Navigate to the ProductDetailScreen and pass product details as route parameters
-        router.push({
-          pathname: "/products/productDetails",
-          params: {
-            id: item.id, // Pass the product ID
-            name: item.name, // Pass the product name
-            image: typeof item.image === "string" ? item.image : "", // Pass the product image URL
-            price: item.price, // Pass the product price
-          },
-        });
-      };
+        router.push(`/product/${item.id}`);
+    };
 
     return (
         <View style={[styles.card, { width: itemWidth }]}>

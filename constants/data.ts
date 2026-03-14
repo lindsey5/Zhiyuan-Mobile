@@ -15,6 +15,7 @@ export const products : Product[] = [
         description: "Perfect for beginners or anyone looking for a stick.",
         image: require("../assets/billiard.png"),
         price: 420,
+        category: 'Stick',
     },
     {
         id: 2,
@@ -22,14 +23,16 @@ export const products : Product[] = [
         description: "Perfect for beginners or anyone looking for a stick.",
         image: require("../assets/logo.jpg"),
         price: 420,
+        category: 'Stick',
 
     },
     {
         id: 3,
-        name: "Billiard Stick",
-        description: "Perfect for beginners or anyone looking for a stick.",
+        name: "Potted Head",
+        description: "Wala",
         image: require("../assets/ball.png"),
         price: 420,
+        category: 'Balls',
     },
     {
         id: 4,
@@ -37,5 +40,6 @@ export const products : Product[] = [
         description: "Perfect for beginners or anyone looking for a stick.",
         image: require("../assets/billiard.png"),
         price: 420,
+        category: 'Stick',
     }
 ]
