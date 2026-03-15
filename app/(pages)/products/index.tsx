@@ -1,6 +1,6 @@
 import { products } from "@/lib/data/mock-data";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
-import ProductCard from "../../../components/Products/ProductCard";
+import ProductCard from "@/components/Products/ProductCard";
 import CategoryTab from "@/components/Home/CategoryTab";
 import { useState } from "react";
 
