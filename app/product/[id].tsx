@@ -7,6 +7,7 @@ import CustomizedText from '@/components/ui/Text';
 import QuantitySelector from '@/components/Products/QuantitySelector';
 import MenuButton from '@/components/ui/Menu';
 import { useCartStore } from '@/lib/store/cartStore';
+import SuccessCard from '@/components/ui/SuccessCard';
 
 const { height } = Dimensions.get('screen');
 
@@ -14,6 +15,7 @@ const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
   const { addItem  } = useCartStore();
   const [quantity, setQuantity] = useState<number>(1);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const product = products.find(product => product.id === Number(id))
 
@@ -36,50 +38,57 @@ const ProductDetailsScreen = () => {
         quantity,
         image: product.image
       })
+      setShowSuccess(true)
     }
   }
 
   if(!product) return null
 
   return (
-    <ScrollView 
-      style={styles.container} 
-      contentContainerStyle={{ 
-        flexGrow: 1,
-        alignItems: 'center',
-        justifyContent: 'space-between'
-      }}
-    >
-       <View style={styles.header}>
-        <CustomizedText style={styles.headerText}>{product.name}</CustomizedText>
-      </View>
-      <MenuButton />
-      <View style={styles.content}>
-        <View style={styles.imageContainer}>
-          <Image
-            source= {product.image}
-            style={styles.productImage}
-            resizeMode="contain"
+      <ScrollView 
+        style={styles.container} 
+        contentContainerStyle={{ 
+          flexGrow: 1,
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}
+      >
+        <SuccessCard 
+          message='Item added to your cart'
+          visible={showSuccess}
+          onClose={() => setShowSuccess(false)}
+        />
+        <View style={styles.header}>
+          <CustomizedText style={styles.headerText}>{product.name}</CustomizedText>
+        </View>
+
+        <MenuButton />
+        <View style={styles.content}>
+          <View style={styles.imageContainer}>
+            <Image
+              source= {product.image}
+              style={styles.productImage}
+              resizeMode="contain"
+            />
+          </View>
+          <CustomizedText 
+            style={styles.description} 
+            numberOfLines={3}
+          >{product.description}</CustomizedText>
+        </View>
+        <QuantitySelector 
+          decrementQuantity={decrementQuantity}
+          incrementQuantity={incrementQuantity}
+          quantity={quantity}
+        />
+        <View style={styles.bottomContainer}>
+          <AddToCartButton
+            handleAddToCart={handleAddToCart}
+            buttonText="Add to Cart"
+            price={totalPrice}
           />
         </View>
-        <CustomizedText 
-          style={styles.description} 
-          numberOfLines={3}
-        >{product.description}</CustomizedText>
-      </View>
-      <QuantitySelector 
-        decrementQuantity={decrementQuantity}
-        incrementQuantity={incrementQuantity}
-        quantity={quantity}
-      />
-      <View style={styles.bottomContainer}>
-        <AddToCartButton
-          handleAddToCart={handleAddToCart}
-          buttonText="Add to Cart"
-          price={totalPrice}
-        />
-      </View>
-    </ScrollView>
+      </ScrollView>
   );
 
 };
