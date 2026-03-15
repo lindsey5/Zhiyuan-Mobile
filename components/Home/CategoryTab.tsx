@@ -1,4 +1,4 @@
-import { categories } from "@/constants/data";
+import { categories } from "@/lib/data/mock-data";
 import { ScrollView, StyleSheet} from "react-native";
 import TabButton from "./TabButton";
 

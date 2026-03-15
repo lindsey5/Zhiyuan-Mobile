@@ -7,22 +7,23 @@ import {
 } from 'react-native';
 
 interface AddToCartButtonProps {
-  onPress: () => void;
   buttonText?: string;
   price: number;
   disabled?: boolean;
+  handleAddToCart: () => void;
 }
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({
-  onPress,
   buttonText = 'Add to Cart',
   price,
   disabled = false,
+  handleAddToCart
 }) => {
+  console.log(price)
   return (
     <TouchableOpacity
       style={[styles.button, { opacity: disabled ? 0.6 : 1 }]}
-      onPress={onPress}
+      onPress={handleAddToCart}
       activeOpacity={0.9}
       disabled={disabled}
     >

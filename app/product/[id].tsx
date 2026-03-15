@@ -2,15 +2,17 @@ import { useMemo, useState } from 'react';
 import { View, StyleSheet, Image, ScrollView, Dimensions} from 'react-native';
 import { useLocalSearchParams } from "expo-router";
 import AddToCartButton from '@/components/Products/AddToCartButton';
-import { products } from '@/constants/data';
+import { products } from '@/lib/data/mock-data';
 import CustomizedText from '@/components/ui/Text';
 import QuantitySelector from '@/components/Products/QuantitySelector';
 import MenuButton from '@/components/ui/Menu';
+import { useCartStore } from '@/lib/store/cartStore';
 
 const { height } = Dimensions.get('screen');
 
 const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
+  const { addItem  } = useCartStore();
   const [quantity, setQuantity] = useState<number>(1);
 
   const product = products.find(product => product.id === Number(id))
@@ -23,13 +25,19 @@ const ProductDetailsScreen = () => {
     if (quantity > 1) setQuantity((prev) => prev - 1);
   };
 
-  const handleAddToCart = (): void => {
-    console.log(`Added ${quantity} items to cart`);
-  };
+  const totalPrice = useMemo(() =>(product?.price || 0) * quantity, [quantity])
 
-  const totalPrice = useMemo(() => {
-    return product?.price || 0 * quantity
-  }, [quantity])
+  const handleAddToCart = () => {
+    if(product){
+      addItem({
+        id: product.id,
+        name: product.name,
+        price: totalPrice,
+        quantity,
+        image: product.image
+      })
+    }
+  }
 
   if(!product) return null
 
@@ -66,7 +74,7 @@ const ProductDetailsScreen = () => {
       />
       <View style={styles.bottomContainer}>
         <AddToCartButton
-          onPress={handleAddToCart}
+          handleAddToCart={handleAddToCart}
           buttonText="Add to Cart"
           price={totalPrice}
         />

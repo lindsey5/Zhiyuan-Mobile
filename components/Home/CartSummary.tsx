@@ -1,10 +1,12 @@
+import { useCartStore } from '@/lib/store/cartStore';
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import Svg, { Path, Rect } from 'react-native-svg'; 
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const CartSummary = () => {
+    const { cart } = useCartStore();
     const containerWidth = SCREEN_WIDTH - 10; 
     const h = 100; 
     const r = 40;
@@ -42,13 +44,27 @@ const CartSummary = () => {
         </View>
         <View style={[styles.content, { width: containerWidth }]}>
             <View style={styles.left}>
-                <View style={styles.badge}><Text style={styles.badgeText}>4</Text></View>
+                <View style={styles.badge}><Text style={styles.badgeText}>{cart.length}</Text></View>
                 <View style={styles.labels}>
                     <Text style={styles.title}>Cart</Text>
-                    <Text style={styles.subtitle}>4 items</Text>
+                    <Text style={styles.subtitle}>{cart.length} items</Text>
                 </View>
             </View>
-
+            <View style={styles.cartItemsImageContainer}>
+            {cart.slice(0, 4).map(item => (
+                <View style={styles.cartItemImageContainer}>
+                    <Image 
+                        source={
+                        typeof item.image === "string"
+                            ? { uri: item.image }
+                            : item.image
+                        }
+                        resizeMode='contain'
+                        style={styles.cartImage}
+                    />
+                </View>
+            ))}
+            </View>
         </View>
         </View>
     );
@@ -86,6 +102,21 @@ const styles = StyleSheet.create({
     title: { fontWeight: '800', fontSize: 20, color: '#000' },
     subtitle: { fontSize: 13, color: '#555', fontWeight: '500' },
     right: { flexDirection: 'row' },
+    cartItemsImageContainer: {
+        flexDirection: 'row',
+        gap: 5,
+    },
+    cartItemImageContainer: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        backgroundColor: '#ffffff',
+    },
+    cartImage: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 50,
+    }
 });
 
 export default CartSummary;

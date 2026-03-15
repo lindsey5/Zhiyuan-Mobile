@@ -3,11 +3,9 @@ import Animated, { useAnimatedStyle, interpolate } from "react-native-reanimated
 import { useSharedValue } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
 import CustomizedText from "../ui/Text";
-import { products } from "@/constants/data";
+import { products } from "@/lib/data/mock-data";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
-import { FontAwesome5 } from '@expo/vector-icons';
-import { Href, useRouter } from "expo-router";
-
+import { useRouter } from "expo-router";
 
 export default function ProductCarousel() {
 	const { width } = useWindowDimensions();
