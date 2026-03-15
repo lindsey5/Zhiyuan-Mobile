@@ -34,6 +34,7 @@ export default function ProductCard ({ item } : { item: Product  }) {
                         : item.image
                 }
                 style={styles.image}
+                resizeMode="contain"
             />
 
             <CustomizedText style={{ fontSize: font20, marginTop: 20 }}>

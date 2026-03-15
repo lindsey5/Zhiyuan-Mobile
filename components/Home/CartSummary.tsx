@@ -52,7 +52,7 @@ const CartSummary = () => {
             </View>
             <View style={styles.cartItemsImageContainer}>
             {cart.slice(0, 4).map(item => (
-                <View style={styles.cartItemImageContainer}>
+                <View key={item.id} style={styles.cartItemImageContainer}>
                     <Image 
                         source={
                         typeof item.image === "string"

@@ -19,7 +19,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   disabled = false,
   handleAddToCart
 }) => {
-  console.log(price)
+
   return (
     <TouchableOpacity
       style={[styles.button, { opacity: disabled ? 0.6 : 1 }]}
