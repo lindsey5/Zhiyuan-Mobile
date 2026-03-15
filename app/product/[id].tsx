@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 import { View, StyleSheet, Image, ScrollView, Dimensions} from 'react-native';
 import { useLocalSearchParams } from "expo-router";
-import AddToCartButton from '@/components/Products/AddToCartButton';
+import AddToCartButton from '@/components/Product/AddToCartButton';
 import { products } from '@/lib/data/mock-data';
 import CustomizedText from '@/components/ui/Text';
-import QuantitySelector from '@/components/Products/QuantitySelector';
+import QuantitySelector from '@/components/Product/QuantitySelector';
 import MenuButton from '@/components/ui/Menu';
 import { useCartStore } from '@/lib/store/cartStore';
 import SuccessCard from '@/components/ui/SuccessCard';
