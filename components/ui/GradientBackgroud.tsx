@@ -11,7 +11,7 @@ type GradientBackgroundProps = {
 export default function GradientBackground({
     children,
     style,
-    colors = ["#fff", "#F4E1C6"]
+    colors = ["#F4E1C6", "#fff"]
 }: GradientBackgroundProps) {
     return (
         <LinearGradient

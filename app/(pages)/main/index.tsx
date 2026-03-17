@@ -1,18 +1,12 @@
 import { Text, StyleSheet, ScrollView, View, TouchableOpacity } from "react-native";
 import ProductCarousel from "@/components/Home/ProductCarousel";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import GradientBackground from "@/components/ui/GradientBackgroud";
 import ImageSlider from "@/components/Home/ImageSlider";
 import ReviewSection from "@/components/Home/ReviewSection";
 
 const Home = () => {
-    const queryClient = new QueryClient();
 
     return (
-        <QueryClientProvider client={queryClient}>
-        <GradientBackground>
-            <ScrollView>
-            
+        <ScrollView>
             {/* Most Selling */}
             <Text style={styles.sectionTitle}>Most Selling Products</Text>
             <ProductCarousel />
@@ -36,10 +30,8 @@ const Home = () => {
             <TouchableOpacity style={styles.button} activeOpacity={0.8}>
                 <Text style={styles.buttonText}>View All Reviews</Text>
             </TouchableOpacity>
-                <View style={{ height: 150 }}/>
-            </ScrollView>
-        </GradientBackground>
-        </QueryClientProvider>
+            <View style={{ height: 150 }}/>
+        </ScrollView>
     );
 };
 

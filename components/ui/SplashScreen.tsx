@@ -32,7 +32,7 @@ const SplashScreen = () => {
         <View style={styles.container}>
             <Animated.View style={{ opacity: fadeAnim }}>
                 <Image
-                    source={require('../../assets/logo.jpg')}
+                    source={require('../../assets/header-logo.png')}
                     style={{
                         width: width * 0.9,
                         height: width * 0.9,
