@@ -72,32 +72,10 @@ const SuccessCard: React.FC<SuccessCardProps> = ({ visible, message, onClose, du
             },
             ]}
         >
-            <CheckCircle size={48} color="#4BB543" />
+            <CheckCircle size={48} color="#E8B84A" />
 
             <Text style={styles.message}>{message}</Text>
 
-            <TouchableOpacity
-            onPress={() => {
-                Animated.parallel([
-                Animated.timing(slideAnim, {
-                    toValue: 50,
-                    duration: 300,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(opacityAnim, {
-                    toValue: 0,
-                    duration: 300,
-                    useNativeDriver: true,
-                }),
-                ]).start(() => {
-                    resetAnimation();
-                    onClose();
-                });
-            }}
-            style={styles.closeButton}
-            >
-            <Text style={styles.closeText}>Close</Text>
-            </TouchableOpacity>
         </Animated.View>
         </View>
     );
@@ -128,15 +106,9 @@ const SuccessCard: React.FC<SuccessCardProps> = ({ visible, message, onClose, du
     message: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#4BB543',
+        color: '#E8B84A',
         textAlign: 'center',
         marginVertical: 15,
-    },
-    closeButton: {
-        backgroundColor: '#4BB543',
-        paddingVertical: 8,
-        paddingHorizontal: 25,
-        borderRadius: 12,
     },
     closeText: {
         color: '#fff',

@@ -1,12 +1,12 @@
 import { useCartStore } from '@/lib/store/cartStore';
 import { useRouter } from 'expo-router';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, Animated, PanResponder, TouchableOpacity } from 'react-native';
 import Svg, { Path, Rect } from 'react-native-svg'; 
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const SHEET_MAX_HEIGHT = 140;
+const SHEET_MAX_HEIGHT = 160;
 const SHEET_MIN_HEIGHT = 110;
 
 const CartSummary = () => {
@@ -15,10 +15,12 @@ const CartSummary = () => {
 
     const animatedValue = useRef(new Animated.Value(SHEET_MIN_HEIGHT)).current;
     const currentHeight = useRef(SHEET_MIN_HEIGHT);
+    const [pathHeight, setPathHeight] = useState(SHEET_MIN_HEIGHT);
 
     useEffect(() => {
         const id = animatedValue.addListener(({ value }) => {
-        currentHeight.current = value;
+            currentHeight.current = value;
+            setPathHeight(value)
         });
         return () => animatedValue.removeListener(id);
     }, [animatedValue]);
@@ -56,36 +58,37 @@ const CartSummary = () => {
         })
     ).current;
 
-    const containerWidth = SCREEN_WIDTH - 10; 
+    const containerWidth = SCREEN_WIDTH; 
     const h = 100; 
     const r = 40;
 
     const visibleItems = Math.min(cart.length, 4);
     const imageSize = Math.min(50, SCREEN_WIDTH * (0.25 / (visibleItems || 1)));
 
-    const d = `
-        M 0,${r} 
-        A ${r},${r} 0 0 1 ${r},0 
-        H ${containerWidth * 0.28} 
-        L ${containerWidth * 0.40} 25 
-        H ${containerWidth * 0.60} 
-        L ${containerWidth * 0.72} 0 
-        H ${containerWidth - r} 
-        A ${r},${r} 0 0 1 ${containerWidth},${r} 
-        V ${h - r} 
-        A ${r},${r} 0 0 1 ${containerWidth - r},${h} 
-        H ${r} 
-        A ${r},${r} 0 0 1 0,${h - r} 
-        Z
-    `;
+    const d = useMemo(() => {
+        return `
+            M 0,${r} 
+            A ${r},${r} 0 0 1 ${r},0 
+            H ${containerWidth * 0.28} 
+            L ${containerWidth * 0.40} 25 
+            H ${containerWidth * 0.60} 
+            L ${containerWidth * 0.72} 0 
+            H ${containerWidth - r} 
+            A ${r},${r} 0 0 1 ${containerWidth},${r} 
+            V ${pathHeight} 
+            H 0 
+            V ${r} 
+            Z
+        `
+    }, [pathHeight]);
 
     return (
         <Animated.View
         style={[styles.container, { height: animatedValue }]}
         {...panResponder.panHandlers}
         >
-        <View style={[styles.svgWrapper, { width: containerWidth }]}>
-            <Svg height={h} width={containerWidth} viewBox={`0 0 ${containerWidth} ${h}`}>
+        <View style={[styles.svgWrapper, { width: containerWidth, height: '100%' }]}>
+            <Svg height="100%" width={containerWidth} viewBox={`0 0 ${containerWidth} ${h}`}>
             <Path d={d} fill="#D9B991" /> 
             <Rect 
                 x={(containerWidth / 2) - 25}
@@ -144,10 +147,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        backgroundColor: '#F0F4F8',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingBottom: 10,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     content: {
-        height: 100,
+        height: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

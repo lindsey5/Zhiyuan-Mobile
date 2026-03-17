@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, Image, ScrollView, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
 import { useLocalSearchParams } from "expo-router";
 
 import AddToCartButton from '@/components/Product/AddToCartButton';
@@ -10,6 +10,7 @@ import { useCartStore } from '@/lib/store/cartStore';
 import SuccessCard from '@/components/ui/SuccessCard';
 import { useGetProduct } from '@/hooks/Product/use-get-product.hook';
 import LoadingScreen from '../ui/LoadingScreen';
+import VariantContainer from './VariantContainer';
 
 const { height } = Dimensions.get('screen');
 
@@ -85,34 +86,12 @@ const ProductScreen = () => {
                     <CustomizedText style={styles.description} numberOfLines={3}>
                         {product.description}
                     </CustomizedText>
-
-                    <View style={styles.variantsContainer}>
-                        {product.variants.map((variant) => (
-                            <TouchableOpacity
-                                key={variant.id}
-                                style={[
-                                    styles.variantButton,
-                                    selectedVariant?.id === variant.id && styles.activeVariantButton,
-                                ]}
-                                onPress={() => setSelectedVariant(variant)}
-                            >
-                                <Image
-                                    source={{ uri: variant.image_url }}
-                                    style={styles.variantImage}
-                                    resizeMode="cover"
-                                />
-                                <View style={{ width: '100%' }}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
-                                    <Text style={[
-                                            styles.variantText,
-                                            selectedVariant?.id === variant.id && { color: '#E8B84A', fontWeight: 'bold' }
-                                        ]}>{variant.variant_name}</Text>
-                                    </View>
-                                    <Text>₱ {variant.price.toFixed(2)}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
+                    <VariantContainer 
+                        selectedVariant={selectedVariant}
+                        variants={product.variants}
+                        setSelectedVariant={setSelectedVariant}
+                    />
+                    
                 </View>
             </ScrollView>
 
@@ -178,41 +157,6 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
         lineHeight: 24,
         width: '70%',
-    },
-    variantsContainer: {
-        width: '100%',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 10,
-        padding: 10,
-        alignItems: 'flex-start',
-    },
-    variantButton: {
-        maxWidth: '60%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 6,
-        borderRadius: 8,
-        marginLeft: 10,
-        boxShadow: "0px 2px 5px rgba(0,0,0,0.3)",
-        backgroundColor: '#f5f5f5',
-    },
-    activeVariantButton: { 
-        borderWidth: 2,
-        borderColor: '#E8B84A',
-        boxShadow: ''
-    },
-    variantImage: {
-        width: 36,
-        height: 36,
-        borderRadius: 6,
-        marginRight: 8,
-    },
-    variantText: {
-        fontSize: 14,
-        color: '#333',
-        flexWrap: 'wrap',
-        width: '80%',
     },
     bottomContainer: {
         width: '100%',
