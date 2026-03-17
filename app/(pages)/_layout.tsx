@@ -1,18 +1,21 @@
 import CartSummary from "@/components/Home/CartSummary";
 import MenuButton from "@/components/ui/Menu";
-import { Slot } from "expo-router";
-import { View, Image, StyleSheet } from "react-native";
+import { Slot, useRouter } from "expo-router";
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function Layout () {
+    const router = useRouter();
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image 
-                    style={{ width: 70, height: 70 }}
-                    resizeMode="contain"
-                    source={require('../../assets/header-logo.png')}
-                />
+                <TouchableOpacity onPress={() => router.push('/main')}>
+                    <Image 
+                        style={{ width: 70, height: 70 }}
+                        resizeMode="contain"
+                        source={require('../../assets/header-logo.png')}
+                    />
+                </TouchableOpacity>
               </View>
 
             <MenuButton />
