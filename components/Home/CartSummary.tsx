@@ -6,7 +6,7 @@ import Svg, { Path, Rect } from 'react-native-svg';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const SHEET_MAX_HEIGHT = 170;
+const SHEET_MAX_HEIGHT = 140;
 const SHEET_MIN_HEIGHT = 110;
 
 const CartSummary = () => {
@@ -34,15 +34,13 @@ const CartSummary = () => {
         },
         onPanResponderRelease: (_, gesture) => {
             if (currentHeight.current >= SHEET_MAX_HEIGHT) {
-                // Snap back first
-                Animated.spring(animatedValue, {
-                toValue: SHEET_MIN_HEIGHT,
-                useNativeDriver: false,
-                bounciness: 5,
-                }).start(() => {
-                currentHeight.current = SHEET_MIN_HEIGHT;
-                // Navigate after reset completes
                 router.push('/products');
+                Animated.spring(animatedValue, {
+                    toValue: SHEET_MIN_HEIGHT,
+                    useNativeDriver: false,
+                    bounciness: 5,
+                    }).start(() => {
+                    currentHeight.current = SHEET_MIN_HEIGHT;
                 });
             } else {
                 // Just snap back if not reached max
