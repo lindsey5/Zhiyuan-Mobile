@@ -1,13 +1,3 @@
-
-export const categories = [
-    "Balls", 
-    "Sticks",
-    "Balls", 
-    "Sticks",
-    "Balls", 
-    "Sticks",
-]
-
 export const products : any = [
     {
         id: 1,

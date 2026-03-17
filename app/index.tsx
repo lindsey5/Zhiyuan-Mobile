@@ -34,9 +34,7 @@ export default function App() {
     }
 
     return (
-        <GradientBackground>
-            <SplashScreen />
-        </GradientBackground>
+        <SplashScreen />
     )
 
 }

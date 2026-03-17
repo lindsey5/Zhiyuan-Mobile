@@ -13,8 +13,8 @@ const TabButton: React.FC<TabButtonProps> = ({ style, isSelected, label, onPress
       style={[
         style, 
         { 
-          backgroundColor: isSelected ? 'rgba(235, 168, 74, 0.55)' : '#fff',
-          padding: 5,
+          backgroundColor: isSelected ? '#eba84a8c' : '#fff',
+          padding: 10,
           borderRadius: 50,
           minWidth: 80,
 

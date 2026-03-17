@@ -55,7 +55,7 @@ export default function Sidebar({ setShow } : { setShow: Dispatch<SetStateAction
                 
             />
 
-            <MenuItem />
+            <MenuItem close={closeSidebar}/>
 
             <TouchableOpacity style={styles.close} onPress={closeSidebar}>
                 <Text style={styles.closeText}>✕</Text>
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         borderRadius: 30,
+        tintColor: '#D9B991'
     },
     close: {
         position: "absolute",

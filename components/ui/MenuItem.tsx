@@ -23,14 +23,19 @@ const items : Item[] = [
     }
 ]
 
-export default function MenuItem(){
+export default function MenuItem({ close } : { close : () => void }){
     const { cart } = useCartStore();
     const router = useRouter();
     
+    const go = (path : Href) => {
+        router.replace(path);
+        close();
+    }
+
     return (
         <View style={styles.menu}>
             {items.map(item => (
-                <Pressable key={item.text} style={styles.item} onPress={() => router.replace(item.path)}>
+                <Pressable key={item.text} style={styles.item} onPress={() => go(item.path)}>
                     {item.text === 'Cart' && <Badge count={cart.length} style={styles.badge}/>}
                     <Text style={styles.itemText}>{item.text}</Text>
                 </Pressable>

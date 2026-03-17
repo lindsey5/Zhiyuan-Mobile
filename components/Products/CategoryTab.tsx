@@ -1,21 +1,21 @@
-import { categories } from "@/lib/data/mock-data";
+import { CATEGORIES } from "@/lib/data/contants";
 import { ScrollView, StyleSheet} from "react-native";
 import TabButton from "./TabButton";
 
-export default function CategoryTab({ selectedCategory, setSelectedCategory }: { selectedCategory: number, setSelectedCategory: (category: number) => void }) {
+export default function CategoryTab({ selectedCategory, setSelectedCategory }: { selectedCategory: string, setSelectedCategory: (category: string) => void }) {
     return (
         <ScrollView 
             horizontal 
             showsHorizontalScrollIndicator={false} 
             style={styles.categoryContainer}
         >
-            {categories.map((category, index) => (
+            {CATEGORIES.map((category, index) => (
                 <TabButton 
                     key={index} 
                     label={category} 
-                    isSelected={index === selectedCategory} 
+                    isSelected={category === selectedCategory} 
                     style={{ marginRight: 10 }} 
-                    onPress={() => setSelectedCategory(index)} 
+                    onPress={() => setSelectedCategory(category)} 
                 />
             ))}
         </ScrollView>
@@ -25,11 +25,8 @@ export default function CategoryTab({ selectedCategory, setSelectedCategory }: {
 const styles = StyleSheet.create({
     category: {
         fontSize: 24,
-        marginVertical: 20,
     },
     categoryContainer: {
-        marginVertical: 20,
-        maxHeight: 30,
         flexDirection: 'row',
         paddingHorizontal: 10
     }

@@ -63,7 +63,7 @@ const CartSummary = () => {
     const r = 40;
 
     const visibleItems = Math.min(cart.length, 4);
-    const imageSize = Math.min(50, SCREEN_WIDTH * (0.25 / (visibleItems || 1)));
+    const imageSize = Math.min(50, SCREEN_WIDTH * (0.35 / (visibleItems || 1)));
 
     const d = useMemo(() => {
         return `

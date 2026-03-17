@@ -2,6 +2,7 @@ import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from "react-nat
 import CustomizedText from "../ui/Text";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import { useRouter } from "expo-router";
+import { formatToPeso } from "@/utils/format";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -10,6 +11,7 @@ const getItemWidth = (numColumns : number, containerPadding = 20, spacing = 10) 
 };
 
 export default function ProductCard ({ item } : { item: Product  }) {
+    const font16 = useResponsiveFontSize(16);
     const font20 = useResponsiveFontSize(20);
     const router = useRouter();
     let numColumns = 2;
@@ -26,38 +28,32 @@ export default function ProductCard ({ item } : { item: Product  }) {
     };
 
     return (
-        <View style={[styles.card, { width: itemWidth }]}>
+        <TouchableOpacity onPress={handleAddToCart} style={[styles.card, { width: itemWidth }]}>
             <Image
                 source={{ uri: item.thumbnail_url }}
                 style={styles.image}
-                resizeMode="contain"
+                resizeMode="cover"
             />
 
-            <CustomizedText style={{ fontSize: font20, marginTop: 20 }}>
+            <CustomizedText style={{ fontSize: font16, marginTop: 10 }}>
                 {item.product_name}
             </CustomizedText>
-
-            <TouchableOpacity style={styles.button} onPress={handleAddToCart}>
-                <CustomizedText style={[styles.buttonText, { fontSize: font20 }]}>
-                    Add to Cart
-                </CustomizedText>
-            </TouchableOpacity>
-        </View> 
+            <CustomizedText style={{ fontSize: font20, fontWeight: 'bold' }}>
+                {formatToPeso(item.variants[0].price)}
+            </CustomizedText>
+        </TouchableOpacity> 
     )
 }
 
 const styles = StyleSheet.create({
     card: {
         borderRadius: 25,
-        padding: 20,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        boxShadow: "0px 4px 6px rgba(0,0,0,0.3)"
     },
     image: {
         width: "100%",
-        height: 120,
+        height: 200,
         borderRadius: 12,
+        backgroundColor: '#fff'
     },
     button: {
         marginTop: 20,
