@@ -20,17 +20,10 @@ type CartState = {
   clearCart: () => void;
 };
 
-const storage = Platform.OS === "web"
-  ? createJSONStorage(() => localStorage)
-  : createJSONStorage(() => ({
-      getItem: async (name: string) => {
-        const value = await AsyncStorage.getItem(name);
-        return value;
-      },
-      setItem: async (name: string, value: string) =>
-        AsyncStorage.setItem(name, value),
-      removeItem: async (name: string) => AsyncStorage.removeItem(name),
-    }));
+const storage =
+  Platform.OS === "web"
+    ? createJSONStorage(() => localStorage)
+    : createJSONStorage(() => AsyncStorage);
 
 export const useCartStore = create<CartState>()(
   persist(
@@ -39,6 +32,7 @@ export const useCartStore = create<CartState>()(
 
       addItem: (item) => {
         const existing = get().cart.find((i) => i.id === item.id);
+
         if (existing) {
           set({
             cart: get().cart.map((i) =>
@@ -48,17 +42,23 @@ export const useCartStore = create<CartState>()(
             ),
           });
         } else {
-          set({ cart: [...get().cart, item] });
+          set({
+            cart: [...get().cart, item],
+          });
         }
       },
 
       removeItem: (id) =>
-        set({ cart: get().cart.filter((item) => item.id !== id) }),
+        set({
+          cart: get().cart.filter((item) => item.id !== id),
+        }),
 
       increaseQuantity: (id) =>
         set({
           cart: get().cart.map((item) =>
-            item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+            item.id === id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
           ),
         }),
 
@@ -66,7 +66,9 @@ export const useCartStore = create<CartState>()(
         set({
           cart: get()
             .cart.map((item) =>
-              item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+              item.id === id
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
             )
             .filter((item) => item.quantity > 0),
         }),
