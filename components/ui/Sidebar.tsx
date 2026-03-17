@@ -12,7 +12,7 @@ export default function Sidebar({ setShow } : { setShow: Dispatch<SetStateAction
             duration: 300,
             useNativeDriver: true
         }).start();
-    }, []);`    `
+    }, []);
 
     const closeSidebar = () => {
         Animated.timing(slideAnim, {

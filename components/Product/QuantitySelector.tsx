@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
         textAlign: "center",
         letterSpacing: 2,
     },
-    });
+});
