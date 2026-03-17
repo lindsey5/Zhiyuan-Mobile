@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { API_URL } from 'react-native-dotenv';
-
-const BASE_URL = API_URL;
+const BASE_URL = process.env.API_URL;
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,
