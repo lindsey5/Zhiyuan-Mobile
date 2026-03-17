@@ -3,7 +3,6 @@ import { useFonts } from 'expo-font';
 import SplashScreen from '@/components/ui/SplashScreen';
 import { useRouter } from 'expo-router';
 import * as NavigationBar from "expo-navigation-bar";
-import GradientBackground from '@/components/ui/GradientBackgroud';
 
 export default function App() {
     const router = useRouter();

@@ -5,9 +5,9 @@ import GradientBackground from "@/components/ui/GradientBackgroud";
 import ImageSlider from "@/components/Home/ImageSlider";
 import ReviewSection from "@/components/Home/ReviewSection";
 
-const queryClient = new QueryClient();
-
 const Home = () => {
+    const queryClient = new QueryClient();
+
     return (
         <QueryClientProvider client={queryClient}>
         <GradientBackground>
