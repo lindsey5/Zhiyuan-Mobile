@@ -1,3 +1,4 @@
+import { formatToPeso } from '@/utils/format';
 import {
   TouchableOpacity,
   View,
@@ -35,7 +36,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
         />
       </View>
       <Text style={styles.buttonText}>{buttonText}</Text>
-      <Text style={styles.priceText}>₱ {price.toFixed(2)}</Text>
+      <Text style={styles.priceText}>{formatToPeso(price)}</Text>
     </TouchableOpacity>
   );
 };

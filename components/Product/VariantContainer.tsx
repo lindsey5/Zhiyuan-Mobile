@@ -1,3 +1,4 @@
+import { formatToPeso } from '@/utils/format';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 interface VariantContainerProps {
@@ -34,7 +35,7 @@ export default function VariantContainer ({
                                 selectedVariant?.id === variant.id && { color: '#E8B84A', fontWeight: 'bold' }
                             ]}>{variant.variant_name}</Text>
                         </View>
-                        <Text>₱ {variant.price.toFixed(2)}</Text>
+                        <Text>{formatToPeso(variant.price)}</Text>
                     </View>
                 </TouchableOpacity>
             ))}

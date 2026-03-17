@@ -6,6 +6,7 @@ import CustomizedText from "../ui/Text";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import { useRouter } from "expo-router";
 import { useGetProducts } from "@/hooks/Product/use-get-products.hook";
+import { formatToPeso } from "@/utils/format";
 
 export default function ProductCarousel() {
 	const { width } = useWindowDimensions();
@@ -74,9 +75,9 @@ export default function ProductCarousel() {
 						style={{ tintColor: '#A4E000', width: 32, height: 32 }}
 						resizeMode="contain"
 					/>
-				<CustomizedText style={[styles.buttonText, { fontSize: font22 }]} onPress={handleAddToCart}>Add to Cart</CustomizedText>
+					<CustomizedText style={[styles.buttonText, { fontSize: font22 }]} onPress={handleAddToCart}>Add to Cart</CustomizedText>
 				</View>
-				<CustomizedText style={[styles.buttonText, { fontSize: font22 }]}>P {product.variants[0].price.toFixed(2)}</CustomizedText>
+				<CustomizedText style={[styles.buttonText, { fontSize: font22 }]}>{formatToPeso(product.variants[0].price)}</CustomizedText>
 			</TouchableOpacity>
 		</Animated.View>
 		);
