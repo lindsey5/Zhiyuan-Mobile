@@ -7,9 +7,13 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const CartSummary = () => {
     const { cart } = useCartStore();
+
     const containerWidth = SCREEN_WIDTH - 10; 
     const h = 100; 
     const r = 40;
+
+    const visibleItems = Math.min(cart.length, 4);
+    const imageSize = Math.min(50, SCREEN_WIDTH * (0.25 / (visibleItems || 1)));
 
     const d = `
         M 0,${r} 
@@ -29,43 +33,62 @@ const CartSummary = () => {
 
     return (
         <View style={styles.container}>
-        <View style={[styles.svgWrapper, { width: containerWidth }]}>
-            <Svg height={h} width={containerWidth} viewBox={`0 0 ${containerWidth} ${h}`}>
-            <Path d={d} fill="#D9B991" /> 
-            <Rect 
-                x={(containerWidth / 2) - 25}
-                y={15}
-                width={50}
-                height={4}
-                rx={2}
-                fill="#C4A47A"
-            />
-            </Svg>
-        </View>
-        <View style={[styles.content, { width: containerWidth }]}>
-            <View style={styles.left}>
-                <View style={styles.badge}><Text style={styles.badgeText}>{cart.length}</Text></View>
-                <View style={styles.labels}>
-                    <Text style={styles.title}>Cart</Text>
-                    <Text style={styles.subtitle}>{cart.length} items</Text>
-                </View>
-            </View>
-            <View style={styles.cartItemsImageContainer}>
-            {cart.slice(0, 4).map(item => (
-                <View key={item.id} style={styles.cartItemImageContainer}>
-                    <Image 
-                        source={
-                        typeof item.image === "string"
-                            ? { uri: item.image }
-                            : item.image
-                        }
-                        resizeMode='contain'
-                        style={styles.cartImage}
+            <View style={[styles.svgWrapper, { width: containerWidth }]}>
+                <Svg height={h} width={containerWidth} viewBox={`0 0 ${containerWidth} ${h}`}>
+                    <Path d={d} fill="#D9B991" /> 
+                    <Rect 
+                        x={(containerWidth / 2) - 25}
+                        y={15}
+                        width={50}
+                        height={4}
+                        rx={2}
+                        fill="#C4A47A"
                     />
-                </View>
-            ))}
+                </Svg>
             </View>
-        </View>
+
+            <View style={[styles.content, { width: containerWidth }]}>
+                <View style={styles.left}>
+                    <View style={styles.badge}>
+                        <Text style={styles.badgeText}>{cart.length}</Text>
+                    </View>
+
+                    <View style={styles.labels}>
+                        <Text style={styles.title}>Cart</Text>
+                        <Text style={styles.subtitle}>{cart.length} items</Text>
+                    </View>
+                </View>
+
+                <View style={styles.cartItemsImageContainer}>
+                    {cart.slice(0, 4).map((item, index) => (
+                        <View
+                            key={item.id}
+                            style={[
+                                styles.cartItemImageContainer,
+                                {
+                                    width: imageSize,
+                                    height: imageSize,
+                                    borderRadius: imageSize / 2,
+                                    marginLeft: index === 0 ? 0 : 6, // replaces gap
+                                }
+                            ]}
+                        >
+                            <Image 
+                                source={
+                                    typeof item.image === "string"
+                                        ? { uri: item.image }
+                                        : item.image
+                                }
+                                resizeMode="cover"
+                                style={[
+                                    styles.cartImage,
+                                    { borderRadius: imageSize / 2 }
+                                ]}
+                            />
+                        </View>
+                    ))}
+                </View>
+            </View>
         </View>
     );
 };
@@ -88,7 +111,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25,
         paddingTop: 12,
     },
-    left: { flexDirection: 'row', alignItems: 'center' },
+    left: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
     badge: {
         backgroundColor: 'black',
         width: 44,
@@ -97,25 +123,37 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    badgeText: { color: 'white', fontWeight: 'bold', fontSize: 18 },
-    labels: { marginLeft: 12 },
-    title: { fontWeight: '800', fontSize: 20, color: '#000' },
-    subtitle: { fontSize: 13, color: '#555', fontWeight: '500' },
-    right: { flexDirection: 'row' },
+    badgeText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 18
+    },
+    labels: {
+        marginLeft: 12
+    },
+    title: {
+        fontWeight: '800',
+        fontSize: 20,
+        color: '#000'
+    },
+    subtitle: {
+        fontSize: 13,
+        color: '#555',
+        fontWeight: '500'
+    },
     cartItemsImageContainer: {
         flexDirection: 'row',
-        gap: 5,
+        alignItems: 'center',
     },
     cartItemImageContainer: {
-        width: 50,
-        height: 50,
-        borderRadius: 50,
         backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden', // 🔥 ensures image stays circular
     },
     cartImage: {
         width: '100%',
         height: '100%',
-        borderRadius: 50,
     }
 });
 
