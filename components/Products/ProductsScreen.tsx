@@ -11,7 +11,7 @@ export default function ProductsScreen() {
     const limit = 20;
     const [page, setPage] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
-    const [search, setSearch] = useState('All');
+    const [search, setSearch] = useState('');
     const searchDebounce = useDebounce(search, 500);
     const { data, isLoading } = useGetProducts(page, limit, searchDebounce, selectedCategory === 'All' ? undefined : selectedCategory);
 
