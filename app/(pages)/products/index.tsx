@@ -1,4 +1,5 @@
 import ProductsScreen from "@/components/Products/ProductsScreen";
+import GradientBackground from "@/components/ui/GradientBackgroud";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
@@ -6,7 +7,9 @@ const queryClient = new QueryClient();
 export default function Page() {
     return (
         <QueryClientProvider client={queryClient}>
-            <ProductsScreen />
+            <GradientBackground>
+                <ProductsScreen />
+            </GradientBackground>
         </QueryClientProvider>
     )
 }

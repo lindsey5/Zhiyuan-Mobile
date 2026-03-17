@@ -11,6 +11,7 @@ import SuccessCard from '@/components/ui/SuccessCard';
 import { useGetProduct } from '@/hooks/Product/use-get-product.hook';
 import LoadingScreen from '../ui/LoadingScreen';
 import VariantContainer from './VariantContainer';
+import GradientBackground from '../ui/GradientBackgroud';
 
 const { height } = Dimensions.get('screen');
 
@@ -79,7 +80,7 @@ const ProductScreen = () => {
                         <Image
                             source={{ uri: selectedVariant?.image_url }}
                             style={styles.productImage}
-                            resizeMode="contain"
+                            resizeMode='contain'
                         />
                     </View>
 
@@ -95,7 +96,8 @@ const ProductScreen = () => {
                 </View>
             </ScrollView>
 
-            <View style={styles.bottomContainer}>
+            <GradientBackground style={{ flex: 0 }}>
+                <View style={styles.bottomContainer}>
                 <QuantitySelector
                     decrementQuantity={decrementQuantity}
                     incrementQuantity={incrementQuantity}
@@ -107,6 +109,7 @@ const ProductScreen = () => {
                     price={totalPrice}
                 />
             </View>
+            </GradientBackground>
         </View>
     );
 };
@@ -160,11 +163,11 @@ const styles = StyleSheet.create({
     },
     bottomContainer: {
         width: '100%',
-        backgroundColor: '#ffffff',
         gap: 20,
         flexDirection: 'column',
         alignItems: 'center',
         paddingBottom: 10,
+        backgroundColor: 'transparent'
     },
 });
 
