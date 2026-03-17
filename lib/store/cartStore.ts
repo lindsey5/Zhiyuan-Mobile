@@ -1,5 +1,7 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
+import { Platform } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type CartItem = {
   id: number;
@@ -11,13 +13,24 @@ type CartItem = {
 
 type CartState = {
   cart: CartItem[];
-
   addItem: (item: CartItem) => void;
   removeItem: (id: number) => void;
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
   clearCart: () => void;
 };
+
+const storage = Platform.OS === "web"
+  ? createJSONStorage(() => localStorage)
+  : createJSONStorage(() => ({
+      getItem: async (name: string) => {
+        const value = await AsyncStorage.getItem(name);
+        return value;
+      },
+      setItem: async (name: string, value: string) =>
+        AsyncStorage.setItem(name, value),
+      removeItem: async (name: string) => AsyncStorage.removeItem(name),
+    }));
 
 export const useCartStore = create<CartState>()(
   persist(
@@ -29,7 +42,9 @@ export const useCartStore = create<CartState>()(
         if (existing) {
           set({
             cart: get().cart.map((i) =>
-              i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
+              i.id === item.id
+                ? { ...i, quantity: i.quantity + item.quantity }
+                : i
             ),
           });
         } else {
@@ -60,6 +75,7 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: "cart-storage",
+      storage,
     }
   )
 );

@@ -8,7 +8,7 @@ export const categories = [
     "Sticks",
 ]
 
-export const products : Product[] = [
+export const products : any = [
     {
         id: 1,
         name: "Billiard Stick",

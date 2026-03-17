@@ -1,0 +1,227 @@
+import { useEffect, useMemo, useState } from 'react';
+import { View, StyleSheet, Image, ScrollView, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { useLocalSearchParams } from "expo-router";
+
+import AddToCartButton from '@/components/Product/AddToCartButton';
+import CustomizedText from '@/components/ui/Text';
+import QuantitySelector from '@/components/Product/QuantitySelector';
+import MenuButton from '@/components/ui/Menu';
+import { useCartStore } from '@/lib/store/cartStore';
+import SuccessCard from '@/components/ui/SuccessCard';
+import { useGetProduct } from '@/hooks/Product/use-get-product.hook';
+import LoadingScreen from '../ui/LoadingScreen';
+
+const { height } = Dimensions.get('screen');
+
+const ProductScreen = () => {
+    const { id } = useLocalSearchParams();
+    const { addItem } = useCartStore();
+    const [quantity, setQuantity] = useState<number>(1);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const { data, isLoading } = useGetProduct(Number(id));
+    const product = data?.product;
+    const [selectedVariant, setSelectedVariant] = useState<Variant>();
+
+    useEffect(() => {
+        if (data) setSelectedVariant(data.product.variants[0]);
+    }, [data]);
+
+    const incrementQuantity = (): void => {
+        setQuantity((prev) => prev + 1);
+    };
+
+    const decrementQuantity = (): void => {
+        if (quantity > 1) setQuantity((prev) => prev - 1);
+    };
+
+    const totalPrice = useMemo(() => (selectedVariant?.price || 0) * quantity, [quantity]);
+
+    const handleAddToCart = () => {
+        if (selectedVariant) {
+            addItem({
+                id: selectedVariant.id,
+                image: selectedVariant.image_url,
+                name: selectedVariant.variant_name,
+                price: totalPrice,
+                quantity
+            });
+            setShowSuccess(true);
+            setQuantity(1);
+        }
+    };
+
+    if (isLoading || !product){
+        return <LoadingScreen />
+    }
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Image
+                    source={{ uri: product.thumbnail_url }}
+                    style={{ width: 50, height: 50 }}
+                    resizeMode="contain"
+                />
+                <CustomizedText style={styles.headerText}>{product.product_name}</CustomizedText>
+            </View>
+
+            <MenuButton />
+            <SuccessCard
+                message="Item added to your cart"
+                visible={showSuccess}
+                onClose={() => setShowSuccess(false)}
+            />
+
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <View style={styles.content}>
+                    <View style={styles.imageContainer}>
+                        <Image
+                            source={{ uri: selectedVariant?.image_url }}
+                            style={styles.productImage}
+                            resizeMode="contain"
+                        />
+                    </View>
+
+                    <CustomizedText style={styles.description} numberOfLines={3}>
+                        {product.description}
+                    </CustomizedText>
+
+                    <View style={styles.variantsContainer}>
+                        {product.variants.map((variant) => (
+                            <TouchableOpacity
+                                key={variant.id}
+                                style={[
+                                    styles.variantButton,
+                                    selectedVariant?.id === variant.id && styles.activeVariantButton,
+                                ]}
+                                onPress={() => setSelectedVariant(variant)}
+                            >
+                                <Image
+                                    source={{ uri: variant.image_url }}
+                                    style={styles.variantImage}
+                                    resizeMode="cover"
+                                />
+                                <View style={{ width: '100%' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
+                                    <Text style={[
+                                            styles.variantText,
+                                            selectedVariant?.id === variant.id && { color: '#E8B84A', fontWeight: 'bold' }
+                                        ]}>{variant.variant_name}</Text>
+                                    </View>
+                                    <Text>₱ {variant.price.toFixed(2)}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </View>
+            </ScrollView>
+
+            <View style={styles.bottomContainer}>
+                <QuantitySelector
+                    decrementQuantity={decrementQuantity}
+                    incrementQuantity={incrementQuantity}
+                    quantity={quantity}
+                />
+                <AddToCartButton
+                    handleAddToCart={handleAddToCart}
+                    buttonText="Add to Cart"
+                    price={totalPrice}
+                />
+            </View>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    header: {
+        width: '100%',
+        paddingTop: 60,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+    },
+    headerText: {
+        width: '90%',
+        fontSize: 32,
+        paddingLeft: 20,
+    },
+    scrollContainer: {
+        alignItems: 'center',
+        flexGrow: 1,
+    },
+    content: {
+        marginTop: 30,
+        gap: 10,
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        width: '100%',
+    },
+    imageContainer: {
+        width: '80%',
+        height: height * 0.25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        marginTop: 50,
+    },
+    productImage: {
+        width: '100%',
+        height: '100%',
+    },
+    description: {
+        fontSize: 20,
+        color: '#A0A0A0',
+        textAlign: 'center',
+        fontStyle: 'italic',
+        lineHeight: 24,
+        width: '70%',
+    },
+    variantsContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 10,
+        padding: 10,
+        alignItems: 'flex-start',
+    },
+    variantButton: {
+        maxWidth: '60%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 6,
+        borderRadius: 8,
+        marginLeft: 10,
+        boxShadow: "0px 2px 5px rgba(0,0,0,0.3)",
+        backgroundColor: '#f5f5f5',
+    },
+    activeVariantButton: { 
+        borderWidth: 2,
+        borderColor: '#E8B84A',
+        boxShadow: ''
+    },
+    variantImage: {
+        width: 36,
+        height: 36,
+        borderRadius: 6,
+        marginRight: 8,
+    },
+    variantText: {
+        fontSize: 14,
+        color: '#333',
+        flexWrap: 'wrap',
+        width: '80%',
+    },
+    bottomContainer: {
+        width: '100%',
+        backgroundColor: '#ffffff',
+        gap: 20,
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingBottom: 10,
+    },
+});
+
+export default ProductScreen;

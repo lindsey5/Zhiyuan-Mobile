@@ -1,0 +1,3 @@
+interface AxiosResponse {
+    success: boolean
+}

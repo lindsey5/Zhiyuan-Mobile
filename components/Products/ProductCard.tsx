@@ -28,17 +28,13 @@ export default function ProductCard ({ item } : { item: Product  }) {
     return (
         <View style={[styles.card, { width: itemWidth }]}>
             <Image
-                source={
-                    typeof item.image === "string"
-                        ? { uri: item.image }
-                        : item.image
-                }
+                source={{ uri: item.thumbnail_url }}
                 style={styles.image}
                 resizeMode="contain"
             />
 
             <CustomizedText style={{ fontSize: font20, marginTop: 20 }}>
-                {item.name}
+                {item.product_name}
             </CustomizedText>
 
             <TouchableOpacity style={styles.button} onPress={handleAddToCart}>
@@ -62,7 +58,6 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 120,
         borderRadius: 12,
-        resizeMode: "contain"
     },
     button: {
         marginTop: 20,
