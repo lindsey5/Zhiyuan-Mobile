@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity, Image, FlatList, Dimensions } from "react-native";
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image, FlatList, Dimensions } from "react-native";
 import ProductCard from "@/components/Products/ProductCard";
 import CategoryTab from "./CategoryTab";
 import React, { useEffect, useState } from "react";
@@ -36,7 +36,7 @@ export default function ProductsScreen() {
 
         page === 1 ? setProducts(data.products) : setProducts(prev => [...prev, ...data.products])
 
-        if (data?.totalPages) setHasMore(page < data.totalPages);
+        if (data.totalPages) setHasMore(page < data.totalPages);
     }, [data, page]);
 
     const handleLoadMore = () => {
