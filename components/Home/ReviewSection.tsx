@@ -1,17 +1,20 @@
 import { View, StyleSheet, Dimensions } from "react-native";
 import ReviewCard from "../ui/ReviewCard";
 import { reviews } from "@/lib/data/mock-data";
+import { getItemWidth } from "@/utils/utils";
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
+const screenWidth = Dimensions.get("window").width;
 
 export default function ReviewSection() {
-    const CARD_MIN_WIDTH = 160; 
-    const SPACING = 10;
+    let numColumns = 2;
 
-    const numColumns = Math.floor(SCREEN_WIDTH / (CARD_MIN_WIDTH + SPACING));
+    if (screenWidth > 900) {
+        numColumns = 4;
+    } else if (screenWidth > 600) {
+        numColumns = 3;
+    }
 
-    const itemWidth =
-        (SCREEN_WIDTH - SPACING * (numColumns + 1)) / numColumns;
+    const itemWidth = getItemWidth(screenWidth, numColumns);
 
     return (
         <View style={styles.container}>
@@ -21,8 +24,6 @@ export default function ReviewSection() {
                 style={[
                     {
                     width: itemWidth,
-                    marginLeft: SPACING,
-                    marginBottom: SPACING,
                     },
                 ]}
             >
@@ -42,5 +43,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         flexWrap: "wrap",
+        padding: 10,
+        gap: 10,
     },
 });

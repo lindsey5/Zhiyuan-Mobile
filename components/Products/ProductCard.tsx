@@ -3,12 +3,9 @@ import CustomizedText from "../ui/Text";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import { useRouter } from "expo-router";
 import { formatToPeso } from "@/utils/format";
+import { getItemWidth } from "@/utils/utils";
 
 const { width: screenWidth } = Dimensions.get("window");
-
-const getItemWidth = (numColumns : number, containerPadding = 20, spacing = 10) => {
-  return (screenWidth - containerPadding * 2 - spacing * (numColumns - 1)) / numColumns;
-};
 
 export default function ProductCard ({ item } : { item: Product  }) {
     const font16 = useResponsiveFontSize(16);
@@ -21,7 +18,7 @@ export default function ProductCard ({ item } : { item: Product  }) {
     } else if (screenWidth > 600) {
         numColumns = 3;
     }
-    const itemWidth = getItemWidth(numColumns);
+    const itemWidth = getItemWidth(screenWidth, numColumns);
 
     const handleAddToCart = () => {
         router.push(`/product/${item.id}`);
