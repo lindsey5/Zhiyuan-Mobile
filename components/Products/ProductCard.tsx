@@ -11,21 +11,13 @@ export default function ProductCard ({ item } : { item: Product  }) {
     const font16 = useResponsiveFontSize(16);
     const font20 = useResponsiveFontSize(20);
     const router = useRouter();
-    let numColumns = 2;
-
-    if (screenWidth > 900) {
-        numColumns = 4;
-    } else if (screenWidth > 600) {
-        numColumns = 3;
-    }
-    const itemWidth = getItemWidth(screenWidth, numColumns);
 
     const handleAddToCart = () => {
         router.push(`/product/${item.id}`);
     };
 
     return (
-        <TouchableOpacity onPress={handleAddToCart} style={[styles.card, { width: itemWidth }]}>
+        <TouchableOpacity onPress={handleAddToCart} style={styles.card}>
             <Image
                 source={{ uri: item.thumbnail_url }}
                 style={styles.image}

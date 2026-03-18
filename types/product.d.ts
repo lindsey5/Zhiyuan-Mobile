@@ -20,7 +20,10 @@ interface Variant {
 }
 
 interface GetProductsResponse extends AxiosResponse {
-    products: Product[]
+    products: Product[];
+    page: number;
+    limit: number;
+    totalPages: number;
 }
 
 interface GetProductResponse extends AxiosResponse {
