@@ -56,7 +56,7 @@ export default function SortMenu({ setSortBy }: {
                             style={styles.option}
                             onPress={() => setSelected(key)}
                         >
-                            <Text>{key}</Text>
+                            <Text style={styles.optionText}>{key}</Text>
                             <View style={styles.radioOuter}>
                                 {selected === key && <View style={styles.radioInner} />}
                             </View>
@@ -101,19 +101,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 12,
     },
+    optionText: {
+        fontSize: 16
+    },
     radioOuter: {
-        width: 18,
-        height: 18,
-        borderRadius: 9,
+        width: 25,
+        height: 25,
+        borderRadius: 50,
         borderWidth: 1,
         borderColor: '#999',
         justifyContent: 'center',
         alignItems: 'center',
     },
     radioInner: {
-        width: 10,
-        height: 10,
-        borderRadius: 5,
+        width: 15,
+        height: 15,
+        borderRadius: 50,
         backgroundColor: '#000',
     },
     applyBtn: {
