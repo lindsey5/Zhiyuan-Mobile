@@ -1,11 +1,11 @@
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image, FlatList, Dimensions } from "react-native";
 import ProductCard from "@/components/Products/ProductCard";
-import { ListFilter, ArrowUpDown } from 'lucide-react-native';
 import React, { useEffect, useState } from "react";
 import { useGetProducts } from "@/hooks/Product/use-get-products.hook";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Ionicons } from "@expo/vector-icons"; 
-import SortModal from "./SortModal";
+import SortMenu from "./SortMenu";
+import Filter from "./Filter";
 
 const { width } = Dimensions.get('screen');
 
@@ -18,7 +18,6 @@ export default function ProductsScreen() {
     const [hasMore, setHasMore] = useState(true);
     const [products, setProducts] = useState<Product[]>([]);
     const [sortBy, setSortBy] = useState<{sortBy: string, order: 'ASC' | 'DESC'}>({ sortBy: 'product_name', order: 'ASC'});
-    const [showSort, setShowSort] = useState(false);
     const { data, isLoading } = useGetProducts(page, limit, sortBy, searchDebounce, selectedCategories);
 
     const getNumColumns = () => {
@@ -70,19 +69,8 @@ export default function ProductsScreen() {
             numColumns={numColumns}
             ListHeaderComponent={(
                 <>
-                <SortModal 
-                    setSortBy={setSortBy} 
-                    visible={showSort} 
-                    setVisible={setShowSort}
-                />
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => setShowSort(true)}>
-                        <ArrowUpDown
-                            color={"#eba84a8c"}
-                            size={24}
-                            strokeWidth={2}
-                        />
-                    </TouchableOpacity>
+                    <SortMenu setSortBy={setSortBy} />
                     <View style={styles.inputContainer}>
                         <Ionicons name="search" size={20} color="#888" style={styles.icon} />
                         <TextInput
@@ -95,13 +83,7 @@ export default function ProductsScreen() {
                             value={search}
                         />
                     </View>
-                    <TouchableOpacity onPress={() => console.log("Filter pressed")}>
-                        <ListFilter
-                            color={"#eba84a8c"}
-                            size={24}
-                            strokeWidth={3}
-                        />
-                    </TouchableOpacity>
+                    <Filter />
                 </View>
                 <Text style={styles.text}>All Products</Text>
                 </>

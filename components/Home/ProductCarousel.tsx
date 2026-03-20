@@ -19,7 +19,7 @@ export default function ProductCarousel() {
 	const sideSpacing = (windowWidth - itemWidth) / 0.8;
 
 	const router = useRouter();
-	const { data } = useGetProducts();
+	const { data } = useGetProducts(1, 10, { sortBy: 'product_name', order: 'ASC'});
 
 	function renderItem(info: { item: Product; index: number }) {
 		const product = info.item;
