@@ -99,7 +99,6 @@ export default function ProductsScreen() {
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
-        width: '100%',
         alignItems: 'center',
         marginVertical: 20,
         paddingHorizontal: 10,
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     inputContainer: {
-        flexGrow: 1,
+        flex: 1,
         flexDirection: "row",
         alignItems: "center",
         backgroundColor: "#f0f0f0",

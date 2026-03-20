@@ -232,24 +232,24 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     priceContainer: {
-        width: '100%'
+        width: '100%',
     },
     priceInputContainer:{
         width: '100%',
         flexDirection: 'row',
         gap: 10,
-        alignItems: 'center',
         marginBottom: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     input: {
-        flex: 1,
+        width: '45%',
         borderWidth: 1,
         borderColor: '#ccc',
         padding: 10,
         borderRadius: 8,
         textAlign: 'center',
     },
-
     separator: {
         width: 10,
         height: 2,
