@@ -16,7 +16,7 @@ import { CATEGORIES } from "@/lib/data/contants";
 import Button from "../ui/Button";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 
-const { height } = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
 interface FilterProps {
     setFilter: React.Dispatch<React.SetStateAction<{
@@ -111,54 +111,57 @@ export default function Filter({ setFilter } : FilterProps) {
                         {/* PRICE RANGE */}
                         <Text style={styles.text}>Price:</Text>
 
-                        <MultiSlider
-                            values={priceRange}
-                            min={0}
-                            max={10000}
-                            step={1000}
-                            onValuesChange={(values) => {
-                                let [minVal, maxVal] = values;
+                        <View style={styles.priceContainer}>
+                            <MultiSlider
+                                sliderLength={width - 65}
+                                values={priceRange}
+                                min={0}
+                                max={10000}
+                                step={1000}
+                                onValuesChange={(values) => {
+                                    let [minVal, maxVal] = values;
 
-                                if (minVal > maxVal) minVal = maxVal;
+                                    if (minVal > maxVal) minVal = maxVal;
 
-                                setPriceRange([minVal, maxVal]);
-                            }}
-                            selectedStyle={{ backgroundColor: '#f190078c' }}
-                            unselectedStyle={{ backgroundColor: '#ccc' }}
-                            trackStyle={{ height: 4 }}
-                            markerStyle={{
-                                height: 20,
-                                width: 20,
-                                borderRadius: 10,
-                                backgroundColor: '#f190078c',
-                            }}
-                        />
-
-                        <View style={styles.priceInputContainer}>
-                            <TextInput
-                                style={styles.input}
-                                keyboardType="numeric"
-                                value={String(priceRange[0])}
-                                onChangeText={(text) => {
-                                    let val = Number(text) || 0;
-                                    if (val > priceRange[1]) val = priceRange[1];
-                                    setPriceRange([val, priceRange[1]]);
+                                    setPriceRange([minVal, maxVal]);
+                                }}
+                                selectedStyle={{ backgroundColor: '#f190078c' }}
+                                unselectedStyle={{ backgroundColor: '#ccc' }}
+                                trackStyle={{ height: 4 }}
+                                markerStyle={{
+                                    height: 20,
+                                    width: 20,
+                                    borderRadius: 10,
+                                    backgroundColor: '#f190078c',
                                 }}
                             />
 
-                            <View style={styles.separator} />
+                            <View style={styles.priceInputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    keyboardType="numeric"
+                                    value={String(priceRange[0])}
+                                    onChangeText={(text) => {
+                                        let val = Number(text) || 0;
+                                        if (val > priceRange[1]) val = priceRange[1];
+                                        setPriceRange([val, priceRange[1]]);
+                                    }}
+                                />
 
-                            <TextInput
-                                style={styles.input}
-                                keyboardType="numeric"
-                                value={String(priceRange[1])}
-                                onChangeText={(text) => {
-                                    let val = Number(text) || 0;
-                                    if (val < priceRange[0]) val = priceRange[0];
-                                    if(val > 10000) val = 10000;
-                                    setPriceRange([priceRange[0], val]);
-                                }}
-                            />
+                                <View style={styles.separator} />
+
+                                <TextInput
+                                    style={styles.input}
+                                    keyboardType="numeric"
+                                    value={String(priceRange[1])}
+                                    onChangeText={(text) => {
+                                        let val = Number(text) || 0;
+                                        if (val < priceRange[0]) val = priceRange[0];
+                                        if(val > 10000) val = 10000;
+                                        setPriceRange([priceRange[0], val]);
+                                    }}
+                                />
+                            </View>
                         </View>
 
                         {/* BUTTONS */}
@@ -228,7 +231,11 @@ const styles = StyleSheet.create({
     categoryText: {
         fontSize: 16,
     },
+    priceContainer: {
+        width: '100%'
+    },
     priceInputContainer:{
+        width: '100%',
         flexDirection: 'row',
         gap: 10,
         alignItems: 'center',
