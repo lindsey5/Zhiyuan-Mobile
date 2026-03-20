@@ -12,7 +12,6 @@ const { width } = Dimensions.get('screen');
 export default function ProductsScreen() {
     const limit = 20;
     const [page, setPage] = useState(1);
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [search, setSearch] = useState('');
     const searchDebounce = useDebounce(search, 200);
     const [hasMore, setHasMore] = useState(true);
