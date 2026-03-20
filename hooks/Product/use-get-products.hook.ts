@@ -7,12 +7,24 @@ async function getProducts(
     limit: number = 10,
     sortBy: string,
     order: 'ASC' | 'DESC',
+    categories: string[],
     search?: string,
-    categories?: string[],
+    minPrice?: number,
+    maxPrice?: number
 ) {
+    const selectedCategories = categories.join(',');
     return await apiAxios<GetProductsResponse>('/api/products', {
         method: HttpMethod.GET,
-        params: { page, limit, search, categories, sortBy, order },
+        params: { 
+            page, 
+            limit, 
+            search, 
+            categories: selectedCategories, 
+            sortBy, 
+            order, 
+            minPrice, 
+            maxPrice
+        },
     });
 }
 
@@ -23,11 +35,24 @@ export const useGetProducts = (
         sortBy: string,
         order: 'ASC' | 'DESC' 
     },
+    filter: {
+        categories: string[]
+        minPrice?: number
+        maxPrice?: number
+    },
     search?: string,
-    categories?: string[],
 ) => {
     return useQuery<GetProductsResponse, Error>({
-        queryKey: ['products', page, limit, sort.sortBy, sort.order, search, categories],
-        queryFn: async () => await getProducts(page, limit, sort.sortBy, sort.order, search, categories)
+        queryKey: ['products', page, limit, sort.sortBy, sort.order, search, filter.categories],
+        queryFn: async () => await getProducts(
+            page, 
+            limit, 
+            sort.sortBy, 
+            sort.order,
+            filter.categories, 
+            search,  
+            filter.minPrice,
+            filter.maxPrice
+        )
     });
 };

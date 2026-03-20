@@ -17,8 +17,13 @@ export default function ProductsScreen() {
     const searchDebounce = useDebounce(search, 200);
     const [hasMore, setHasMore] = useState(true);
     const [products, setProducts] = useState<Product[]>([]);
+    const [filter, setFilter] = useState<{ categories: string[], minValue?: number, maxValue?: number}>({
+        categories: [],
+        minValue: undefined,
+        maxValue: undefined,
+    })
     const [sortBy, setSortBy] = useState<{sortBy: string, order: 'ASC' | 'DESC'}>({ sortBy: 'product_name', order: 'ASC'});
-    const { data, isLoading } = useGetProducts(page, limit, sortBy, searchDebounce, selectedCategories);
+    const { data, isLoading } = useGetProducts(page, limit, sortBy, filter, searchDebounce);
 
     const getNumColumns = () => {
         if (width > 900) return 4;
@@ -83,7 +88,7 @@ export default function ProductsScreen() {
                             value={search}
                         />
                     </View>
-                    <Filter />
+                    <Filter setFilter={setFilter}/>
                 </View>
                 <Text style={styles.text}>All Products</Text>
                 </>
