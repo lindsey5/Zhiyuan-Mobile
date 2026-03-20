@@ -32,7 +32,7 @@ const QuantitySelectorButton: React.FC<QuantitySelectorButtonProps> = ({
     >
       <Image
         source={imageSource}
-        resizeMode="contain"
+        resizeMode="stretch"
       />
     </TouchableOpacity>
   );
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: '10%',
   },
 });
 

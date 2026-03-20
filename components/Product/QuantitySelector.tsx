@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import QuantitySelectorButton from "./QuantitySelectorButton";
 import { useMemo } from "react";
-
-const { width } = Dimensions.get("window");
+import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 
 export default function QuantitySelector(
     {
@@ -15,7 +14,8 @@ export default function QuantitySelector(
         quantity: number;
     }
     ) {
-
+    
+    const font60 = useResponsiveFontSize(60);
     const formattedQuantity = useMemo(() => quantity.toString().padStart(2, "0"), [quantity]);
 
     return (
@@ -27,7 +27,7 @@ export default function QuantitySelector(
         />
 
         <View style={styles.quantityWrapper}>
-            <Text style={styles.quantityText}>{formattedQuantity}</Text>
+            <Text style={[styles.quantityText, { fontSize: font60 }]}>{formattedQuantity}</Text>
         </View>
 
         <QuantitySelectorButton
@@ -40,6 +40,7 @@ export default function QuantitySelector(
 
 const styles = StyleSheet.create({
     quantityContainer: {
+        flex: 1,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
@@ -54,7 +55,6 @@ const styles = StyleSheet.create({
     },
 
     quantityText: {
-        fontSize: width * 0.12,
         fontWeight: "bold",
         textAlign: "center",
         letterSpacing: 2,

@@ -96,8 +96,7 @@ const ProductScreen = () => {
                 </View>
             </ScrollView>
 
-            <GradientBackground style={{ flex: 0 }}>
-                <View style={styles.bottomContainer}>
+            <View style={styles.bottomContainer}>
                 <QuantitySelector
                     decrementQuantity={decrementQuantity}
                     incrementQuantity={incrementQuantity}
@@ -109,7 +108,6 @@ const ProductScreen = () => {
                     price={totalPrice}
                 />
             </View>
-            </GradientBackground>
         </View>
     );
 };
@@ -132,7 +130,7 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         alignItems: 'center',
-        flexGrow: 1,
+        flex: 1,
     },
     content: {
         marginTop: 30,
@@ -162,9 +160,8 @@ const styles = StyleSheet.create({
         width: '70%',
     },
     bottomContainer: {
-        width: '100%',
         gap: 20,
-        flexDirection: 'column',
+        height: '30%',
         alignItems: 'center',
         paddingBottom: 10,
         backgroundColor: 'transparent'
