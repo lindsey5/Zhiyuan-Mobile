@@ -3,9 +3,6 @@ import CustomizedText from "../ui/Text";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import { useRouter } from "expo-router";
 import { formatToPeso } from "@/utils/format";
-import { getItemWidth } from "@/utils/utils";
-
-const { width: screenWidth } = Dimensions.get("window");
 
 export default function ProductCard ({ item } : { item: Product  }) {
     const font16 = useResponsiveFontSize(16);
