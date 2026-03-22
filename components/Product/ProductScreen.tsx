@@ -11,7 +11,6 @@ import SuccessCard from '@/components/ui/SuccessCard';
 import { useGetProduct } from '@/hooks/Product/use-get-product.hook';
 import LoadingScreen from '../ui/LoadingScreen';
 import VariantContainer from './VariantContainer';
-import GradientBackground from '../ui/GradientBackgroud';
 
 const { height } = Dimensions.get('screen');
 
@@ -130,7 +129,6 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         alignItems: 'center',
-        flex: 1,
     },
     content: {
         marginTop: 30,
