@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = process.env.API_URL;
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;;
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,
