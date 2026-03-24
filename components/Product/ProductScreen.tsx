@@ -168,10 +168,11 @@ const styles = StyleSheet.create({
         flex: 1, 
         marginTop: 50,
         marginBottom: 20,
-        width: '100%', 
+        width: '100%',
+        maxWidth: 500,
         flexDirection: 'row', 
         justifyContent: 'space-between',
-        gap: 10,
+        gap: 20,
         paddingHorizontal: 20,
         alignItems: 'center'
     },

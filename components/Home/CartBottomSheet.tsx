@@ -16,7 +16,7 @@ import Svg, { Path, Rect } from 'react-native-svg';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const SHEET_MAX_HEIGHT = 160;
+const SHEET_MAX_HEIGHT = 200;
 const SHEET_MIN_HEIGHT = 110;
 
 const CartBottomSheet = () => {
@@ -128,7 +128,7 @@ const CartBottomSheet = () => {
             </View>
 
             <TouchableOpacity
-                onPress={() => router.push('/products')}
+                onPress={() => router.push('/cart')}
                 style={[
                     styles.content,
                     { width: containerWidth }
