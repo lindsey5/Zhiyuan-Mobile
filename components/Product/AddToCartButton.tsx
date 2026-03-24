@@ -1,3 +1,4 @@
+import COLOR from '@/lib/contants/color';
 import { formatToPeso } from '@/utils/format';
 import {
   TouchableOpacity,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 52,
     height: 52,
-    backgroundColor: '#E8B84A',
+    backgroundColor: COLOR.accent,
     borderRadius: 26,
     justifyContent: 'center',
     alignItems: 'center',

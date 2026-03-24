@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { StyleSheet, ViewStyle, StyleProp } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import COLOR from "@/lib/contants/color";
 
 type GradientBackgroundProps = {
   children: ReactNode;
@@ -11,7 +12,7 @@ type GradientBackgroundProps = {
 export default function GradientBackground({
     children,
     style,
-    colors = ["#F4E1C6", "#fff"]
+    colors = [COLOR.secondary, "#fff"]
 }: GradientBackgroundProps) {
     return (
         <LinearGradient

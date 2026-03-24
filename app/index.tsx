@@ -6,9 +6,6 @@ import * as NavigationBar from "expo-navigation-bar";
 
 export default function App() {
     const router = useRouter();
-    const [fontsLoaded] = useFonts({
-        ADLaMDisplay: require('../assets/fonts/ADLaMDisplay-Regular.ttf'),
-    });
 
     async function setupNavBar() {
       // Hide nav bar
@@ -27,10 +24,6 @@ export default function App() {
 
         return () => clearTimeout(timer);
     }, []);
-
-    if (!fontsLoaded) {
-        return null;
-    }
 
     return (
         <SplashScreen />

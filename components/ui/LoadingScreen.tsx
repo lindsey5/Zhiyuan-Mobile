@@ -1,10 +1,11 @@
+import COLOR from '@/lib/contants/color';
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 
 const LoadingScreen = () => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color="#E8B84A" />
+      <ActivityIndicator size="large" color={COLOR.highlight} />
     </View>
   );
 };

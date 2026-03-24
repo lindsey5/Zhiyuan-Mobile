@@ -4,6 +4,7 @@ import { TouchableOpacity, StyleSheet } from "react-native";
 import Sidebar from "./Sidebar";
 import Badge from "./Badge";
 import { useCartStore } from "@/lib/store/cartStore";
+import COLOR from "@/lib/contants/color";
 
 export default function MenuButton() {
     const [show, setShow] = useState(false);
@@ -16,7 +17,7 @@ export default function MenuButton() {
             ) : (
                 <TouchableOpacity style={styles.menuButton} onPress={() => setShow(true)}>
                     <Badge count={cart.length}/>
-                    <Menu color="hsla(35, 80%, 61%, 0.55)" size={24} strokeWidth={3} />
+                    <Menu color={COLOR.highlight} size={24} strokeWidth={3} />
                 </TouchableOpacity>
             )}
         </>

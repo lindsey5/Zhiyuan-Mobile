@@ -1,3 +1,4 @@
+import COLOR from '@/lib/contants/color';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useRouter } from 'expo-router';
 import React, { useRef, useEffect, useState } from 'react';
@@ -18,7 +19,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const SHEET_MAX_HEIGHT = 160;
 const SHEET_MIN_HEIGHT = 110;
 
-const CartSummary = () => {
+const CartBottomSheet = () => {
     const { cart } = useCartStore();
     const router = useRouter();
 
@@ -57,7 +58,7 @@ const CartSummary = () => {
                         duration: 200,
                         useNativeDriver: false,
                     }).start(() => {
-                        router.push('/products');
+                        router.push('/cart');
                         animatedHeight.setValue(SHEET_MIN_HEIGHT);
                     });
                 } else {
@@ -114,14 +115,14 @@ const CartSummary = () => {
                     width={containerWidth}
                     viewBox={`0 0 ${containerWidth} ${h}`}
                 >
-                    <Path d={d} fill="#D9B991" />
+                    <Path d={d} fill={COLOR.primary} />
                     <Rect
                         x={(containerWidth / 2) - 25}
                         y={15}
                         width={50}
                         height={4}
                         rx={2}
-                        fill="#C4A47A"
+                        fill={COLOR.primary}
                     />
                 </Svg>
             </View>
@@ -247,4 +248,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CartSummary;
+export default CartBottomSheet;

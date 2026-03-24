@@ -19,7 +19,7 @@ const items : Item[] = [
     },
     {
         text: "Cart",
-        path: "/main",
+        path: "/cart",
     }
 ]
 
@@ -28,7 +28,7 @@ export default function MenuItem({ close } : { close : () => void }){
     const router = useRouter();
     
     const go = (path : Href) => {
-        router.replace(path);
+        router.push(path);
         close();
     }
 

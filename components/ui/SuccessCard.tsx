@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native';
 import { CheckCircle } from 'lucide-react-native';
+import COLOR from '@/lib/contants/color';
 
 interface SuccessCardProps {
   visible: boolean;
@@ -72,7 +73,7 @@ const SuccessCard: React.FC<SuccessCardProps> = ({ visible, message, onClose, du
             },
             ]}
         >
-            <CheckCircle size={48} color="#E8B84A" />
+            <CheckCircle size={48} color={COLOR.highlight} />
 
             <Text style={styles.message}>{message}</Text>
 

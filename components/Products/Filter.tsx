@@ -12,9 +12,10 @@ import {
 } from "react-native";
 import BottomSheet from "../ui/BottomSheet";
 import { Check, X } from "lucide-react-native";
-import { CATEGORIES } from "@/lib/data/contants";
+import { CATEGORIES } from "@/lib/contants/contants";
 import Button from "../ui/Button";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
+import COLOR from "@/lib/contants/color";
 
 const { width, height } = Dimensions.get('screen');
 
@@ -56,7 +57,7 @@ export default function Filter({ setFilter } : FilterProps) {
     return (
         <>
             <TouchableOpacity onPress={() => setVisible(true)}>
-                <MaterialIcons name="filter-list" color="#f190078c" size={30} />
+                <MaterialIcons name="filter-list" color={COLOR.highlight} size={30} />
             </TouchableOpacity>
 
             <BottomSheet
@@ -125,14 +126,14 @@ export default function Filter({ setFilter } : FilterProps) {
 
                                     setPriceRange([minVal, maxVal]);
                                 }}
-                                selectedStyle={{ backgroundColor: '#f190078c' }}
+                                selectedStyle={{ backgroundColor: COLOR.highlight }}
                                 unselectedStyle={{ backgroundColor: '#ccc' }}
                                 trackStyle={{ height: 4 }}
                                 markerStyle={{
                                     height: 20,
                                     width: 20,
                                     borderRadius: 10,
-                                    backgroundColor: '#f190078c',
+                                    backgroundColor: COLOR.highlight,
                                 }}
                             />
 
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
     separator: {
         width: 10,
         height: 2,
-        backgroundColor: '#f190078c',
+        backgroundColor: COLOR.highlight,
     },
     button: {
         flex: 1,

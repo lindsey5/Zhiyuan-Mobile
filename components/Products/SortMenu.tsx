@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import BottomSheet from "../ui/BottomSheet";
 import Button from "../ui/Button";
+import COLOR from "@/lib/contants/color";
 
 type SortOption = {
     sortBy: string;
@@ -37,7 +38,7 @@ export default function SortMenu({ setSortBy }: {
     return (
         <>
             <TouchableOpacity onPress={() => setVisible(true)}>
-                <ArrowUpDown color={"#eba84a8c"} size={24} strokeWidth={2} />
+                <ArrowUpDown color={COLOR.highlight} size={24} strokeWidth={2} />
             </TouchableOpacity>
             <BottomSheet 
                 visible={visible}

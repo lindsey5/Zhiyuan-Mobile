@@ -3,14 +3,6 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type CartItem = {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-};
-
 type CartState = {
   cart: CartItem[];
   addItem: (item: CartItem) => void;
@@ -35,16 +27,12 @@ export const useCartStore = create<CartState>()(
 
         if (existing) {
           set({
-            cart: get().cart.map((i) =>
-              i.id === item.id
-                ? { ...i, quantity: i.quantity + item.quantity }
-                : i
-            ),
+            cart: get().cart.map((i) => i.id === item.id ? 
+            { ...i, quantity: i.quantity + item.quantity, amount: i.amount + item.amount }
+            : i),
           });
         } else {
-          set({
-            cart: [...get().cart, item],
-          });
+          set({ cart: [...get().cart, item] });
         }
       },
 

@@ -1,4 +1,4 @@
-import CartSummary from "@/components/Home/CartSummary";
+import CartBottomSheet from "@/components/Home/CartBottomSheet";
 import GradientBackground from "@/components/ui/GradientBackgroud";
 import MenuButton from "@/components/ui/Menu";
 import { Slot, useRouter } from "expo-router";
@@ -24,7 +24,7 @@ export default function Layout () {
 
                 <Slot />
 
-                <CartSummary />
+                <CartBottomSheet />
             </View>
         </GradientBackground>
     )

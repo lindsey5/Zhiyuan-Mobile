@@ -1,3 +1,4 @@
+import COLOR from "@/lib/contants/color";
 import { StyleSheet, TouchableOpacity, Text, TouchableOpacityProps } from "react-native";
 
 interface ButtonProps extends TouchableOpacityProps {
@@ -17,7 +18,7 @@ export default function Button({ label, style, ...props }: ButtonProps) {
 
 const styles = StyleSheet.create({
     btn: {
-        backgroundColor: '#f190078c',
+        backgroundColor: COLOR.highlight,
         padding: 15,
         borderRadius: 8,
     },

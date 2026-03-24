@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { TouchableOpacity, PanResponder, StyleSheet, Text, Image, Animated } from "react-native";
 import MenuItem from "./MenuItem";
+import COLOR from "@/lib/contants/color";
 
 export default function Sidebar({ setShow } : { setShow: Dispatch<SetStateAction<boolean>>}) {
     const slideAnim = useRef(new Animated.Value(300)).current;
@@ -73,7 +74,6 @@ const styles = StyleSheet.create({
         width: "80%",
         maxWidth: 300,
         zIndex: 1,
-        paddingVertical: 20,
         paddingRight: 5,
         overflow: "hidden",
     },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         borderRadius: 30,
-        tintColor: '#D9B991'
+        tintColor: COLOR.secondary
     },
     close: {
         position: "absolute",

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import COLOR from "@/lib/contants/color";
 
 type ReviewCardProps = {
     name: string;
@@ -30,7 +31,7 @@ export default function ReviewCard({
                     key={i}
                     name={i < rating ? "star" : "star-o"}
                     size={14}
-                    color="#F5A623"
+                    color={COLOR.highlight}
                 />
                 ))}
             </View>

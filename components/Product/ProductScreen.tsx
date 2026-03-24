@@ -42,9 +42,11 @@ const ProductScreen = () => {
             addItem({
                 id: selectedVariant.id,
                 image: selectedVariant.image_url,
-                name: selectedVariant.variant_name,
-                price: totalPrice,
-                quantity
+                product_id: product?.id || 0,
+                variant_name: selectedVariant.variant_name,
+                amount: totalPrice,
+                quantity,
+                price: selectedVariant.price
             });
             setShowSuccess(true);
             setQuantity(1);

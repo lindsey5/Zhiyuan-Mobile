@@ -1,3 +1,4 @@
+import COLOR from "@/lib/contants/color";
 import React, { useRef } from "react";
 import {
     View,
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     dot: {
         height: 8,
         borderRadius: 4,
-        backgroundColor: "#E8B84A",
+        backgroundColor: COLOR.primary,
         marginHorizontal: 4,
     },
 });

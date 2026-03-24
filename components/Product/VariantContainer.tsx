@@ -1,3 +1,4 @@
+import COLOR from '@/lib/contants/color';
 import { formatToPeso } from '@/utils/format';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     },
     activeVariantButton: { 
         borderWidth: 2,
-        borderColor: '#E8B84A',
+        borderColor: COLOR.accent,
         boxShadow: ''
     },
     variantImage: {
