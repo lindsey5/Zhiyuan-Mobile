@@ -3,26 +3,26 @@ import { formatToPeso } from '@/utils/format';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 interface VariantContainerProps {
-    selectedVariant?: Variant;
+    selectedIndex: number;
     variants: Variant[];
-    setSelectedVariant: React.Dispatch<React.SetStateAction<Variant | undefined>>;
+    setSelectedIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function VariantContainer ({
     variants,
-    selectedVariant,
-    setSelectedVariant
+    selectedIndex,
+    setSelectedIndex,
 } : VariantContainerProps) {
     return (
         <View style={styles.variantsContainer}>
-            {variants.map((variant) => (
+            {variants.map((variant, index) => (
                 <TouchableOpacity
                     key={variant.id}
                     style={[
                         styles.variantButton,
-                        selectedVariant?.id === variant.id && styles.activeVariantButton,
+                        variants[selectedIndex]?.id === variant.id && styles.activeVariantButton,
                     ]}
-                    onPress={() => setSelectedVariant(variant)}
+                    onPress={() => setSelectedIndex(index)}
                 >
                     <Image
                         source={{ uri: variant.image_url }}
@@ -33,7 +33,7 @@ export default function VariantContainer ({
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
                         <Text style={[
                                 styles.variantText,
-                                selectedVariant?.id === variant.id && { color: '#E8B84A', fontWeight: 'bold' }
+                                variants[selectedIndex]?.id === variant.id && { color: '#E8B84A', fontWeight: 'bold' }
                             ]}>{variant.variant_name}</Text>
                         </View>
                         <Text>{formatToPeso(variant.price)}</Text>

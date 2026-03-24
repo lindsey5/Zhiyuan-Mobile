@@ -52,14 +52,14 @@ export default function Page () {
                     {cart.length ? 
                         <>
                         <CartItems cart={cart} />
+                        <TouchableOpacity onPress={confirmClear} style={{ alignSelf: 'flex-end', marginVertical: 10 }}>
+                            <CustomizedText style={{ fontSize: 16, color: 'red' }}>Clear All</CustomizedText>
+                        </TouchableOpacity>
                         </>
                         :
                         <EmptyCart />
                     }
                 </ScrollView>
-                <TouchableOpacity onPress={confirmClear} style={{ alignSelf: 'flex-end', marginVertical: 10 }}>
-                    <CustomizedText style={{ fontSize: 16 }}>Clear All</CustomizedText>
-                </TouchableOpacity>
                 <CartSummary totalAmount={totalAmount} />
             </View>
         </GradientBackground>
