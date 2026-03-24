@@ -71,7 +71,7 @@ export default function ProductCarousel() {
 			>
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
 					<Image
-						source={require('../../assets/basket.png')}
+						source={require('../../assets/Basket.png')}
 						style={{ tintColor: '#A4E000', width: 32, height: 32 }}
 						resizeMode="contain"
 					/>
