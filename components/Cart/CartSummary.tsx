@@ -14,33 +14,33 @@ export default function CartSummary ({ totalAmount } : { totalAmount : number}) 
     const fade3 = useRef(new Animated.Value(0.3)).current;
 
     useEffect(() => {
-    const animate = (anim: Animated.Value, delay : number) => {
-        Animated.loop(
-        Animated.sequence([
-            Animated.timing(anim, {
-                toValue: 1,
-                duration: 800,
-                delay,
-                useNativeDriver: true,
-            }),
-            Animated.timing(anim, {
-                toValue: 0.3,
-                duration: 800,
-                useNativeDriver: true,
-            }),
-        ])
-        ).start();
-    };
+        const animate = (anim: Animated.Value, delay : number) => {
+            Animated.loop(
+            Animated.sequence([
+                Animated.timing(anim, {
+                    toValue: 1,
+                    duration: 800,
+                    delay,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(anim, {
+                    toValue: 0.3,
+                    duration: 800,
+                    useNativeDriver: true,
+                }),
+            ])
+            ).start();
+        };
 
-    animate(fade1, 0);
-    animate(fade2, 150);
-    animate(fade3, 300);
+        animate(fade1, 0);
+        animate(fade2, 150);
+        animate(fade3, 300);
     }, []);
 
     return (
         <View style={styles.cartSummary}>
             <Image 
-                style={{ position: 'absolute', width: '100%', height: '100%', tintColor: COLOR.secondary }}
+                style={styles.image}
                 resizeMode="stretch"
                 source={require('../../assets/summary-panel.png')}
             />
@@ -72,10 +72,16 @@ const styles = StyleSheet.create({
     cartSummary: { 
         position: 'relative', 
         width: '100%', 
-        height: 250, 
+        height: 250,
         alignItems: 'center',
         justifyContent: 'flex-end',
         gap: 20
+    },
+    image: { 
+        position: 'absolute', 
+        width: '100%', 
+        height: '100%', 
+        tintColor: COLOR.secondary 
     },
     checkoutButtonContainer: {
         width: '90%',
