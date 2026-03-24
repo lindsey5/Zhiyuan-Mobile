@@ -127,6 +127,7 @@ const ProductScreen = () => {
                     decrementQuantity={decrementQuantity}
                     incrementQuantity={incrementQuantity}
                     quantity={quantity}
+                    selectedVariant={product.variants[selectedIndex]}
                 />
                 <AddToCartButton
                     handleAddToCart={handleAddToCart}

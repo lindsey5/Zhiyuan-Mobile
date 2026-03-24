@@ -7,11 +7,13 @@ export default function QuantitySelector(
     {
         incrementQuantity,
         decrementQuantity,
-        quantity
+        quantity,
+        selectedVariant
     }: {
         incrementQuantity: () => void;
         decrementQuantity: () => void;
         quantity: number;
+        selectedVariant?: Variant
     }
     ) {
     
@@ -23,7 +25,7 @@ export default function QuantitySelector(
         <QuantitySelectorButton
             onPress={decrementQuantity}
             imageSource={require("../../assets/SubtrButton.png")}
-            disabled={quantity <= 1}
+            disabled={quantity === 0}
         />
 
         <View style={styles.quantityWrapper}>
@@ -33,6 +35,7 @@ export default function QuantitySelector(
         <QuantitySelectorButton
             onPress={incrementQuantity}
             imageSource={require("../../assets/AddButton.png")}
+            disabled={quantity === selectedVariant?.stock}
         />
         </View>
     );

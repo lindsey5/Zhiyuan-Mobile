@@ -37,6 +37,7 @@ export default function VariantContainer ({
                             ]}>{variant.variant_name}</Text>
                         </View>
                         <Text>{formatToPeso(variant.price)}</Text>
+                        <Text style={[!variant.stock && { color: 'red' }]}>{variant.stock ? `Stock: ${variant.stock}` : 'Out of Stock'}</Text>
                     </View>
                 </TouchableOpacity>
             ))}
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     },
     variantButton: {
         maxWidth: '60%',
+        minWidth: 150,
         flexDirection: 'row',
         alignItems: 'center',
         padding: 6,
@@ -79,5 +81,7 @@ const styles = StyleSheet.create({
         color: '#333',
         flexWrap: 'wrap',
         width: '80%',
+        fontWeight: 'bold',
+        marginBottom: 5,
     },
 });
