@@ -30,7 +30,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
     >
       <View style={styles.iconContainer}>
         <Image
-          source={require('../../assets/basket.png')}
+          source={require('../../assets/Basket.png')}
           style={styles.cartIcon}
           resizeMode="contain"
         />
