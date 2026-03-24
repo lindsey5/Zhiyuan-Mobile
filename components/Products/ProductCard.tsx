@@ -25,7 +25,7 @@ export default function ProductCard ({ item } : { item: Product  }) {
                 {item.product_name}
             </CustomizedText>
             <CustomizedText style={{ fontSize: font20, fontWeight: 'bold' }}>
-                {formatToPeso(item.variants[0].price)}
+                {formatToPeso(Math.min(...item.variants.map(variant => variant.price)))}
             </CustomizedText>
         </TouchableOpacity> 
     )
