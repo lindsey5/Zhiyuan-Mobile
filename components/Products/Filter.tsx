@@ -55,8 +55,6 @@ export default function Filter({ setFilter } : FilterProps) {
         setVisible(false);
     };
 
-    console.log(data)
-
     return (
         <>
             <TouchableOpacity onPress={() => setVisible(true)}>
