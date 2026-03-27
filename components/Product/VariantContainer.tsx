@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     },
     variantButton: {
         maxWidth: '60%',
-        minWidth: 150,
         flexDirection: 'row',
         alignItems: 'center',
         padding: 6,

@@ -59,7 +59,7 @@ export default function ProductCarousel() {
 				source={{ uri: product.thumbnail_url}}
 				style={styles.image}
 			/>
-			<CustomizedText style={{ fontSize: 32, marginTop: 20 }}>{product.product_name}</CustomizedText>
+			<CustomizedText style={{ fontSize: 16, marginTop: 20, textAlign: 'center' }}>{product.product_name}</CustomizedText>
 			<TouchableOpacity 
 				style={styles.button}
 				onPress={handleAddToCart}

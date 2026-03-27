@@ -11,6 +11,7 @@ import SuccessCard from '@/components/ui/SuccessCard';
 import { useGetProduct } from '@/hooks/Product/use-get-product.hook';
 import LoadingScreen from '../ui/LoadingScreen';
 import VariantContainer from './VariantContainer';
+import ProductDescription from './ProductDescription';
 
 const { height } = Dimensions.get('screen');
 
@@ -115,34 +116,9 @@ const ProductScreen = () => {
                         variants={product.variants}
                         setSelectedIndex={setSelectedIndex}
                     />
-                    
                 </View>
-                <View style={{ width: "100%", minHeight: 200, padding: 10 }}>
-                    <CustomizedText style={styles.description}>Description:</CustomizedText>
-                    <WebView
-                        originWhitelist={["*"]}
-                        source={{
-                            html: `
-                            <html>
-                                <head>
-                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                <style>
-                                    body {
-                                    font-size: 20px;
-                                    }
-                                </style>
-                                </head>
-                                <body>
-                                ${product.description}
-                                </body>
-                            </html>
-                            `,
-                        }}
-                    style={{ width: "100%", backgroundColor: 'transparent'}}
-                />
-                </View>
+                <ProductDescription description={product.description} />
             </ScrollView>
-
             <View style={styles.bottomContainer}>
                 <QuantitySelector
                     decrementQuantity={decrementQuantity}
@@ -172,15 +148,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     headerText: {
-        width: '90%',
-        fontSize: 32,
+        width: '70%',
+        fontSize: 16,
         paddingLeft: 20,
     },
     scrollContainer: {
         alignItems: 'center',
     },
     content: {
-        marginTop: 30,
         gap: 10,
         alignItems: 'center',
         backgroundColor: 'transparent',

@@ -4,7 +4,7 @@ import SwipeableCartItem from "./CartItem";
 export default function CartItems ({ cart } : { cart : CartItem[] }) {
     const size = useResponsiveFontSize(80);
     const font20 = useResponsiveFontSize(20);
-    const font24 = useResponsiveFontSize(24);
+    const font16 = useResponsiveFontSize(16);
 
     return (
         <>
@@ -13,7 +13,7 @@ export default function CartItems ({ cart } : { cart : CartItem[] }) {
                 key={item.id}
                 item={item}
                 font20={font20}
-                font24={font24}
+                font16={font16}
                 size={size}
             />
         ))}

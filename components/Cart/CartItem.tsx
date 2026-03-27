@@ -9,7 +9,7 @@ import { useRouter } from "expo-router";
 const { width : SCREEN_WIDTH } = Dimensions.get('screen');
 const max_width = SCREEN_WIDTH * 0.2;
 
-export default function SwipeableCartItem({ item, size, font20, font24 }: { item : CartItem, size: number, font20: number, font24: number}) {
+export default function SwipeableCartItem({ item, size, font20, font16 }: { item : CartItem, size: number, font20: number, font16: number}) {
     const { removeItem } = useCartStore();
     const translateX = useRef(new Animated.Value(0)).current;
     const [show, setShow] = useState(false);
@@ -79,7 +79,7 @@ export default function SwipeableCartItem({ item, size, font20, font24 }: { item
 
                     <View style={{ flex: 1 }}>
                         <TouchableOpacity  onPress={() => router.push(`/product/${item.product_id}`)}>
-                            <CustomizedText style={{ fontSize: font24, marginBottom: 5 }} numberOfLines={2}>
+                            <CustomizedText style={{ fontSize: font16, marginBottom: 5 }} numberOfLines={2}>
                                 {item.variant_name}
                             </CustomizedText>
                         </TouchableOpacity>

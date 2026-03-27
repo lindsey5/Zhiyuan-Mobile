@@ -82,7 +82,7 @@ export default function Filter({ setFilter } : FilterProps) {
 
                         <TouchableWithoutFeedback>
                             <ScrollView style={styles.categoryContainer}>
-                                {data?.categories.map(category => (
+                                {data?.categories?.map(category => (
                                     <TouchableOpacity
                                         key={category.id}
                                         style={styles.category}
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     },
     categoryContainer: {
         width: '100%',
-        maxHeight: height * 0.35,
+        maxHeight: height * 0.30,
         marginTop: 10,
     },
     category: {
