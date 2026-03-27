@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image, FlatList, Dimensions } from "react-native";
+import { View, StyleSheet, Text, TextInput, FlatList, Dimensions, ActivityIndicator } from "react-native";
 import ProductCard from "@/components/Products/ProductCard";
 import React, { useEffect, useState } from "react";
 import { useGetProducts } from "@/hooks/Product/use-get-products.hook";
@@ -20,7 +20,7 @@ export default function ProductsScreen() {
         categories: [],
         minValue: undefined,
         maxValue: undefined,
-    })
+    });
     const [sortBy, setSortBy] = useState<{sortBy: string, order: 'ASC' | 'DESC'}>({ sortBy: 'product_name', order: 'ASC'});
     const { data, isLoading } = useGetProducts(page, limit, sortBy, filter, searchDebounce);
 
@@ -29,7 +29,6 @@ export default function ProductsScreen() {
         if (width > 600) return 3;
         return 2;
     };
-
     const numColumns = getNumColumns();
 
     useEffect(() => {
@@ -40,15 +39,12 @@ export default function ProductsScreen() {
     useEffect(() => {
         if (!data?.products) return;
 
-        page === 1 ? setProducts(data.products) : setProducts(prev => [...prev, ...data.products])
-
+        page === 1 ? setProducts(data.products) : setProducts(prev => [...prev, ...data.products]);
         if (data.totalPages) setHasMore(page < data.totalPages);
     }, [data, page]);
 
     const handleLoadMore = () => {
-        if (!isLoading && hasMore) {
-            setPage(prev => prev + 1);
-        }
+        if (!isLoading && hasMore) setPage(prev => prev + 1);
     };
 
     return (
@@ -56,20 +52,15 @@ export default function ProductsScreen() {
             key={numColumns}
             style={{ paddingBottom: 150 }}
             data={products}
-            keyExtractor={(_, index) => index.toString()}
+            keyExtractor={(item, index) => item.id?.toString() || index.toString()}
             onEndReachedThreshold={0.5}
             onEndReached={handleLoadMore}
             renderItem={({ item }) => (
-                <View style={[
-                    styles.item,
-                    { flex: 1 / numColumns, margin: 5 }
-                ]}>
+                <View style={[styles.item, { flex: 1 / numColumns, margin: 5 }]}>
                     <ProductCard item={item} key={item.id} />
                 </View>
             )}
-            columnWrapperStyle={{
-                paddingHorizontal: 10
-            }}
+            columnWrapperStyle={{ paddingHorizontal: 10 }}
             numColumns={numColumns}
             ListHeaderComponent={(
                 <>
@@ -91,6 +82,16 @@ export default function ProductsScreen() {
                 </View>
                 <Text style={styles.text}>All Products</Text>
                 </>
+            )}
+            ListFooterComponent={() => (
+                isLoading ? <ActivityIndicator size="large" color="#000" style={{ marginVertical: 20 }} /> : null
+            )}
+            ListEmptyComponent={() => (
+                !isLoading ? (
+                    <View style={styles.emptyContainer}>
+                        <Text style={styles.emptyText}>No Products Found</Text>
+                    </View>
+                ) : null
             )}
         />
     );
@@ -117,9 +118,8 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         paddingHorizontal: 15,
         height: 45,
-        boxShadow: "0px 4px 6px rgba(0,0,0,0.1)",
         marginHorizontal: 15,
-    },
+        },
     icon: {
         marginRight: 8,
     },
@@ -128,7 +128,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#000",
     },
-        item: {
+    item: {
         marginBottom: 15,
-    }
+    },
+    emptyContainer: {
+        marginTop: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    emptyText: {
+        fontSize: 18,
+        color: '#888',
+    },
 });
