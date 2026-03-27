@@ -12,10 +12,10 @@ import {
 } from "react-native";
 import BottomSheet from "../ui/BottomSheet";
 import { Check, X } from "lucide-react-native";
-import { CATEGORIES } from "@/lib/contants/contants";
 import Button from "../ui/Button";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import COLOR from "@/lib/contants/color";
+import { useGetCategories } from "@/hooks/Category/use-get-categories.hook";
 
 const { width, height } = Dimensions.get('screen');
 
@@ -31,6 +31,7 @@ export default function Filter({ setFilter } : FilterProps) {
     const [visible, setVisible] = useState(false);
     const [selectedItems, setSeletedItems] = useState<string[]>([]);
     const [priceRange, setPriceRange] = useState([0, 10000]);
+    const { data } = useGetCategories();
 
     const handleToggle = (category: string) => {
         if (selectedItems.includes(category)) {
@@ -53,6 +54,8 @@ export default function Filter({ setFilter } : FilterProps) {
         })
         setVisible(false);
     };
+
+    console.log(data)
 
     return (
         <>
@@ -81,26 +84,26 @@ export default function Filter({ setFilter } : FilterProps) {
 
                         <TouchableWithoutFeedback>
                             <ScrollView style={styles.categoryContainer}>
-                                {CATEGORIES.map(category => (
+                                {data?.categories.map(category => (
                                     <TouchableOpacity
-                                        key={category}
+                                        key={category.id}
                                         style={styles.category}
-                                        onPress={() => handleToggle(category)}
+                                        onPress={() => handleToggle(category.name)}
                                     >
                                         <Text style={styles.categoryText}>
-                                            {category}
+                                            {category.name}
                                         </Text>
 
                                         <View
                                             style={[
                                                 styles.checkbox,
-                                                selectedItems.includes(category) && {
+                                                selectedItems.includes(category.name) && {
                                                     backgroundColor: '#000',
                                                     borderWidth: 0
                                                 }
                                             ]}
                                         >
-                                            {selectedItems.includes(category) && (
+                                            {selectedItems.includes(category.name) && (
                                                 <Check size={20} color="#fff" />
                                             )}
                                         </View>
