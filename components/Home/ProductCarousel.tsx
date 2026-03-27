@@ -60,11 +60,6 @@ export default function ProductCarousel() {
 				style={styles.image}
 			/>
 			<CustomizedText style={{ fontSize: 32, marginTop: 20 }}>{product.product_name}</CustomizedText>
-			<CustomizedText 
-				style={{ fontSize: 18, marginVertical: 16, textAlign: "center", opacity: 0.6 }} 
-				ellipsizeMode="tail" 
-				numberOfLines={3}
-			>{product.description}</CustomizedText>
 			<TouchableOpacity 
 				style={styles.button}
 				onPress={handleAddToCart}

@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { useMemo, useState } from 'react';
+import { View, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Text } from 'react-native';
 import { useLocalSearchParams } from "expo-router";
-
+import { WebView } from "react-native-webview";
 import AddToCartButton from '@/components/Product/AddToCartButton';
 import CustomizedText from '@/components/ui/Text';
 import QuantitySelector from '@/components/Product/QuantitySelector';
@@ -84,7 +84,7 @@ const ProductScreen = () => {
                 onClose={() => setShowSuccess(false)}
             />
 
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scrollContainer}>
                 <View style={styles.content}>
                     <View style={styles.imageSlider}>
                         <TouchableOpacity onPress={prevIndex} style={{ opacity: selectedIndex === 0 ? 0.2 : 1}}>
@@ -110,15 +110,36 @@ const ProductScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                    <CustomizedText style={styles.description} numberOfLines={3}>
-                        {product.description}
-                    </CustomizedText>
                     <VariantContainer 
                         selectedIndex={selectedIndex}
                         variants={product.variants}
                         setSelectedIndex={setSelectedIndex}
                     />
                     
+                </View>
+                <View style={{ width: "100%", minHeight: 200, padding: 10 }}>
+                    <CustomizedText style={styles.description}>Description:</CustomizedText>
+                    <WebView
+                        originWhitelist={["*"]}
+                        source={{
+                            html: `
+                            <html>
+                                <head>
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <style>
+                                    body {
+                                    font-size: 20px;
+                                    }
+                                </style>
+                                </head>
+                                <body>
+                                ${product.description}
+                                </body>
+                            </html>
+                            `,
+                        }}
+                    style={{ width: "100%", backgroundColor: 'transparent'}}
+                />
                 </View>
             </ScrollView>
 
@@ -189,11 +210,8 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 20,
-        color: '#A0A0A0',
-        textAlign: 'center',
-        fontStyle: 'italic',
         lineHeight: 24,
-        width: '70%',
+        marginBottom: 10
     },
     bottomContainer: {
         gap: 20,
