@@ -45,7 +45,6 @@
       "reactCompiler": true
     },
     "extra": {
-      "EXPO_PUBLIC_API_URL": "https://zhiyuan-backend.onrender.com",
       "router": {},
       "eas": {
         "projectId": "4fde5b0e-c152-48c4-813b-9f4d01393254"
