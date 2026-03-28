@@ -11,7 +11,7 @@ export default function Layout () {
         <GradientBackground>
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => router.push('/main')}>
+                    <TouchableOpacity onPress={() => router.push('/')}>
                         <Image 
                             style={{ width: 70, height: 70 }}
                             resizeMode="contain"

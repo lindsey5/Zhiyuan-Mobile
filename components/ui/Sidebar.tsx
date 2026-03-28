@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     },
     closeText: { 
         fontSize: 24, 
-        color: 'white', 
         fontWeight: "bold" 
     }
 });

@@ -15,9 +15,9 @@ const Home = () => {
             <View style={styles.sliderWrapper}>
                 <ImageSlider
                 images={[
-                    require("../../../assets/images/image1.jpg"),
-                    require("../../../assets/images/image1.jpg"),
-                    require("../../../assets/images/image1.jpg"),
+                    require("../../assets/images/image1.jpg"),
+                    require("../../assets/images/image1.jpg"),
+                    require("../../assets/images/image1.jpg"),
                 ]}
                 />
             </View>

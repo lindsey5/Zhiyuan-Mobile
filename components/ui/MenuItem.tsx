@@ -11,7 +11,7 @@ type Item = {
 const items : Item[] = [
     { 
         text: "Home",
-        path: "/main",
+        path: "/",
     },
     {
         text: "Products",
