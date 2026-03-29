@@ -47,8 +47,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "4fde5b0e-c152-48c4-813b-9f4d01393254"
+        "projectId": "3b84864f-09f9-433e-97bc-ea669c094c27"
       }
-    }
+    },
+    "owner": "lindseysamson89"
   }
 }
