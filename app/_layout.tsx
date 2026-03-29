@@ -11,21 +11,21 @@ export default function RootLayout() {
         ADLaMDisplay: require('../assets/fonts/ADLaMDisplay-Regular.ttf'),
     });
 
-    if (!fontsLoaded) {
-        return null;
-    }
-
     async function setupNavBar() {
-      // Hide nav bar
-      await NavigationBar.setVisibilityAsync("hidden");
-
-      // Enable swipe to temporarily show it
-      await NavigationBar.setBehaviorAsync("overlay-swipe");
+        // Hide nav bar
+        await NavigationBar.setVisibilityAsync("hidden");
+            
+        // Enable swipe to temporarily show it
+        await NavigationBar.setBehaviorAsync("overlay-swipe");
     }
 
     useEffect(() => {
         setupNavBar();
     }, []);
+
+    if (!fontsLoaded) {
+        return null;
+    }
 
     return (
         <QueryClientProvider client={queryClient}>
