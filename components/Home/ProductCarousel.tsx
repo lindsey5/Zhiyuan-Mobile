@@ -7,21 +7,26 @@ import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import { useRouter } from "expo-router";
 import { useGetProducts } from "@/hooks/Product/use-get-products.hook";
 import { formatToPeso } from "@/utils/format";
+import COLOR from "@/lib/contants/color";
+import usePulseAnimation from "@/hooks/usePulseAnimation";
 
 export default function ProductCarousel() {
-	const { width } = useWindowDimensions();
-	const progress = useSharedValue<number>(0);
 	const windowWidth = Dimensions.get("window").width;
 	const windowHeight = Dimensions.get("window").height;
+	const progress = useSharedValue<number>(0);
+
 	const font22 = useResponsiveFontSize(22);
 
 	const itemWidth = windowWidth * 0.7;
 	const sideSpacing = (windowWidth - itemWidth) / 0.8;
 
 	const router = useRouter();
-	const { data } = useGetProducts(1, 10, { sortBy: 'product_name', order: 'ASC'}, { categories: [], minPrice: 0, maxPrice: 10000 });
 
-	function renderItem(info: { item: Product; index: number }) {
+	const pulseStyle = usePulseAnimation();
+
+	const { data, isLoading } = useGetProducts(1, 10, { sortBy: 'product_name', order: 'ASC'}, { categories: [], minPrice: 0, maxPrice: 10000 });
+
+	function renderItem(info: { item: Product, index: number }) {
 		const product = info.item;
 		const index = info.index;
 
@@ -50,40 +55,68 @@ export default function ProductCarousel() {
 		});
 
 		const handleAddToCart = () => {
-			router.push(`/product/${product.id}`);
+			router.push(`/product/${product?.id}`);
 		};
 
+		if(isLoading || !data) {
+			return (
+				<Animated.View style={[styles.itemContainer, animatedStyle]}>
+					<Animated.View style={[styles.skeletonImage, pulseStyle]} />
+					<Animated.View style={[styles.skeletonTitle, pulseStyle]} />
+					<Animated.View style={[styles.skeletonButton, pulseStyle]} />
+				</Animated.View>
+			);
+		}
+
 		return (
-		<Animated.View style={[styles.itemContainer, animatedStyle]}>
-			<Image
-				source={{ uri: product.thumbnail_url}}
-				style={styles.image}
-			/>
-			<CustomizedText style={{ fontSize: 16, marginTop: 20, textAlign: 'center' }}>{product.product_name}</CustomizedText>
-			<TouchableOpacity 
-				style={styles.button}
-				onPress={handleAddToCart}
-			>
-				<View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-					<Image
-						source={require('../../assets/Basket.png')}
-						style={{ tintColor: '#A4E000', width: 32, height: 32 }}
-						resizeMode="contain"
-					/>
-					<CustomizedText style={[styles.buttonText, { fontSize: font22 }]} onPress={handleAddToCart}>Add to Cart</CustomizedText>
-				</View>
-				<CustomizedText style={[styles.buttonText, { fontSize: font22 }]}>{formatToPeso(product.variants[0].price)}</CustomizedText>
-			</TouchableOpacity>
-		</Animated.View>
+			<Animated.View style={[styles.itemContainer, animatedStyle]}>
+				<Image
+					source={{ uri: product.thumbnail_url}}
+					style={styles.image}
+				/>
+				<CustomizedText style={{ fontSize: font22, marginTop: 20, textAlign: 'center' }}>{product.product_name}</CustomizedText>
+				<TouchableOpacity 
+					style={styles.button}
+					onPress={handleAddToCart}
+				>
+					<View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
+						<Image
+							source={require('../../assets/Basket.png')}
+							style={{ tintColor: '#A4E000', width: 32, height: 32 }}
+							resizeMode="contain"
+						/>
+						<CustomizedText style={[styles.buttonText, { fontSize: font22 }]} onPress={handleAddToCart}>Add to Cart</CustomizedText>
+					</View>
+					<CustomizedText style={[styles.buttonText, { fontSize: font22 }]}>{formatToPeso(product.variants[0].price)}</CustomizedText>
+				</TouchableOpacity>
+			</Animated.View>
 		);
 	}
+	const placeholderProduct : Product = { 
+		id: 1, 
+		product_name: '', 
+		description: '',
+		category: '',
+		thumbnail_public_id: '',
+		thumbnail_url: '',
+		variants: [{ 
+			id: 1,
+			image_public_id: '',
+			image_url: '',
+			product_id: 1,
+			sku: '',
+			stock: 1,
+			variant_name: '',
+			price: 0 
+		}] 
+	};
 
 	return (
 		<View style={styles.carouselContainer}>
 			<Carousel
-				data={data?.products || []}
+				data={isLoading || !data ? Array.from({ length: 3 }, (_, i) => (placeholderProduct)) : data.products}
 				loop
-				width={width >= 768 ? itemWidth : windowWidth * 0.9}
+				width={windowWidth >= 768 ? itemWidth : windowWidth * 0.9}
 				height={Math.max(windowHeight * 0.6, 500)}
 				mode="parallax"
 				modeConfig={{
@@ -93,7 +126,7 @@ export default function ProductCarousel() {
 				pagingEnabled
 				snapEnabled
 				onProgressChange={(_, absoluteProgress) => {
-				progress.value = absoluteProgress;
+					progress.value = absoluteProgress;
 				}}
 				renderItem={renderItem}
 			/>
@@ -112,7 +145,7 @@ const styles = StyleSheet.create({
 		flex: 1,
         borderRadius: 25,
         padding: 30,
-        backgroundColor: "#fff",
+        backgroundColor: COLOR.panel,
         alignItems: "center",
         elevation: 4,
         boxShadow: "0px 4px 6px rgba(0,0,0,0.3)"
@@ -138,5 +171,28 @@ const styles = StyleSheet.create({
 	buttonText: {
 		color: "#fff", 
 		fontWeight: '500'
-	}
+	},
+    skeletonImage: {
+        width: "100%",
+        flex: 1,
+        borderRadius: 12,
+        backgroundColor: COLOR.skeleton,
+    },
+    skeletonTitle: {
+        width: "70%",
+        height: 20,
+        borderRadius: 10,
+        marginTop: 20,
+        backgroundColor: COLOR.skeleton,
+    },
+
+    skeletonButton: {
+        maxWidth: 400,
+		marginTop: 20, 
+		backgroundColor: COLOR.skeleton, 
+		paddingHorizontal: 12,
+		paddingVertical: 30,
+		width: "100%",
+		borderRadius: 50,
+    },
 });

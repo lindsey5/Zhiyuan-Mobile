@@ -6,6 +6,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { Ionicons } from "@expo/vector-icons"; 
 import SortMenu from "./SortMenu";
 import Filter from "./Filter";
+import ProductCardSkeleton from "./ProductCardSkeleton";
 
 const { width } = Dimensions.get('screen');
 
@@ -23,6 +24,7 @@ export default function ProductsScreen() {
     });
     const [sortBy, setSortBy] = useState<{sortBy: string, order: 'ASC' | 'DESC'}>({ sortBy: 'product_name', order: 'ASC'});
     const { data, isLoading } = useGetProducts(page, limit, sortBy, filter, searchDebounce);
+    const skeletonData = Array.from({ length: 6 }).map((_, index) => ({ id: `skeleton-${index}` }));
 
     const getNumColumns = () => {
         if (width > 900) return 4;
@@ -48,16 +50,20 @@ export default function ProductsScreen() {
     };
 
     return (
-        <FlatList 
+        <FlatList<Product | { id: string }>
             key={numColumns}
             style={{ paddingBottom: 150 }}
-            data={products}
+            data={products.length > 0 ? products : skeletonData}
             keyExtractor={(item, index) => item.id?.toString() || index.toString()}
             onEndReachedThreshold={0.5}
             onEndReached={handleLoadMore}
             renderItem={({ item }) => (
                 <View style={[styles.item, { flex: 1 / numColumns, margin: 5 }]}>
-                    <ProductCard item={item} key={item.id} />
+                    {item.id.toString().startsWith("skeleton") ? (
+                        <ProductCardSkeleton />
+                    ) : (
+                        <ProductCard item={item as Product} />
+                    )}
                 </View>
             )}
             columnWrapperStyle={{ paddingHorizontal: 10 }}
@@ -87,11 +93,11 @@ export default function ProductsScreen() {
                 isLoading ? <ActivityIndicator size="large" color="#000" style={{ marginVertical: 20 }} /> : null
             )}
             ListEmptyComponent={() => (
-                !isLoading ? (
+                !isLoading &&  (
                     <View style={styles.emptyContainer}>
                         <Text style={styles.emptyText}>No Products Found</Text>
                     </View>
-                ) : null
+                )
             )}
         />
     );
