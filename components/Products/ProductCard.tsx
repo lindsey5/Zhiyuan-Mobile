@@ -10,7 +10,7 @@ export default function ProductCard ({ item } : { item: Product  }) {
     const router = useRouter();
 
     const handleAddToCart = () => {
-        router.push(`/product/${item.id}`);
+        router.push(`/product/${item._id}`);
     };
 
     return (

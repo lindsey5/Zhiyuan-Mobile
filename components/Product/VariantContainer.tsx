@@ -17,10 +17,10 @@ export default function VariantContainer ({
         <View style={styles.variantsContainer}>
             {variants.map((variant, index) => (
                 <TouchableOpacity
-                    key={variant.id}
+                    key={variant._id}
                     style={[
                         styles.variantButton,
-                        variants[selectedIndex]?.id === variant.id && styles.activeVariantButton,
+                        variants[selectedIndex]?._id === variant._id && styles.activeVariantButton,
                     ]}
                     onPress={() => setSelectedIndex(index)}
                 >
@@ -33,7 +33,7 @@ export default function VariantContainer ({
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
                         <Text style={[
                                 styles.variantText,
-                                variants[selectedIndex]?.id === variant.id && { color: '#E8B84A', fontWeight: 'bold' }
+                                variants[selectedIndex]?._id === variant._id && { color: '#E8B84A', fontWeight: 'bold' }
                             ]}>{variant.variant_name}</Text>
                         </View>
                         <Text>{formatToPeso(variant.price)}</Text>

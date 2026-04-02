@@ -24,7 +24,7 @@ export default function ProductsScreen() {
     });
     const [sortBy, setSortBy] = useState<{sortBy: string, order: 'ASC' | 'DESC'}>({ sortBy: 'product_name', order: 'ASC'});
     const { data, isLoading } = useGetProducts(page, limit, sortBy, filter, searchDebounce);
-    const skeletonData = Array.from({ length: 6 }).map((_, index) => ({ id: `skeleton-${index}` }));
+    const skeletonData = Array.from({ length: 6 }).map((_, index) => ({ _id: `skeleton-${index}` }));
 
     const getNumColumns = () => {
         if (width > 900) return 4;
@@ -50,16 +50,16 @@ export default function ProductsScreen() {
     };
 
     return (
-        <FlatList<Product | { id: string }>
+        <FlatList<Product | { _id: string }>
             key={numColumns}
             style={{ paddingBottom: 150 }}
             data={products.length > 0 ? products : skeletonData}
-            keyExtractor={(item, index) => item.id?.toString() || index.toString()}
+            keyExtractor={(item, index) => item._id || index.toString()}
             onEndReachedThreshold={0.5}
             onEndReached={handleLoadMore}
             renderItem={({ item }) => (
                 <View style={[styles.item, { flex: 1 / numColumns, margin: 5 }]}>
-                    {item.id.toString().startsWith("skeleton") ? (
+                    {item._id.startsWith("skeleton") ? (
                         <ProductCardSkeleton />
                     ) : (
                         <ProductCard item={item as Product} />

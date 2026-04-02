@@ -6,9 +6,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 type CartState = {
   cart: CartItem[];
   addItem: (item: CartItem) => void;
-  removeItem: (id: number) => void;
-  increaseQuantity: (id: number) => void;
-  decreaseQuantity: (id: number) => void;
+  removeItem: (id: string) => void;
+  increaseQuantity: (id: string) => void;
+  decreaseQuantity: (id: string) => void;
   clearCart: () => void;
 };
 
@@ -23,11 +23,11 @@ export const useCartStore = create<CartState>()(
       cart: [],
 
       addItem: (item) => {
-        const existing = get().cart.find((i) => i.id === item.id);
+        const existing = get().cart.find((i) => i._id === item._id);
 
         if (existing) {
           set({
-            cart: get().cart.map((i) => i.id === item.id ? 
+            cart: get().cart.map((i) => i._id === item._id ? 
             { ...i, quantity: i.quantity + item.quantity, amount: i.amount + item.amount }
             : i),
           });
@@ -36,15 +36,17 @@ export const useCartStore = create<CartState>()(
         }
       },
 
-      removeItem: (id) =>
+      removeItem: (id) =>{
+        console.log(id)
         set({
-          cart: get().cart.filter((item) => item.id !== id),
-        }),
+          cart: get().cart.filter((item) => item._id !== id),
+        })
+      },
 
       increaseQuantity: (id) =>
         set({
           cart: get().cart.map((item) =>
-            item.id === id
+            item._id === id
               ? { ...item, quantity: item.quantity + 1 }
               : item
           ),
@@ -54,7 +56,7 @@ export const useCartStore = create<CartState>()(
         set({
           cart: get()
             .cart.map((item) =>
-              item.id === id
+              item._id === id
                 ? { ...item, quantity: item.quantity - 1 }
                 : item
             )

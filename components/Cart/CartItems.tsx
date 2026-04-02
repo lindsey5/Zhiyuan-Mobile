@@ -10,7 +10,7 @@ export default function CartItems ({ cart } : { cart : CartItem[] }) {
         <>
         {cart.map(item => (
             <SwipeableCartItem 
-                key={item.id}
+                key={item._id}
                 item={item}
                 font20={font20}
                 font16={font16}

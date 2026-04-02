@@ -1,5 +1,5 @@
 interface Product{
-    id: number;
+    _id: string;
     product_name: string;
     description: string;
     thumbnail_public_id: string;
@@ -9,7 +9,7 @@ interface Product{
 }
 
 interface Variant {
-    id: number;
+    _id: string;
     product_id: number;
     variant_name: string;
     stock: number;

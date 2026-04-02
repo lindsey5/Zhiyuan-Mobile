@@ -55,7 +55,7 @@ export default function SwipeableCartItem({ item, size, font20, font16 }: { item
         <View style={styles.wrapper}>
             
             {/* DELETE BUTTON */}
-            {show && <TouchableOpacity style={styles.deleteButton} onPress={() => removeItem(item.id)}>
+            {show && <TouchableOpacity style={styles.deleteButton} onPress={() => removeItem(item._id)}>
                 <Text style={{ color: "white", fontWeight: "bold" }}>Remove</Text>
             </TouchableOpacity>}
 

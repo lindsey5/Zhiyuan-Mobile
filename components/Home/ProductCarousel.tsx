@@ -55,7 +55,7 @@ export default function ProductCarousel() {
 		});
 
 		const handleAddToCart = () => {
-			router.push(`/product/${product?.id}`);
+			router.push(`/product/${product?._id}`);
 		};
 
 		if(isLoading || !data) {
@@ -93,14 +93,14 @@ export default function ProductCarousel() {
 		);
 	}
 	const placeholderProduct : Product = { 
-		id: 1, 
+		_id: "", 
 		product_name: '', 
 		description: '',
 		category: '',
 		thumbnail_public_id: '',
 		thumbnail_url: '',
 		variants: [{ 
-			id: 1,
+			_id: "",
 			image_public_id: '',
 			image_url: '',
 			product_id: 1,

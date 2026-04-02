@@ -29,7 +29,7 @@ export default function CategorySelection({ selectedItems, handleToggle }: Categ
             <ScrollView style={styles.categoryContainer}>
                 {data?.categories?.map(category => (
                     <TouchableOpacity
-                        key={category.id}
+                        key={category._id}
                         style={styles.category}
                         onPress={() => handleToggle(category.name)}
                     >

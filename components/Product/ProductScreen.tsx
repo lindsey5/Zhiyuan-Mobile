@@ -20,7 +20,7 @@ const ProductScreen = () => {
     const { addItem } = useCartStore();
     const [quantity, setQuantity] = useState<number>(1);
     const [showSuccess, setShowSuccess] = useState(false);
-    const { data, isLoading } = useGetProduct(Number(id));
+    const { data, isLoading } = useGetProduct(id as string);
     const product = data?.product;
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
@@ -38,9 +38,9 @@ const ProductScreen = () => {
         const selectedVariant = product?.variants[selectedIndex]
         if (selectedVariant) {
             addItem({
-                id: selectedVariant.id,
+                _id: selectedVariant._id,
                 image: selectedVariant.image_url,
-                product_id: product?.id || 0,
+                product_id: product._id,
                 variant_name: selectedVariant.variant_name,
                 amount: totalPrice,
                 quantity,
