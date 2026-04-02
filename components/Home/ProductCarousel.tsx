@@ -24,7 +24,7 @@ export default function ProductCarousel() {
 
 	const pulseStyle = usePulseAnimation();
 
-	const { data, isLoading } = useGetProducts(1, 10, { sortBy: 'product_name', order: 'ASC'}, { categories: [], minPrice: 0, maxPrice: 10000 });
+	const { data, isFetching } = useGetProducts(1, 10, { sortBy: 'product_name', order: 'ASC'}, { categories: [], minPrice: 0, maxPrice: 10000 });
 
 	function renderItem(info: { item: Product, index: number }) {
 		const product = info.item;
@@ -58,7 +58,7 @@ export default function ProductCarousel() {
 			router.push(`/product/${product?._id}`);
 		};
 
-		if(isLoading || !data) {
+		if(isFetching || !data) {
 			return (
 				<Animated.View style={[styles.itemContainer, animatedStyle]}>
 					<Animated.View style={[styles.skeletonImage, pulseStyle]} />
@@ -114,7 +114,7 @@ export default function ProductCarousel() {
 	return (
 		<View style={styles.carouselContainer}>
 			<Carousel
-				data={isLoading || !data ? Array.from({ length: 3 }, (_, i) => (placeholderProduct)) : data.products}
+				data={isFetching ? Array.from({ length: 3 }, (_, i) => (placeholderProduct)) : data?.products || []}
 				loop
 				width={windowWidth >= 768 ? itemWidth : windowWidth * 0.9}
 				height={Math.max(windowHeight * 0.6, 500)}

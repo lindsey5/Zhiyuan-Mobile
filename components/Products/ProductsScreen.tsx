@@ -23,7 +23,7 @@ export default function ProductsScreen() {
         maxValue: undefined,
     });
     const [sortBy, setSortBy] = useState<{sortBy: string, order: 'ASC' | 'DESC'}>({ sortBy: 'product_name', order: 'ASC'});
-    const { data, isLoading } = useGetProducts(page, limit, sortBy, filter, searchDebounce);
+    const { data, isFetching } = useGetProducts(page, limit, sortBy, filter, searchDebounce);
     const skeletonData = Array.from({ length: 6 }).map((_, index) => ({ _id: `skeleton-${index}` }));
 
     const getNumColumns = () => {
@@ -31,6 +31,7 @@ export default function ProductsScreen() {
         if (width > 600) return 3;
         return 2;
     };
+
     const numColumns = getNumColumns();
 
     useEffect(() => {
@@ -46,14 +47,14 @@ export default function ProductsScreen() {
     }, [data, page]);
 
     const handleLoadMore = () => {
-        if (!isLoading && hasMore) setPage(prev => prev + 1);
+        if (!isFetching && hasMore) setPage(prev => prev + 1);
     };
 
     return (
         <FlatList<Product | { _id: string }>
             key={numColumns}
             style={{ paddingBottom: 150 }}
-            data={products.length > 0 ? products : skeletonData}
+            data={isFetching ? skeletonData : products}
             keyExtractor={(item, index) => item._id || index.toString()}
             onEndReachedThreshold={0.5}
             onEndReached={handleLoadMore}
@@ -90,10 +91,10 @@ export default function ProductsScreen() {
                 </>
             )}
             ListFooterComponent={() => (
-                isLoading ? <ActivityIndicator size="large" color="#000" style={{ marginVertical: 20 }} /> : null
+                isFetching ? <ActivityIndicator size="large" color="#000" style={{ marginVertical: 20 }} /> : null
             )}
             ListEmptyComponent={() => (
-                !isLoading &&  (
+                !isFetching &&  (
                     <View style={styles.emptyContainer}>
                         <Text style={styles.emptyText}>No Products Found</Text>
                     </View>
