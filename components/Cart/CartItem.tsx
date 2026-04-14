@@ -1,19 +1,24 @@
 import { formatToPeso } from "@/utils/format";
-import { useRef, useState } from "react";
-import { PanResponder, Animated, View, Image, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { useMemo, useRef, useState } from "react";
+import { PanResponder, Animated, View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import CustomizedText from "../ui/Text";
 import COLOR from "@/lib/contants/color";
 import { useCartStore } from "@/lib/store/cartStore";
 import { useRouter } from "expo-router";
+import CartQuantitySelector from "./CartQuantitySelector";
+import { useGetVariant } from "@/hooks/Variant/use-get-variant.hook";
+import Chip from "../ui/Chip";
 
-const { width : SCREEN_WIDTH } = Dimensions.get('screen');
-const max_width = SCREEN_WIDTH * 0.2;
-
-export default function SwipeableCartItem({ item, size, font20, font16 }: { item : CartItem, size: number, font20: number, font16: number}) {
+export default function SwipeableCartItem({ item, size, font20, font16 }: { item : CartItem, size: number, font20: number, font16: number }) {
     const { removeItem } = useCartStore();
     const translateX = useRef(new Animated.Value(0)).current;
     const [show, setShow] = useState(false);
     const router = useRouter();
+    const { data } = useGetVariant(item.variant_id);
+
+    const totalAmount = useMemo(() => {
+        return item.quantity * item.price
+    }, [item])
 
     const panResponder = useRef(
         PanResponder.create({
@@ -55,9 +60,11 @@ export default function SwipeableCartItem({ item, size, font20, font16 }: { item
         <View style={styles.wrapper}>
             
             {/* DELETE BUTTON */}
-            {show && <TouchableOpacity style={styles.deleteButton} onPress={() => removeItem(item._id)}>
-                <Text style={{ color: "white", fontWeight: "bold" }}>Remove</Text>
-            </TouchableOpacity>}
+            {show && (
+                <TouchableOpacity style={styles.deleteButton} onPress={() => removeItem(item.variant_id)}>
+                    <Text style={{ color: "white", fontWeight: "bold" }}>Remove</Text>
+                </TouchableOpacity>
+            )}
 
             {/* SWIPEABLE CONTENT */}
             <Animated.View
@@ -67,31 +74,41 @@ export default function SwipeableCartItem({ item, size, font20, font16 }: { item
                     { transform: [{ translateX }] }
                 ]}
             >
-                <View style={{ flexDirection: 'row', flex: 1, gap: 10, alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', flex: 1, gap: 10, alignItems: 'flex-start' }}>
                     
                     <View style={[styles.cartItemImageContainer, { width: size, height: size }]}>
                         <Image
                             style={{ width: '100%', height: '100%', borderRadius: 40 }}
-                            source={{ uri: item.image }}
+                            source={{ uri: data?.variant?.image_url }}
                             resizeMode="cover"
                         />
                     </View>
 
-                    <View style={{ flex: 1 }}>
+                    <View style={{ flex: 1, gap: 5 }}>
                         <TouchableOpacity  onPress={() => router.push(`/product/${item.product_id}`)}>
                             <CustomizedText style={{ fontSize: font16, marginBottom: 5 }} numberOfLines={2}>
-                                {item.variant_name}
+                                {data?.variant.product.product_name}
                             </CustomizedText>
+                            <Chip label={data?.variant.variant_name || ""} variant="primary" />
                         </TouchableOpacity>
-                        <Text>Price: {formatToPeso(item.price)}</Text>
-                        <Text>Quantity: {item.quantity}</Text>
+                        <Text style={{ marginTop: 8 }}>Price: {formatToPeso(item.price || 0)}</Text>
+                        <CartQuantitySelector 
+                            stock={data?.variant?.stock || 0} 
+                            variant_id={data?.variant?._id || ""} 
+                            quantity={item.quantity || 0}
+                        />
                     </View>
 
                 </View>
 
-                <CustomizedText style={{ fontSize: font20 }}>
-                    {formatToPeso(item.amount)}
-                </CustomizedText>
+                <View style={{ flexDirection: 'column', alignItems: 'flex-end', gap: 5 }}>
+                    <CustomizedText style={{ fontSize: font20 }}>
+                        {formatToPeso(totalAmount)}
+                    </CustomizedText>
+                    <CustomizedText style={{ fontSize: font16 }}>
+                        Stock: {data?.variant.stock}
+                    </CustomizedText>
+                </View>
             </Animated.View>
 
         </View>
@@ -121,9 +138,9 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingVertical: 10,
         paddingHorizontal: 5,
+        gap: 20,
         borderColor: '#999999',
         justifyContent: 'space-between',
-        alignItems: 'center',
     },
     cartItemImageContainer: {
         borderRadius: 40,

@@ -1,4 +1,4 @@
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import * as NavigationBar from 'expo-navigation-bar';

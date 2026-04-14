@@ -1,3 +1,4 @@
 interface AxiosResponse {
-    success: boolean
+    success: boolean;
+    message?: string;
 }

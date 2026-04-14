@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, Dimensions } from "react-native";
-import QuantitySelectorButton from "./QuantitySelectorButton";
+import ProductQuantitySelectorButton from "./ProductQuantitySelectorButton";
 import { useMemo } from "react";
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 
-export default function QuantitySelector(
+export default function ProductQuantitySelector(
     {
         incrementQuantity,
         decrementQuantity,
@@ -22,7 +22,7 @@ export default function QuantitySelector(
 
     return (
         <View style={styles.quantityContainer}>
-        <QuantitySelectorButton
+        <ProductQuantitySelectorButton
             onPress={decrementQuantity}
             imageSource={require("../../assets/SubtrButton.png")}
             disabled={quantity === 0}
@@ -32,7 +32,7 @@ export default function QuantitySelector(
             <Text style={[styles.quantityText, { fontSize: font60 }]}>{formattedQuantity}</Text>
         </View>
 
-        <QuantitySelectorButton
+        <ProductQuantitySelectorButton
             onPress={incrementQuantity}
             imageSource={require("../../assets/AddButton.png")}
             disabled={quantity === selectedVariant?.stock}

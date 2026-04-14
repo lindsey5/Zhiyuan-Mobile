@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react';
 import { View, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Text } from 'react-native';
 import { useLocalSearchParams } from "expo-router";
-import { WebView } from "react-native-webview";
 import AddToCartButton from '@/components/Product/AddToCartButton';
 import CustomizedText from '@/components/ui/Text';
-import QuantitySelector from '@/components/Product/QuantitySelector';
+import ProductQuantitySelector from '@/components/Product/ProductQuantitySelector';
 import MenuButton from '@/components/ui/Menu';
 import { useCartStore } from '@/lib/store/cartStore';
 import SuccessCard from '@/components/ui/SuccessCard';
@@ -38,12 +37,10 @@ const ProductScreen = () => {
         const selectedVariant = product?.variants[selectedIndex]
         if (selectedVariant) {
             addItem({
-                _id: selectedVariant._id,
-                image: selectedVariant.image_url,
+                variant_id: selectedVariant._id,
                 product_id: product._id,
-                variant_name: selectedVariant.variant_name,
-                amount: totalPrice,
                 quantity,
+                total_amount: selectedVariant.price * quantity,
                 price: selectedVariant.price
             });
             setShowSuccess(true);
@@ -120,7 +117,7 @@ const ProductScreen = () => {
                 <ProductDescription description={product.description} />
             </ScrollView>
             <View style={styles.bottomContainer}>
-                <QuantitySelector
+                <ProductQuantitySelector
                     decrementQuantity={decrementQuantity}
                     incrementQuantity={incrementQuantity}
                     quantity={quantity}

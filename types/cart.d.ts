@@ -1,10 +1,8 @@
-
 interface CartItem {
-    _id: string;
+    variant_id: string;
     product_id: string;
+    quantity: number;
     price: number;
     quantity: number;
-    image: string;
-    amount: number;
-    variant_name: string;
+    total_amount: number;
 }

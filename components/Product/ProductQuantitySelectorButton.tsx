@@ -6,14 +6,14 @@ import {
   ImageSourcePropType,
 } from 'react-native';
 
-interface QuantitySelectorButtonProps {
+interface ProductQuantitySelectorButtonProps {
   onPress: () => void;
   imageSource: ImageSourcePropType; 
   disabled?: boolean;
   size?: number;
 }
 
-const QuantitySelectorButton: React.FC<QuantitySelectorButtonProps> = ({
+const ProductQuantitySelectorButton: React.FC<ProductQuantitySelectorButtonProps> = ({
   onPress,
   imageSource,
   disabled = false,
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuantitySelectorButton;
+export default ProductQuantitySelectorButton;

@@ -67,10 +67,7 @@ const SuccessCard: React.FC<SuccessCardProps> = ({ visible, message, onClose, du
         <Animated.View
             style={[
             styles.card,
-            {
-                opacity: opacityAnim,
-                transform: [{ translateY: slideAnim }],
-            },
+            { opacity: opacityAnim, transform: [{ translateY: slideAnim }], },
             ]}
         >
             <CheckCircle size={48} color={COLOR.highlight} />

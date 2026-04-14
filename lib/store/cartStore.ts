@@ -23,12 +23,12 @@ export const useCartStore = create<CartState>()(
       cart: [],
 
       addItem: (item) => {
-        const existing = get().cart.find((i) => i._id === item._id);
+        const existing = get().cart.find((i) => i.variant_id === item.variant_id);
 
         if (existing) {
           set({
-            cart: get().cart.map((i) => i._id === item._id ? 
-            { ...i, quantity: i.quantity + item.quantity, amount: i.amount + item.amount }
+            cart: get().cart.map((i) => i.variant_id === item.variant_id ? 
+            { ...i, quantity: i.quantity + item.quantity, total_amount: i.total_amount + item.total_amount }
             : i),
           });
         } else {
@@ -37,17 +37,16 @@ export const useCartStore = create<CartState>()(
       },
 
       removeItem: (id) =>{
-        console.log(id)
         set({
-          cart: get().cart.filter((item) => item._id !== id),
+          cart: get().cart.filter((item) => item.variant_id !== id),
         })
       },
 
       increaseQuantity: (id) =>
         set({
           cart: get().cart.map((item) =>
-            item._id === id
-              ? { ...item, quantity: item.quantity + 1 }
+            item.variant_id === id
+              ? { ...item, quantity: item.quantity + 1, total_amount: item.total_amount + item.price }
               : item
           ),
         }),
@@ -56,8 +55,8 @@ export const useCartStore = create<CartState>()(
         set({
           cart: get()
             .cart.map((item) =>
-              item._id === id
-                ? { ...item, quantity: item.quantity - 1 }
+              item.variant_id === id
+                ? { ...item, quantity: item.quantity - 1, total_amount: item.total_amount - item.price  }
                 : item
             )
             .filter((item) => item.quantity > 0),
