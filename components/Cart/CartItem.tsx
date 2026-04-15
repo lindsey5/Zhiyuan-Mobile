@@ -10,7 +10,7 @@ import { useGetVariant } from "@/hooks/Variant/use-get-variant.hook";
 import Chip from "../ui/Chip";
 import CartSkeleton from "./CartSkeleton";
 
-export default function SwipeableCartItem({ item, font20, font16 }: { item : CartItem, font20: number, font16: number }) {
+export default function SwipeableCartItem({ item, font18, font16 }: { item : CartItem, font18: number, font16: number }) {
     const { removeItem } = useCartStore();
     const translateX = useRef(new Animated.Value(0)).current;
     const [show, setShow] = useState(false);
@@ -87,7 +87,7 @@ export default function SwipeableCartItem({ item, font20, font16 }: { item : Car
                         />
                     </View>
 
-                    <View style={{ flex: 1, gap: 5 }}>
+                    <View style={{ flex: 1, gap: 3 }}>
                         <TouchableOpacity  onPress={() => router.push(`/product/${item.product_id}`)}>
                             <CustomizedText style={{ fontSize: font16, marginBottom: 5 }} numberOfLines={2}>
                                 {data?.variant.product?.product_name}
@@ -104,14 +104,9 @@ export default function SwipeableCartItem({ item, font20, font16 }: { item : Car
 
                 </View>
 
-                <View style={{ flexDirection: 'column', alignItems: 'flex-end', gap: 5 }}>
-                    <CustomizedText style={{ fontSize: font20 }}>
-                        {formatToPeso(totalAmount)}
-                    </CustomizedText>
-                    <CustomizedText style={{ fontSize: font16 }}>
-                        Available Stock: {data?.variant.stock}
-                    </CustomizedText>
-                </View>
+                <CustomizedText style={{ fontSize: font18 }}>
+                    {formatToPeso(totalAmount)}
+                </CustomizedText>
             </Animated.View>
 
         </View>
@@ -141,7 +136,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingVertical: 10,
         paddingHorizontal: 5,
-        gap: 20,
+        gap: 30,
         borderColor: '#999999',
         justifyContent: 'space-between',
     },
@@ -150,7 +145,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR.primary,
         padding: 5,
         overflow: 'hidden',
-        width: 75, 
-        height: 75
+        width: 65, 
+        height: 65
     }
 });

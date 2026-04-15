@@ -1,4 +1,3 @@
-import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import COLOR from "@/lib/contants/color";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
@@ -22,8 +21,7 @@ export default function Stepper({ steps, currentStep }: StepperProps) {
             const isActive = stepNumber <= currentStep;
 
             return (
-            <>
-                <View style={[styles.stepWrapper, stepNumber !== steps.length && { flex: 1 }]}>
+                <View key={index} style={[styles.stepWrapper, stepNumber !== steps.length && { flex: 1 }]}>
                     {/* Circle */}
                     <View
                         style={[styles.circle, isActive && styles.activeCircle]}
@@ -36,10 +34,9 @@ export default function Stepper({ steps, currentStep }: StepperProps) {
                     </View>
                     {/* Line (hide for last step) */}
                     {stepNumber !== steps.length && (
-                        <View style={[styles.line, isActive && styles.activeLine]} />
+                        <View style={[styles.line, stepNumber < currentStep && styles.activeLine]} />
                     )}
                 </View>
-            </>
             );
         })}
         </View>
@@ -50,7 +47,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         alignItems: "center",
         width: "100%",
     },
@@ -66,7 +63,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 50,
-        backgroundColor: COLOR.primary,
+        backgroundColor: '#bebebe'
     },
 
     activeCircle: {
@@ -89,7 +86,7 @@ const styles = StyleSheet.create({
         height: 5,
         marginHorizontal: 5,
         borderRadius: 5,
-        backgroundColor: COLOR.primary
+        backgroundColor: '#bebebe'
     },
 
     activeLine: {

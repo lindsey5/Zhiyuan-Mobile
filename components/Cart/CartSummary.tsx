@@ -9,7 +9,7 @@ import { useRouter } from "expo-router";
 
 export default function CartSummary ({ totalAmount, disabled } : { totalAmount : number, disabled: boolean}) {
     const router = useRouter();
-    const font24 = useResponsiveFontSize(24);
+    const font22 = useResponsiveFontSize(22);
 
     const fade1 = useRef(new Animated.Value(0.3)).current;
     const fade2 = useRef(new Animated.Value(0.3)).current;
@@ -57,12 +57,12 @@ export default function CartSummary ({ totalAmount, disabled } : { totalAmount :
                 resizeMode="stretch"
                 source={require('../../assets/summary-panel.png')}
             />
-            <View style={{ width: '100%', padding: 15, flexDirection: 'row', justifyContent: 'space-between' }}>
-                <CustomizedText style={{ fontSize: font24 }}>Total Amount</CustomizedText>
-                <CustomizedText style={{ fontSize: font24 }}>{formatToPeso(totalAmount)}</CustomizedText>
+            <View style={styles.amountContainer}>
+                <CustomizedText style={{ fontSize: font22 }}>Total Amount</CustomizedText>
+                <CustomizedText style={{ fontSize: font22 }}>{formatToPeso(totalAmount)}</CustomizedText>
             </View>
             <View style={styles.checkoutButtonContainer}>
-                <CustomizedText style={{ fontSize: font24 }}>Checkout</CustomizedText>
+                <CustomizedText style={{ fontSize: font22 }}>Checkout</CustomizedText>
                 <TouchableOpacity 
                     style={[styles.checkoutButton, disabled && { opacity: 0.4 }]} 
                     disabled={disabled} 
@@ -100,6 +100,12 @@ const styles = StyleSheet.create({
         height: '100%', 
         tintColor: COLOR.secondary,
         resizeMode: 'cover'
+    },
+    amountContainer: { 
+        width: '100%', 
+        padding: 15, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between' 
     },
     checkoutButtonContainer: {
         width: '90%',

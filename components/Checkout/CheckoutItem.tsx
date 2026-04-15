@@ -16,15 +16,15 @@ export default function CheckoutItem ({ item } : { item : CartItem }) {
 
     return (
         <View style={styles.checkoutItemContainer}>
-            <View style={styles.cartItemImageContainer}>
-                <Image
-                    style={{ width: '100%', height: '100%', borderRadius: 40 }}
-                    source={{ uri: item.image }}
-                    resizeMode="cover"
-                />
-            </View>
-            <View style={{ flex: 1, gap: 5 }}>
-                <View>
+            <View style={{ flexDirection: 'row', flex: 1, gap: 10 }}>
+                <View style={styles.cartItemImageContainer}>
+                    <Image
+                        style={styles.image}
+                        source={{ uri: item.image }}
+                        resizeMode="cover"
+                    />
+                </View>
+                <View style={{ flex: 1 }}>
                     <CustomizedText style={{ fontSize: font16, marginBottom: 5 }} numberOfLines={2}>
                         {data?.variant.product?.product_name}
                     </CustomizedText>
@@ -32,9 +32,9 @@ export default function CheckoutItem ({ item } : { item : CartItem }) {
                     <Text style={{ marginTop: 8, fontSize: font16 }}>Price: {formatToPeso(item.price)}</Text>
                 </View>
             </View>
-            <View style={{ alignItems: 'flex-end'}}>
-                <Text style={{ marginTop: 8, fontWeight: 'bold', fontSize: font18 }}>{formatToPeso(item.total_amount)}</Text>
-                <Text style={{ marginTop: 8, fontWeight: 'bold', fontSize: font16 }}>{item.quantity}x</Text>
+            <View style={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
+                <Text style={[styles.text, { fontSize: font18 }]}>{formatToPeso(item.total_amount)}</Text>
+                <Text style={[styles.text, { fontSize: font16 }]}>Qty: {item.quantity}</Text>
             </View>
         </View>
     )
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row', 
         justifyContent: 'space-between', 
         alignItems: 'flex-start', 
-        gap: 20,
+        gap: 30,
         flex: 1,
         paddingVertical: 10,
         paddingHorizontal: 5,
@@ -58,7 +58,17 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR.primary,
         padding: 5,
         overflow: 'hidden',
-        width: 75, 
-        height: 75
+        width: 65, 
+        height: 65
+    },
+    
+    image: {
+         width: '100%', 
+         height: '100%', 
+         borderRadius: 40 
+    },
+
+    text: {
+        fontWeight: 'bold',
     }
 })
