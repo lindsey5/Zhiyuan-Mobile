@@ -25,7 +25,7 @@ export default function PriceRangeSlider({ priceRange, setPriceRange }: PriceRan
                 sliderLength={width - 65}
                 values={priceRange}
                 min={0}
-                max={20000}
+                max={50000}
                 step={1000}
                 onValuesChange={(values) => {
                     let [minVal, maxVal] = values;
