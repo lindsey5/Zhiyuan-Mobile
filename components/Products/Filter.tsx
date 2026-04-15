@@ -1,5 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import {
     TouchableOpacity,
     Text,
@@ -19,9 +19,10 @@ interface FilterProps {
         minPrice?: number
         maxPrice?: number
     }>>
+    setPage: React.Dispatch<SetStateAction<number>>;
 }
 
-export default function Filter({ setFilter } : FilterProps) {
+export default function Filter({ setFilter, setPage } : FilterProps) {
     const [visible, setVisible] = useState(false);
     const [selectedItems, setSeletedItems] = useState<string[]>([]);
     const [priceRange, setPriceRange] = useState([0, 20000]);
@@ -45,6 +46,7 @@ export default function Filter({ setFilter } : FilterProps) {
             minPrice: priceRange[0],
             maxPrice: priceRange[1]
         })
+        setPage(1);
         setVisible(false);
     };
 
@@ -85,15 +87,17 @@ export default function Filter({ setFilter } : FilterProps) {
                         {/* BUTTONS */}
                         <View style={styles.buttonsContainer}>
                             <Button
-                                label="Clear All"
                                 style={[styles.button, styles.clearButton]}
                                 onPress={clearFilter}
-                            />
+                            >
+                                <Text style={{ textAlign: 'center' }}>Clear All</Text>
+                            </Button>
                             <Button
-                                label="Apply"
                                 style={styles.button}
                                 onPress={applyFilter}
-                            />
+                            >
+                                <Text style={{ textAlign: 'center' }}>Apply</Text>
+                            </Button>
                         </View>
                     </>
                 }

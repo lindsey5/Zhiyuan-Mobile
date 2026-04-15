@@ -65,10 +65,11 @@ export default function SortMenu({ setSortBy }: {
                     ))}
 
                     <Button 
-                        label="Apply" 
                         style={styles.applyBtn} 
                         onPress={applySort}
-                    />
+                    >
+                        <Text style={{ textAlign: 'center' }}>Apply</Text>
+                    </Button>
                     </>
                 )}
 

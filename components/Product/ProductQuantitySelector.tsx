@@ -25,7 +25,7 @@ export default function ProductQuantitySelector(
         <ProductQuantitySelectorButton
             onPress={decrementQuantity}
             imageSource={require("../../assets/SubtrButton.png")}
-            disabled={quantity === 0}
+            disabled={quantity <= 1}
         />
 
         <View style={styles.quantityWrapper}>
@@ -35,7 +35,7 @@ export default function ProductQuantitySelector(
         <ProductQuantitySelectorButton
             onPress={incrementQuantity}
             imageSource={require("../../assets/AddButton.png")}
-            disabled={quantity === selectedVariant?.stock}
+            disabled={quantity >= (selectedVariant?.stock || 0)}
         />
         </View>
     );

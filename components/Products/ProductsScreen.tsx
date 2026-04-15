@@ -11,7 +11,7 @@ import ProductCardSkeleton from "./ProductCardSkeleton";
 const { width } = Dimensions.get('screen');
 
 export default function ProductsScreen() {
-    const limit = 20;
+    const limit = 5;
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const searchDebounce = useDebounce(search, 200);
@@ -54,7 +54,7 @@ export default function ProductsScreen() {
         <FlatList<Product | { _id: string }>
             key={numColumns}
             style={{ paddingBottom: 150 }}
-            data={isFetching ? skeletonData : products}
+            data={isFetching && !products.length ? skeletonData : products}
             keyExtractor={(item, index) => item._id || index.toString()}
             onEndReachedThreshold={0.5}
             onEndReached={handleLoadMore}
@@ -85,7 +85,7 @@ export default function ProductsScreen() {
                             value={search}
                         />
                     </View>
-                    <Filter setFilter={setFilter}/>
+                    <Filter setFilter={setFilter} setPage={setPage}/>
                 </View>
                 <Text style={styles.text}>All Products</Text>
                 </>

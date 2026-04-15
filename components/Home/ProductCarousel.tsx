@@ -103,7 +103,7 @@ export default function ProductCarousel() {
 			_id: "",
 			image_public_id: '',
 			image_url: '',
-			product_id: 1,
+			product_id: "",
 			sku: '',
 			stock: 1,
 			variant_name: '',

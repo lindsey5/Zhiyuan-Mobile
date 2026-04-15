@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Text } from 'react-native';
 import { useLocalSearchParams } from "expo-router";
 import AddToCartButton from '@/components/Product/AddToCartButton';
@@ -19,7 +19,7 @@ const ProductScreen = () => {
     const { addItem } = useCartStore();
     const [quantity, setQuantity] = useState<number>(1);
     const [showSuccess, setShowSuccess] = useState(false);
-    const { data, isLoading } = useGetProduct(id as string);
+    const { data, isFetching } = useGetProduct(id as string);
     const product = data?.product;
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
@@ -41,14 +41,21 @@ const ProductScreen = () => {
                 product_id: product._id,
                 quantity,
                 total_amount: selectedVariant.price * quantity,
-                price: selectedVariant.price
-            });
+                price: selectedVariant.price,
+                image: selectedVariant.image_url,
+            }, selectedVariant.stock);
+
             setShowSuccess(true);
             setQuantity(1);
         }
     };
 
-    if (isLoading || !product){
+    useEffect(() => {
+        setSelectedIndex(0);
+        setQuantity(1);
+    }, [id])
+
+    if (isFetching || !product){
         return <LoadingScreen />
     }
 
@@ -112,6 +119,7 @@ const ProductScreen = () => {
                         selectedIndex={selectedIndex}
                         variants={product.variants}
                         setSelectedIndex={setSelectedIndex}
+                        setQuantity={setQuantity}
                     />
                 </View>
                 <ProductDescription description={product.description} />
@@ -127,6 +135,7 @@ const ProductScreen = () => {
                     handleAddToCart={handleAddToCart}
                     buttonText="Add to Cart"
                     price={totalPrice}
+                    disabled={product.variants[selectedIndex].stock < quantity}
                 />
             </View>
         </View>

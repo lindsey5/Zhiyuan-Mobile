@@ -8,13 +8,14 @@ import { useRouter } from "expo-router";
 import CartQuantitySelector from "./CartQuantitySelector";
 import { useGetVariant } from "@/hooks/Variant/use-get-variant.hook";
 import Chip from "../ui/Chip";
+import CartSkeleton from "./CartSkeleton";
 
-export default function SwipeableCartItem({ item, size, font20, font16 }: { item : CartItem, size: number, font20: number, font16: number }) {
+export default function SwipeableCartItem({ item, font20, font16 }: { item : CartItem, font20: number, font16: number }) {
     const { removeItem } = useCartStore();
     const translateX = useRef(new Animated.Value(0)).current;
     const [show, setShow] = useState(false);
     const router = useRouter();
-    const { data } = useGetVariant(item.variant_id);
+    const { data, isFetching } = useGetVariant(item.variant_id);
 
     const totalAmount = useMemo(() => {
         return item.quantity * item.price
@@ -56,6 +57,8 @@ export default function SwipeableCartItem({ item, size, font20, font16 }: { item
         })
     ).current;
 
+    if(isFetching) return <CartSkeleton />
+
     return (
         <View style={styles.wrapper}>
             
@@ -76,10 +79,10 @@ export default function SwipeableCartItem({ item, size, font20, font16 }: { item
             >
                 <View style={{ flexDirection: 'row', flex: 1, gap: 10, alignItems: 'flex-start' }}>
                     
-                    <View style={[styles.cartItemImageContainer, { width: size, height: size }]}>
+                    <View style={styles.cartItemImageContainer}>
                         <Image
                             style={{ width: '100%', height: '100%', borderRadius: 40 }}
-                            source={{ uri: data?.variant?.image_url }}
+                            source={{ uri: item.image }}
                             resizeMode="cover"
                         />
                     </View>
@@ -87,7 +90,7 @@ export default function SwipeableCartItem({ item, size, font20, font16 }: { item
                     <View style={{ flex: 1, gap: 5 }}>
                         <TouchableOpacity  onPress={() => router.push(`/product/${item.product_id}`)}>
                             <CustomizedText style={{ fontSize: font16, marginBottom: 5 }} numberOfLines={2}>
-                                {data?.variant.product.product_name}
+                                {data?.variant.product?.product_name}
                             </CustomizedText>
                             <Chip label={data?.variant.variant_name || ""} variant="primary" />
                         </TouchableOpacity>
@@ -106,7 +109,7 @@ export default function SwipeableCartItem({ item, size, font20, font16 }: { item
                         {formatToPeso(totalAmount)}
                     </CustomizedText>
                     <CustomizedText style={{ fontSize: font16 }}>
-                        Stock: {data?.variant.stock}
+                        Available Stock: {data?.variant.stock}
                     </CustomizedText>
                 </View>
             </Animated.View>
@@ -146,6 +149,8 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         backgroundColor: COLOR.primary,
         padding: 5,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        width: 75, 
+        height: 75
     }
 });

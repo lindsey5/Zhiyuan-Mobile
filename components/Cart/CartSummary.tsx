@@ -5,8 +5,10 @@ import COLOR from "@/lib/contants/color";
 import { formatToPeso } from "@/utils/format";
 import { ChevronRight } from "lucide-react-native";
 import { useEffect, useRef } from "react";
+import { useRouter } from "expo-router";
 
-export default function CartSummary ({ totalAmount } : { totalAmount : number}) {
+export default function CartSummary ({ totalAmount, disabled } : { totalAmount : number, disabled: boolean}) {
+    const router = useRouter();
     const font24 = useResponsiveFontSize(24);
 
     const fade1 = useRef(new Animated.Value(0.3)).current;
@@ -14,6 +16,17 @@ export default function CartSummary ({ totalAmount } : { totalAmount : number}) 
     const fade3 = useRef(new Animated.Value(0.3)).current;
 
     useEffect(() => {
+          if (disabled) {
+            fade1.stopAnimation();
+            fade2.stopAnimation();
+            fade3.stopAnimation();
+
+            fade1.setValue(0.3);
+            fade2.setValue(0.3);
+            fade3.setValue(0.3);
+            return;
+        }
+
         const animate = (anim: Animated.Value, delay : number) => {
             Animated.loop(
             Animated.sequence([
@@ -50,7 +63,11 @@ export default function CartSummary ({ totalAmount } : { totalAmount : number}) 
             </View>
             <View style={styles.checkoutButtonContainer}>
                 <CustomizedText style={{ fontSize: font24 }}>Checkout</CustomizedText>
-                <TouchableOpacity style={styles.checkoutButton} disabled={!totalAmount}>
+                <TouchableOpacity 
+                    style={[styles.checkoutButton, disabled && { opacity: 0.4 }]} 
+                    disabled={disabled} 
+                    onPress={() => router.push('/checkout')}
+                >
                     <Animated.View style={{ opacity: fade1 }}>
                         <ChevronRight color="white" />
                     </Animated.View>
@@ -81,7 +98,8 @@ const styles = StyleSheet.create({
         position: 'absolute', 
         width: '100%', 
         height: '100%', 
-        tintColor: COLOR.secondary 
+        tintColor: COLOR.secondary,
+        resizeMode: 'cover'
     },
     checkoutButtonContainer: {
         width: '90%',

@@ -1,18 +1,27 @@
 import COLOR from '@/lib/contants/color';
 import { formatToPeso } from '@/utils/format';
+import { Dispatch, SetStateAction } from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 interface VariantContainerProps {
     selectedIndex: number;
     variants: Variant[];
     setSelectedIndex: React.Dispatch<React.SetStateAction<number>>;
+    setQuantity: Dispatch<SetStateAction<number>>;
 }
 
 export default function VariantContainer ({
     variants,
     selectedIndex,
     setSelectedIndex,
+    setQuantity,
 } : VariantContainerProps) {
+
+    const setIndex = (index : number) => {
+        setSelectedIndex(index)
+        setQuantity(1)
+    }
+
     return (
         <View style={styles.variantsContainer}>
             {variants.map((variant, index) => (
@@ -22,7 +31,7 @@ export default function VariantContainer ({
                         styles.variantButton,
                         variants[selectedIndex]?._id === variant._id && styles.activeVariantButton,
                     ]}
-                    onPress={() => setSelectedIndex(index)}
+                    onPress={() => setIndex(index)}
                 >
                     <Image
                         source={{ uri: variant.image_url }}

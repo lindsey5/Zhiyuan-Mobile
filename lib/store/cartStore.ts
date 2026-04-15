@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type CartState = {
   cart: CartItem[];
-  addItem: (item: CartItem) => void;
+  addItem: (item: CartItem, stock: number) => void;
   removeItem: (id: string) => void;
   increaseQuantity: (id: string) => void;
   decreaseQuantity: (id: string) => void;
@@ -22,13 +22,19 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       cart: [],
 
-      addItem: (item) => {
+      addItem: (item, stock) => {
         const existing = get().cart.find((i) => i.variant_id === item.variant_id);
 
         if (existing) {
+          const itemQuantity = existing.quantity;
+          const totalRequested = itemQuantity + item.quantity;
+
+          const finalQuantity = totalRequested >= stock
+            ? stock
+            : totalRequested;
           set({
             cart: get().cart.map((i) => i.variant_id === item.variant_id ? 
-            { ...i, quantity: i.quantity + item.quantity, total_amount: i.total_amount + item.total_amount }
+            { ...i, quantity: finalQuantity, total_amount: i.price * finalQuantity }
             : i),
           });
         } else {

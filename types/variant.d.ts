@@ -7,7 +7,7 @@ interface Variant {
     image_public_id: string;
     image_url: string;
     sku: string;
-    product: Product;
+    product?: Product;
 }
 
 interface GetVariantResponse extends AxiosResponse{

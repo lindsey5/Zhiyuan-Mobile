@@ -152,7 +152,7 @@ const CartBottomSheet = () => {
                 <View style={styles.cartItemsImageContainer}>
                     {cart.slice(0, 4).map((item, index) => (
                         <View
-                            key={item._id}
+                            key={item.variant_id}
                             style={[
                                 styles.cartItemImageContainer,
                                 {

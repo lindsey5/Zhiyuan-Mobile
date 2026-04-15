@@ -60,7 +60,7 @@ export default function Page () {
                         <EmptyCart />
                     }
                 </ScrollView>
-                <CartSummary totalAmount={totalAmount} />
+                <CartSummary totalAmount={totalAmount} disabled={!cart.length}/>
             </View>
         </GradientBackground>
     )

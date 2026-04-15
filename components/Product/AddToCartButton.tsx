@@ -44,7 +44,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    width: '95%',
+    width: '98%',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#1A1A1A',
