@@ -1,5 +1,5 @@
 import CartBottomSheet from "@/components/Home/CartBottomSheet";
-import GradientBackground from "@/components/ui/GradientBackgroud";
+import GradientBackground from "@/components/ui/GradientBackground";
 import MenuButton from "@/components/ui/Menu";
 import { Slot, useRouter } from "expo-router";
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";

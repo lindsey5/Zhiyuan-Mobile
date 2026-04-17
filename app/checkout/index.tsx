@@ -1,5 +1,5 @@
 import Stepper from "@/components/Checkout/Stepper";
-import GradientBackground from "@/components/ui/GradientBackgroud";
+import GradientBackground from "@/components/ui/GradientBackground";
 import { useState } from "react";
 import { ClipboardList, User, CheckCircle2 } from "lucide-react-native";
 import { StyleSheet } from "react-native";

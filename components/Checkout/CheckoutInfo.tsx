@@ -1,11 +1,12 @@
 import Button from "../ui/Button";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import InputField from "../ui/InputField";
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
 import useGetRegions from "@/hooks/Address/use-get-regions.hook";
 import Dropdown from "../ui/Dropdown";
 import useGetCities from "@/hooks/Address/use-get-cities.hook";
 import useGetBarangays from "@/hooks/Address/use-get-barangays";
+import COLOR from "@/lib/contants/color";
 
 interface CheckoutInfoProps {
     next: () => void;
@@ -40,6 +41,11 @@ export default function CheckoutInfo({ next, back, order, setOrder, currentStep 
         setOrder(prev => ({ ...prev!, address: ({ ...prev?.address!, barangay: value })}))
     }, [cities])
 
+    
+    const disabled = useMemo(() => {
+        return !order?.address?.street || !order.address.barangay || !order.address.city || !order.address.region || !order.customer_name
+    }, [order])
+
     useEffect(() => {
         if(!order?.address) {
             setSelectedRegion("");
@@ -52,7 +58,7 @@ export default function CheckoutInfo({ next, back, order, setOrder, currentStep 
     return (
         <>
         <ScrollView style={styles.container} contentContainerStyle={{ gap: 20 }}>
-            <Text style={styles.title}>Customer Information</Text>
+            <Text style={styles.sectionLabel}>Customer Information</Text>
             <InputField 
                 label="Name"
                 placeholder="Enter your name"
@@ -61,7 +67,7 @@ export default function CheckoutInfo({ next, back, order, setOrder, currentStep 
             />
             {order?.delivery_type === 'delivery' && (
                 <>
-                <Text style={styles.title}>Delivery Address</Text>
+                <Text style={styles.sectionLabel}>Delivery Address</Text>
                 <InputField 
                     label="Delivery Address" 
                     placeholder="e.g. Blk 5 Lot 12, Rizal St." 
@@ -87,7 +93,7 @@ export default function CheckoutInfo({ next, back, order, setOrder, currentStep 
                     onSelect={setCity}
                     value={selectedCity}
                     placeholder="Select City / Municipality"
-                    disabled={!selectedRegion}
+                    disabled={!selectedRegion || !cities.length}
                 />
                 <Dropdown 
                     options={barangays.map((city : any) => ({
@@ -98,11 +104,11 @@ export default function CheckoutInfo({ next, back, order, setOrder, currentStep 
                     value={order?.address?.barangay || ""}
                     onSelect={setBarangay}
                     placeholder="Select Barangay"
-                    disabled={!selectedCity}
+                    disabled={!selectedCity || !barangays.length}
                 />
                 </>
             )}
-        </ScrollView>        
+        </ScrollView>  
         <View style={styles.buttonContainer}>
             <Button
                 style={[styles.backButton, styles.button]}
@@ -111,10 +117,10 @@ export default function CheckoutInfo({ next, back, order, setOrder, currentStep 
                 <Text style={styles.buttonText}>Back</Text>
             </Button>
 
-            <Button style={styles.button} onPress={next}>
+            <Button style={[styles.button, disabled && { opacity: 0.4 }]} onPress={next} disabled={disabled}>
                 <Text style={styles.buttonText}>Next</Text>
             </Button>
-        </View>
+        </View>      
         </>
     );
 }
@@ -124,20 +130,24 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 40
     },
-    title: {
-        fontWeight: 'bold',
-        fontSize: 18,
+
+    sectionLabel: {
+        fontWeight: "600",
+        letterSpacing: 0.8,
+        textTransform: "uppercase",
+        color: COLOR.muted,
+        marginBottom: 2,
     },
+
     buttonContainer: {
         width: "100%",
         gap: 10,
-        justifyContent: "flex-end",
-        paddingHorizontal: 10,
+        flexDirection: 'row',
         paddingBottom: 20,
     },
 
     button: {
-        width: "100%",
+        flex: 1,
     },
 
     buttonText: {

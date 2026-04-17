@@ -1,7 +1,7 @@
  import CartItems from "@/components/Cart/CartItems";
 import CartSummary from "@/components/Cart/CartSummary";
 import EmptyCart from "@/components/Cart/EmptyCart";
-import GradientBackground from "@/components/ui/GradientBackgroud"
+import GradientBackground from "@/components/ui/GradientBackground"
 import CustomizedText from "@/components/ui/Text"
 import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import COLOR from "@/lib/contants/color";
@@ -48,7 +48,7 @@ export default function Page () {
                         <Text style={styles.cartBadgeText}>{cart.length}</Text>
                     </View>
                 </View>
-                <ScrollView style={{ marginTop: 50 }}>
+                <ScrollView style={{ marginTop: 50 }} contentContainerStyle={{ gap: 10 }}>
                     {cart.length ? 
                         <>
                         <CartItems cart={cart} />

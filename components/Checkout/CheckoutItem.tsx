@@ -10,7 +10,7 @@ import CartSkeleton from "../Cart/CartSkeleton";
 export default function CheckoutItem ({ item } : { item : CartItem }) {
     const { data, isFetching } = useGetVariant(item.variant_id);
     const font16 = useResponsiveFontSize(16);
-    const font18 = useResponsiveFontSize(18);
+    const font14 = useResponsiveFontSize(14);
  
     if(isFetching) return <CartSkeleton />
 
@@ -32,9 +32,9 @@ export default function CheckoutItem ({ item } : { item : CartItem }) {
                     <Text style={{ marginTop: 8, fontSize: font16 }}>Price: {formatToPeso(item.price)}</Text>
                 </View>
             </View>
-            <View style={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
-                <Text style={[styles.text, { fontSize: font18 }]}>{formatToPeso(item.total_amount)}</Text>
-                <Text style={[styles.text, { fontSize: font16 }]}>Qty: {item.quantity}</Text>
+            <View style={{ alignItems: 'flex-end', justifyContent: 'flex-start', gap: 3 }}>
+                <Text style={[styles.text, { fontSize: font16 }]}>{formatToPeso(item.total_amount)}</Text>
+                <Text style={[styles.text, { fontSize: font14 }]}>Qty: {item.quantity}</Text>
             </View>
         </View>
     )
@@ -54,10 +54,6 @@ const styles = StyleSheet.create({
     },
 
     cartItemImageContainer: {
-        borderRadius: 40,
-        backgroundColor: COLOR.primary,
-        padding: 5,
-        overflow: 'hidden',
         width: 65, 
         height: 65
     },
@@ -65,7 +61,6 @@ const styles = StyleSheet.create({
     image: {
          width: '100%', 
          height: '100%', 
-         borderRadius: 40 
     },
 
     text: {

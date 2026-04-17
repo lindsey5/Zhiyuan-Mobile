@@ -1,3 +1,4 @@
+import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import COLOR from "@/lib/contants/color";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
@@ -21,9 +22,11 @@ export default function Chip({ label, variant = "primary" }: ChipProps) {
         }
     };
 
+    const font14 = useResponsiveFontSize(14);
+
     return (
         <View style={[styles.chip, { backgroundColor: getBgColor() }]}>
-            <Text style={styles.text}>{label}</Text>
+            <Text style={[styles.text, { fontSize: font14 }]}>{label}</Text>
         </View>
     );
 }
@@ -36,7 +39,6 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start",
     },
     text: {
-        fontSize: 12,
         fontWeight: "600",
         color: "#fff",
     },

@@ -1,3 +1,4 @@
+import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import COLOR from "@/lib/contants/color";
 import { useCartStore } from "@/lib/store/cartStore";
 import { MinusIcon, PlusIcon } from "lucide-react-native";
@@ -14,6 +15,7 @@ export default function CartQuantitySelector({
 }) {
     const { decreaseQuantity, increaseQuantity, cart } = useCartStore();
     const cartItem = cart.find((item) => item.variant_id === variant_id);
+    const font14 = useResponsiveFontSize(14);
 
     const handleIncreaseQuantity = () => {
         if ((cartItem?.quantity || 1) < stock) {
@@ -42,7 +44,7 @@ export default function CartQuantitySelector({
             </TouchableOpacity>
 
             <View style={styles.qtyBox}>
-                <Text style={styles.qtyText}>{quantity}</Text>
+                <Text style={[styles.qtyText, { fontSize: font14 }]}>{quantity}</Text>
             </View>
 
             <TouchableOpacity
@@ -81,7 +83,6 @@ const styles = StyleSheet.create({
     },
 
     qtyText: {
-        fontSize: 15,
         fontWeight: "700",
         color: "#000",
     },

@@ -10,7 +10,7 @@ import { useGetVariant } from "@/hooks/Variant/use-get-variant.hook";
 import Chip from "../ui/Chip";
 import CartSkeleton from "./CartSkeleton";
 
-export default function SwipeableCartItem({ item, font18, font16 }: { item : CartItem, font18: number, font16: number }) {
+export default function SwipeableCartItem({ item, font16 }: { item : CartItem, font16: number }) {
     const { removeItem } = useCartStore();
     const translateX = useRef(new Animated.Value(0)).current;
     const [show, setShow] = useState(false);
@@ -81,20 +81,19 @@ export default function SwipeableCartItem({ item, font18, font16 }: { item : Car
                     
                     <View style={styles.cartItemImageContainer}>
                         <Image
-                            style={{ width: '100%', height: '100%', borderRadius: 40 }}
+                            style={{ width: '100%', height: '100%' }}
                             source={{ uri: item.image }}
                             resizeMode="cover"
                         />
                     </View>
 
-                    <View style={{ flex: 1, gap: 3 }}>
+                    <View style={{ flex: 1, gap: 10 }}>
                         <TouchableOpacity  onPress={() => router.push(`/product/${item.product_id}`)}>
                             <CustomizedText style={{ fontSize: font16, marginBottom: 5 }} numberOfLines={2}>
                                 {data?.variant.product?.product_name}
                             </CustomizedText>
                             <Chip label={data?.variant.variant_name || ""} variant="primary" />
                         </TouchableOpacity>
-                        <Text style={{ marginTop: 8 }}>Price: {formatToPeso(item.price || 0)}</Text>
                         <CartQuantitySelector 
                             stock={data?.variant?.stock || 0} 
                             variant_id={data?.variant?._id || ""} 
@@ -104,7 +103,7 @@ export default function SwipeableCartItem({ item, font18, font16 }: { item : Car
 
                 </View>
 
-                <CustomizedText style={{ fontSize: font18 }}>
+                <CustomizedText style={{ fontSize: font16 }}>
                     {formatToPeso(totalAmount)}
                 </CustomizedText>
             </Animated.View>
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
         width: '100%',
         position: 'relative',
         backgroundColor: 'transparent',
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     deleteButton: {
         position: 'absolute',
@@ -137,15 +136,11 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 5,
         gap: 30,
-        borderColor: '#999999',
+        borderColor: COLOR.border,
         justifyContent: 'space-between',
     },
     cartItemImageContainer: {
-        borderRadius: 40,
-        backgroundColor: COLOR.primary,
-        padding: 5,
-        overflow: 'hidden',
-        width: 65, 
-        height: 65
+        width: 75, 
+        height: 75
     }
 });

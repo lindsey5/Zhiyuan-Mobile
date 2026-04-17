@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     },
 
     activeCircle: {
-        backgroundColor: COLOR.highlight,
+        backgroundColor: COLOR.primary,
     },
 
     label: { 
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     },
 
     activeLine: {
-        backgroundColor: COLOR.highlight,
+        backgroundColor: COLOR.primary,
     },
 
 });

@@ -1,13 +1,15 @@
+import useResponsiveFontSize from "@/hooks/useResponsiveFont";
 import COLOR from "@/lib/contants/color";
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, TextInputProps, View } from "react-native";
 
 interface InputFieldProps extends TextInputProps {
-  label: string;
+    label: string;
 }
 
 export default function InputField({ label, style, ...props }: InputFieldProps) {
     const [isFocused, setIsFocused] = useState(false);
+    const font16 = useResponsiveFontSize(16);
 
     return (
         <View style={styles.field}>
@@ -16,6 +18,7 @@ export default function InputField({ label, style, ...props }: InputFieldProps) 
             <TextInput
                 style={[
                 styles.input,
+                { fontSize: font16 },
                 isFocused ? styles.inputFocused : styles.inputBlurred,
                 style,
                 ]}
@@ -35,13 +38,12 @@ const styles = StyleSheet.create({
 
     label: {
         fontSize: 13,
-        fontWeight: "600",
+        fontWeight: "900",
         color: "#555",
         marginBottom: 6,
     },
 
     input: {
-        fontSize: 16,
         paddingVertical: 12,
         borderBottomWidth: 1,
         color: "#111",

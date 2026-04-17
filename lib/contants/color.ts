@@ -5,7 +5,8 @@ const COLOR = {
   highlight: '#f190078c',
   skeleton: '#f1d4af',
   panel: '#f1e4d3',
-  border: '#999999',
+  border: "#a0a0a0",
+  muted: "#8A8A85"
 };
 
 export default COLOR;

@@ -23,7 +23,8 @@ export default function CheckoutSummary({
     currentStep
 }: CheckoutSummaryProps) {
     const { cart } = useCartStore();
-    const font18 = useResponsiveFontSize(18);
+    const font14 = useResponsiveFontSize(14);
+    const font16 = useResponsiveFontSize(16);
     const router = useRouter();
 
     const total = useMemo(() => {
@@ -44,29 +45,38 @@ export default function CheckoutSummary({
             ))}
         </ScrollView>
         <View style={styles.deliveryContainer}>
-            <Text style={styles.deliveryLabel}>Delivery Type:</Text>
+            <Text style={styles.sectionLabel}>Delivery Type:</Text>
 
             <View style={styles.radioRow}>
                 <Radio
-                    containerStyle={styles.radioItem}
                     label="For Pickup"
-                    setSelected={setDeliveryType}
                     value="pickup"
                     selected={deliveryType}
+                    onSelect={setDeliveryType}
                     />
                     <Radio
-                    containerStyle={styles.radioItem}
+
                     label="For Delivery"
-                    setSelected={setDeliveryType}
+                    onSelect={setDeliveryType}
                     value="delivery"
                     selected={deliveryType}
                 />
             </View>
         </View>
-        <View style={{ marginBottom: 20, gap: 3, alignItems: 'flex-end', width: '100%' }}>
-            <Text style={{ fontSize: font18 }}>Subtotal: {formatToPeso(total)}</Text>
-            {deliveryType === 'delivery' && <Text style={{ fontSize: font18 }}>Shipping Fee: Free</Text>}
-            <Text style={[{ fontSize: font18 }, { fontWeight: 'bold', marginTop: 10 }]}>Total: {formatToPeso(total)}</Text>
+        {/* Summary */}
+        <View style={styles.section}>
+            <View style={styles.summaryRow}>
+                <Text style={[styles.summaryKey, { fontSize: font14 }]}>Subtotal</Text>
+                <Text style={[styles.summaryVal, { fontSize: font14 }]}>{formatToPeso(total)}</Text>
+            </View>
+            {deliveryType === "delivery" && <View style={styles.summaryRow}>
+                <Text style={[styles.summaryKey, { fontSize: font14 }]}>Shipping</Text>
+                <Text style={[styles.summaryVal, styles.freeText, { fontSize: font14 }]}>Free</Text>
+            </View>}
+            <View style={[styles.summaryRow, styles.totalRow]}>
+                <Text style={[styles.totalLabel, { fontSize: font16 }]}>Total</Text>
+                <Text style={[styles.totalAmount, { fontSize: font16 }]}>{formatToPeso(total)}</Text>
+            </View>
         </View>
         <View style={styles.buttonContainer}>
             <Button
@@ -95,36 +105,67 @@ const styles = StyleSheet.create({
         width: "100%",
         gap: 10,
         paddingHorizontal: 10,
-        paddingBottom: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: COLOR.border,
-        marginBottom: 20,
+    },
+    section: {
+        paddingHorizontal: 20,
+        paddingVertical: 18,
+        gap: 10,
     },
 
-    deliveryLabel: {
-        fontSize: 18,
-        fontWeight: "bold",
+    sectionLabel: {
+        fontWeight: "600",
+        letterSpacing: 0.8,
+        textTransform: "uppercase",
+        color: COLOR.muted,
+        marginBottom: 2,
     },
 
     radioRow: {
         flexDirection: "row",
         padding: 0,
+        gap: 5,
     },
 
-    radioItem: {
-        flex: 1,
+    summaryRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    summaryKey: {
+        color: COLOR.muted,
+    },
+    summaryVal: {
+        color: COLOR.muted,
+        fontWeight: "500",
+    },
+    freeText: {
+        color: COLOR.secondary,
+    },
+    totalRow: {
+        marginTop: 8,
+        paddingTop: 12,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: COLOR.border,
+    },
+    totalLabel: {
+        fontWeight: "700",
+        color: "#1A1A18",
+    },
+    totalAmount: {
+        fontWeight: "700",
+        color: COLOR.primary,
+        letterSpacing: -0.3,
     },
 
     buttonContainer: {
         width: "100%",
         gap: 10,
-        justifyContent: "flex-end",
-        paddingHorizontal: 10,
+        flexDirection: 'row',
         paddingBottom: 20,
     },
 
     button: {
-        width: "100%",
+        flex: 1,
     },
 
     buttonText: {

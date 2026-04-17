@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     cartItemImageContainer: {
-        borderRadius: 40,
         padding: 5,
         overflow: 'hidden',
         backgroundColor: COLOR.skeleton,
