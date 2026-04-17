@@ -52,7 +52,7 @@ export const useCartStore = create<CartState>()(
         set({
           cart: get().cart.map((item) =>
             item.variant_id === id
-              ? { ...item, quantity: item.quantity + 1, total_amount: item.total_amount + item.price }
+              ? { ...item, quantity: item.quantity + 1, total_amount: item.amount + item.price }
               : item
           ),
         }),
@@ -62,7 +62,7 @@ export const useCartStore = create<CartState>()(
           cart: get()
             .cart.map((item) =>
               item.variant_id === id
-                ? { ...item, quantity: item.quantity - 1, total_amount: item.total_amount - item.price  }
+                ? { ...item, quantity: item.quantity - 1, total_amount: item.amount - item.price  }
                 : item
             )
             .filter((item) => item.quantity > 0),

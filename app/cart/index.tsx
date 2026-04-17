@@ -16,7 +16,7 @@ export default function Page () {
     const { cart, clearCart } = useCartStore();
     const router = useRouter();
 
-    const totalAmount = useMemo(() => cart.reduce((acc, item) =>  item.total_amount + acc, 0), [cart])
+    const totalAmount = useMemo(() => cart.reduce((acc, item) =>  item.amount + acc, 0), [cart])
     
     const confirmClear = () => {
         Alert.alert(

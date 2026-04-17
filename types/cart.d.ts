@@ -5,5 +5,5 @@ interface CartItem {
     quantity: number;
     price: number;
     quantity: number;
-    total_amount: number;
+    amount: number;
 }

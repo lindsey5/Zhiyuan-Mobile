@@ -33,7 +33,7 @@ export default function CheckoutItem ({ item } : { item : CartItem }) {
                 </View>
             </View>
             <View style={{ alignItems: 'flex-end', justifyContent: 'flex-start', gap: 3 }}>
-                <Text style={[styles.text, { fontSize: font16 }]}>{formatToPeso(item.total_amount)}</Text>
+                <Text style={[styles.text, { fontSize: font16 }]}>{formatToPeso(item.amount)}</Text>
                 <Text style={[styles.text, { fontSize: font14 }]}>Qty: {item.quantity}</Text>
             </View>
         </View>

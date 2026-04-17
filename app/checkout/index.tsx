@@ -7,6 +7,7 @@ import CustomizedText from "@/components/ui/Text";
 import CheckoutSummary from "@/components/Checkout/CheckoutSummary";
 import { useSocket } from "@/hooks/useSocket";
 import CheckoutInfo from "@/components/Checkout/CheckoutInfo";
+import CheckoutConfirmation from "@/components/Checkout/Confirmation";
 
 const steps = [
     { label: "Summary", icon: <ClipboardList size={22} color="black" /> },
@@ -16,8 +17,8 @@ const steps = [
 
 export default function Page () {
     const [currentStep, setCurrentStep] = useState(1);
-    const [order, setOrder] = useState<CreateOrderParams>();
-    useSocket({ namespace: '/orders' });
+    const [order, setOrder] = useState<CreateOrderState>();
+    const socket = useSocket({ namespace: '/orders' });
 
     const next = () => {
         setCurrentStep(prev => prev + 1);
@@ -47,6 +48,11 @@ export default function Page () {
                 order={order}
                 setOrder={setOrder}
                 currentStep={currentStep}
+            />
+            <CheckoutConfirmation 
+                currentStep={currentStep}
+                order={order}
+                back={back}
             />
         </GradientBackground>
     )

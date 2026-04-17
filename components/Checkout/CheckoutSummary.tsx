@@ -30,7 +30,7 @@ export default function CheckoutSummary({
     const total = useMemo(() => {
         if(!cart.length) return 0;
     
-        return cart.reduce((total, item) => item.total_amount + total, 0);
+        return cart.reduce((total, item) => item.amount + total, 0);
     }, [cart])
 
     const disabled = useMemo(() => !deliveryType, [deliveryType])

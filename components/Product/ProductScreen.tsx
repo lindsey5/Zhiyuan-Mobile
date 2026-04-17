@@ -40,7 +40,7 @@ const ProductScreen = () => {
                 variant_id: selectedVariant._id,
                 product_id: product._id,
                 quantity,
-                total_amount: selectedVariant.price * quantity,
+                amount: selectedVariant.price * quantity,
                 price: selectedVariant.price,
                 image: selectedVariant.image_url,
             }, selectedVariant.stock);
