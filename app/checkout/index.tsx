@@ -18,7 +18,7 @@ const steps = [
 export default function Page () {
     const [currentStep, setCurrentStep] = useState(1);
     const [order, setOrder] = useState<CreateOrderState>();
-    const socket = useSocket({ namespace: '/orders' });
+    useSocket({ namespace: '/orders' });
 
     const next = () => {
         setCurrentStep(prev => prev + 1);

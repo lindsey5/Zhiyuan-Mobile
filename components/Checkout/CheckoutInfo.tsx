@@ -27,8 +27,8 @@ export default function CheckoutInfo({ next, back, order, setOrder, currentStep 
 
     const barangays = useGetBarangays(selectedCity);
 
-    const nameExceeded = (order?.customer_name?.length ?? 0) > MAX_LENGTH;
-    const streetExceeded = (order?.address?.street?.length ?? 0) > MAX_LENGTH;
+    const nameExceeded = useMemo(() => (order?.customer_name?.length ?? 0) > MAX_LENGTH, [order?.customer_name]);
+    const streetExceeded = useMemo(() =>  (order?.address?.street?.length ?? 0) > MAX_LENGTH, [order?.address?.street]);
 
     const setRegion = useCallback((value: string) => {
         const region = regions.find((region: any) => region.code === value)?.name || "";

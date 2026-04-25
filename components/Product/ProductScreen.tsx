@@ -84,7 +84,7 @@ const ProductScreen = () => {
 
             <MenuButton />
             <SuccessCard
-                message="Item added to your cart"
+                message="Successfully added to cart"
                 visible={showSuccess}
                 onClose={() => setShowSuccess(false)}
             />

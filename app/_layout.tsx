@@ -31,7 +31,7 @@ export default function RootLayout() {
     return (
         <QueryClientProvider client={queryClient}>
             <Stack screenOptions={{ headerShown: false }} />
-            <Toast />
+            <Toast topOffset={60}/>
         </QueryClientProvider>
     );
 }

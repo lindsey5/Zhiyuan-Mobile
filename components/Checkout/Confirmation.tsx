@@ -9,6 +9,7 @@ import { useMemo } from "react";
 import { useCreateOrder } from "@/hooks/Order/use-create-order.hook";
 import OrderSuccess from "./OrderSuccess";
 import { useRouter } from "expo-router";
+import { formatToPeso } from "@/utils/format";
 
 interface CheckConfirmationProps {
     order: CreateOrderState | undefined;
@@ -34,6 +35,10 @@ export default function CheckoutConfirmation({ order, back, currentStep }: Check
         : null
     ), [order])
 
+    const total = useMemo(() => {
+        return cart.reduce((total, item) => total + item.amount, 0)
+    }, [cart])
+
     const isSubmitting = createOrderMutation.isPending; // or isLoading
 
     const handleSubmit = async () => {
@@ -47,10 +52,17 @@ export default function CheckoutConfirmation({ order, back, currentStep }: Check
         });
     };
 
+    const redirectToHome = () => {
+        router.replace({
+            pathname: "/",
+            params: { review: "true", name: order?.customer_name }
+        })
+    }
+
     if(createOrderMutation.isSuccess) return (
         <OrderSuccess 
             itemCount={createOrderMutation.data.order.order_items.length}
-            onBackToHome={() => router.replace('/')}
+            onBackToHome={redirectToHome}
             order={order}
             orderId={createOrderMutation.data.order.order_id}
             total={createOrderMutation.data.order.total_amount}
@@ -91,6 +103,22 @@ export default function CheckoutConfirmation({ order, back, currentStep }: Check
                             <Text style={styles.rowValue}>{addressLine}</Text>
                         </View>
                     )}
+                    <View style={styles.row}>
+                        <Text style={styles.rowLabel}>Shipping Fee</Text>
+                        <Text style={[styles.rowValue, { color: COLOR.accent}]}>Free</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.rowLabel}>Subtotal</Text>
+                        <Text style={styles.rowValue}>{formatToPeso(total)}</Text>
+                    </View>
+                    <View style={[styles.row, {
+                        paddingTop: 8,
+                        borderTopWidth: StyleSheet.hairlineWidth,
+                        borderTopColor: COLOR.border,
+                    }]}>
+                        <Text style={[styles.rowLabel, { fontWeight: 'bold' }]}>Total</Text>
+                        <Text style={[styles.rowValue, { fontWeight: 'bold' }]}>{formatToPeso(total)}</Text>
+                    </View>
                 </View>
             </ScrollView>
             <View style={styles.buttonContainer}>
@@ -110,10 +138,10 @@ export default function CheckoutConfirmation({ order, back, currentStep }: Check
                     {isSubmitting ? (
                         <View style={styles.loadingWrapper}>
                             <ActivityIndicator size="small" color="#fff" />
-                            <Text style={styles.buttonText}>Submitting...</Text>
+                            <Text style={styles.buttonText}>Loading...</Text>
                         </View>
                     ) : (
-                        <Text style={styles.buttonText}>Submit</Text>
+                        <Text style={styles.buttonText}>Place Order</Text>
                     )}
                 </Button>
             </View>

@@ -11,7 +11,7 @@ import ProductCardSkeleton from "./ProductCardSkeleton";
 const { width } = Dimensions.get('screen');
 
 export default function ProductsScreen() {
-    const limit = 5;
+    const limit = 20;
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const searchDebounce = useDebounce(search, 200);

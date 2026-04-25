@@ -1,9 +1,14 @@
 import { Text, StyleSheet, ScrollView, View, TouchableOpacity } from "react-native";
 import ProductCarousel from "@/components/Home/ProductCarousel";
 import ImageSlider from "@/components/Home/ImageSlider";
-import ReviewSection from "@/components/Home/ReviewSection";
+import ReviewSection from "@/components/Review/ReviewSection";
+import { useLocalSearchParams } from "expo-router";
+import { useState } from "react";
+import ReviewModal from "@/components/Review/ReviewModal";
 
 const Home = () => {
+    const { review } = useLocalSearchParams();
+    const [openModal, setOpenModal] = useState(review ? true : false);
 
     return (
         <ScrollView>
@@ -31,6 +36,11 @@ const Home = () => {
                 <Text style={styles.buttonText}>View All Reviews</Text>
             </TouchableOpacity>
             <View style={{ height: 150 }}/>
+
+            <ReviewModal 
+                setVisible={setOpenModal}
+                visible={openModal}
+            />
         </ScrollView>
     );
 };
