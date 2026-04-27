@@ -24,8 +24,9 @@ const options: Record<string, SortOption> = {
     'Price: Low to high': { sortBy: 'price', order: 'ASC' }
 };
 
-export default function SortMenu({ setSortBy }: {
+export default function SortMenu({ setSortBy, setPage }: {
     setSortBy: Dispatch<SetStateAction<{ sortBy: string, order: 'ASC' | 'DESC' }>>
+    setPage: Dispatch<SetStateAction<number>>
 }) {
     const [visible, setVisible] = useState(false);
     const [selected, setSelected] = useState<string>('A-Z');
@@ -33,6 +34,7 @@ export default function SortMenu({ setSortBy }: {
     const applySort = () => {
         setSortBy(options[selected]);
         setVisible(false);
+        setPage(1)
     };
 
     return (

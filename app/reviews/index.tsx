@@ -88,6 +88,7 @@ export default function Page () {
                     onChange={(p) => setPage(p)}
                 />
             )}
+            <View style={{ height: 150 }}/>
         </ScrollView>
     )
 }

@@ -6,8 +6,6 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { Ionicons } from "@expo/vector-icons"; 
 import SortMenu from "./SortMenu";
 import Filter from "./Filter";
-import ProductCardSkeleton from "./ProductCardSkeleton";
-import { getItemWidth } from "@/utils/utils";
 
 const { width } = Dimensions.get('screen');
 
@@ -25,7 +23,6 @@ export default function ProductsScreen() {
     });
     const [sortBy, setSortBy] = useState<{sortBy: string, order: 'ASC' | 'DESC'}>({ sortBy: 'product_name', order: 'ASC'});
     const { data, isFetching } = useGetProducts(page, limit, sortBy, filter, searchDebounce);
-    const skeletonData = Array.from({ length: 6 }).map((_, index) => ({ _id: `skeleton-${index}` }));
 
     const getNumColumns = () => {
         if (width > 900) return 4;
@@ -34,11 +31,6 @@ export default function ProductsScreen() {
     };
 
     const numColumns = getNumColumns();
-
-    const padding = 10 * 2;
-    const gap = 10;
-
-    const itemWidth = (width - padding - gap * (numColumns - 1)) / numColumns;
 
     useEffect(() => {
         setPage(1);
@@ -56,7 +48,6 @@ export default function ProductsScreen() {
         if (!isFetching && hasMore) setPage(prev => prev + 1);
     };
 
-
     return (
         <FlatList<Product | { _id: string }>
             key={numColumns}
@@ -65,17 +56,23 @@ export default function ProductsScreen() {
             keyExtractor={(item, index) => item._id || index.toString()}
             onEndReachedThreshold={0.5}
             onEndReached={handleLoadMore}
-            renderItem={({ item }) => (
-                <View style={[styles.item, { flex: 1 / numColumns, margin: 5 }]}>
-                    <ProductCard item={item as Product} />
-                </View>
-            )}
+            renderItem={({ item }) => {
+                if(products.length){
+                    return (
+                        <View style={[styles.item, { flex: 1 / numColumns, margin: 5 }]}>
+                            <ProductCard item={item as Product} />
+                        </View>
+                    )
+                }
+
+                return null
+            }}
             columnWrapperStyle={{ paddingHorizontal: 10 }}
             numColumns={numColumns}
             ListHeaderComponent={(
                 <>
                 <View style={styles.header}>
-                    <SortMenu setSortBy={setSortBy} />
+                    <SortMenu setSortBy={setSortBy} setPage={setPage}/>
                     <View style={styles.inputContainer}>
                         <Ionicons name="search" size={20} color="#888" style={styles.icon} />
                         <TextInput
@@ -94,13 +91,7 @@ export default function ProductsScreen() {
                 </>
             )}
             ListFooterComponent={() => (
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, paddingHorizontal: 10 }}>
-                {isFetching && skeletonData.map((_, i) => (
-                    <View style={[styles.item, { width: itemWidth }]}>
-                        <ProductCardSkeleton key={i}/>
-                    </View>
-                ))}
-                </View>
+                isFetching ? <ActivityIndicator size="large" color="#000" style={{ marginVertical: 20 }} /> : null
             )}
             ListEmptyComponent={() => (
                 !isFetching && products.length < 1 &&  (

@@ -25,7 +25,7 @@ interface FilterProps {
 export default function Filter({ setFilter, setPage } : FilterProps) {
     const [visible, setVisible] = useState(false);
     const [selectedItems, setSeletedItems] = useState<string[]>([]);
-    const [priceRange, setPriceRange] = useState([0, 20000]);
+    const [priceRange, setPriceRange] = useState([0, 50000]);
 
     const handleToggle = (category: string) => {
         if (selectedItems.includes(category)) {
@@ -37,7 +37,7 @@ export default function Filter({ setFilter, setPage } : FilterProps) {
 
     const clearFilter = () => {
         setSeletedItems([]);
-        setPriceRange([0, 20000]);
+        setPriceRange([0, 50000]);
     };
 
     const applyFilter = () => {
