@@ -77,7 +77,7 @@ export default function ReviewModal ({ visible, setVisible } : ReviewModalProps)
                 </Text>
                 <View style={styles.ratingRow}>
                     {Array.from({ length: 5}).map((_, index) => (
-                        <TouchableOpacity onPress={() => setRating(index + 1)}>
+                        <TouchableOpacity key={index} onPress={() => setRating(index + 1)}>
                             <Star
                                 size={40}
                                 color={index + 1 <= rating ? COLOR.accent : COLOR.muted}
