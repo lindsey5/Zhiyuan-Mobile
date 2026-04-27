@@ -12,15 +12,16 @@ export default function RootLayout() {
         ADLaMDisplay: require('../assets/fonts/ADLaMDisplay-Regular.ttf'),
     });
 
+    async function setupNavBar() {
+        // Hide nav bar
+        await NavigationBar.setVisibilityAsync("hidden");
+            
+        // Enable swipe to temporarily show it
+        await NavigationBar.setBehaviorAsync("overlay-swipe");
+    }
+
     useEffect(() => {
-        (async () => {
-            try {
-            await NavigationBar.setBehaviorAsync("overlay-swipe");
-            await NavigationBar.setVisibilityAsync("hidden");
-            } catch (err) {
-            console.log("Navbar error:", err);
-            }
-        })();
+        setupNavBar();
     }, []);
 
     if (!fontsLoaded) {
