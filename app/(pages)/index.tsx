@@ -1,10 +1,10 @@
 import { Text, StyleSheet, ScrollView, View, TouchableOpacity } from "react-native";
-import ProductCarousel from "@/components/Home/ProductCarousel";
-import ImageSlider from "@/components/Home/ImageSlider";
+import NewProductsCarousel from "@/components/Home/NewProductsCarousel";
 import ReviewSection from "@/components/Review/ReviewSection";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import ReviewModal from "@/components/Review/ReviewModal";
+import COLOR from "@/lib/contants/color";
 
 const Home = () => {
     const { review } = useLocalSearchParams();
@@ -13,20 +13,9 @@ const Home = () => {
 
     return (
         <ScrollView>
-            {/* Most Selling */}
-            <Text style={styles.sectionTitle}>Most Selling Products</Text>
-            <ProductCarousel />
-
-            {/* Slider */}
-            <View style={styles.sliderWrapper}>
-                <ImageSlider
-                images={[
-                    require("../../assets/images/image1.jpg"),
-                    require("../../assets/images/image1.jpg"),
-                    require("../../assets/images/image1.jpg"),
-                ]}
-                />
-            </View>
+            {/* New Products */}
+            <Text style={styles.sectionTitle}>New Products</Text>
+            <NewProductsCarousel />
 
             {/* Reviews */}
             <Text style={[styles.sectionTitle, { marginVertical: 20 }]}>Recent Reviews</Text>
@@ -55,7 +44,7 @@ export default Home;
 const styles = StyleSheet.create({
     sectionTitle: {
         marginTop: 24,
-        marginHorizontal: 20,
+        paddingHorizontal: 10,
         fontSize: 22,
         fontWeight: "700",
         color: "#1a1a1a",
@@ -68,10 +57,10 @@ const styles = StyleSheet.create({
     button: {
         width: "90%",
         alignSelf: "center",
-        marginTop: 24,
+        marginTop: 10,
         paddingVertical: 14,
         borderRadius: 12,
-        backgroundColor: "#E8B84A",
+        backgroundColor: COLOR.accent,
         justifyContent: "center",
         alignItems: "center",
         boxShadow: "0px 2px 5px rgba(0,0,0,0.3)",

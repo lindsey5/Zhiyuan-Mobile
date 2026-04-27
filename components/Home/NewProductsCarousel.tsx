@@ -10,7 +10,7 @@ import { formatToPeso } from "@/utils/format";
 import COLOR from "@/lib/contants/color";
 import usePulseAnimation from "@/hooks/usePulseAnimation";
 
-export default function ProductCarousel() {
+export default function NewProductsCarousel() {
 	const windowWidth = Dimensions.get("window").width;
 	const windowHeight = Dimensions.get("window").height;
 	const progress = useSharedValue<number>(0);
@@ -24,7 +24,7 @@ export default function ProductCarousel() {
 
 	const pulseStyle = usePulseAnimation();
 
-	const { data, isFetching } = useGetProducts(1, 10, { sortBy: 'product_name', order: 'ASC'}, { categories: [], minPrice: 0, maxPrice: 10000 });
+	const { data, isFetching } = useGetProducts(1, 10, { sortBy: 'createdAt', order: 'DESC'}, { categories: [] });
 
 	function renderItem(info: { item: Product, index: number }) {
 		const product = info.item;
