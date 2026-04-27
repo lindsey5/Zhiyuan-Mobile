@@ -16,3 +16,7 @@ interface CreateReviewPayload {
 interface CreateReviewResponse extends AxiosResponse {
     review: Review;
 }
+
+interface GetReviewsResponse extends PaginationResponse {
+    reviews: Review[];
+}

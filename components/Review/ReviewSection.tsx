@@ -1,11 +1,17 @@
 import { View, StyleSheet, Dimensions } from "react-native";
-import ReviewCard from "../ui/ReviewCard";
-import { reviews } from "@/lib/data/mock-data";
+import ReviewCard from "./ReviewCard";
 import { getItemWidth } from "@/utils/utils";
+import { useGetReviews } from "@/hooks/Review/use-get-reviews.hook";
 
 const screenWidth = Dimensions.get("window").width;
 
 export default function ReviewSection() {
+
+    const { data } = useGetReviews({
+        limit: 12,
+        page: 1
+    });
+
     let numColumns = 2;
 
     if (screenWidth > 900) {
@@ -14,25 +20,19 @@ export default function ReviewSection() {
         numColumns = 3;
     }
 
-    const itemWidth = getItemWidth(screenWidth, numColumns);
+    const padding = 10 * 2;
+    const gap = 10;
+
+    const itemWidth = (screenWidth - padding - gap * (numColumns - 1)) / numColumns;
 
     return (
         <View style={styles.container}>
-        {reviews.map((item) => (
+        {data?.reviews.map((review) => (
             <View
-                key={item.id}
-                style={[
-                    {
-                    width: itemWidth,
-                    },
-                ]}
+                key={review._id}
+                style={{ width: itemWidth}}
             >
-                <ReviewCard
-                    name={item.name}
-                    rating={item.rating}
-                    date={item.date}
-                    comment={item.comment}
-                />
+                <ReviewCard review={review}/>
             </View>
         ))}
         </View>

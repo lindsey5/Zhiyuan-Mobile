@@ -20,6 +20,10 @@ const items : Item[] = [
     {
         text: "Cart",
         path: "/cart",
+    },
+    {
+        text: "Reviews",
+        path: "/reviews"
     }
 ]
 

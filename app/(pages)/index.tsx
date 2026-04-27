@@ -2,12 +2,13 @@ import { Text, StyleSheet, ScrollView, View, TouchableOpacity } from "react-nati
 import ProductCarousel from "@/components/Home/ProductCarousel";
 import ImageSlider from "@/components/Home/ImageSlider";
 import ReviewSection from "@/components/Review/ReviewSection";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import ReviewModal from "@/components/Review/ReviewModal";
 
 const Home = () => {
     const { review } = useLocalSearchParams();
+    const router = useRouter();
     const [openModal, setOpenModal] = useState(review ? true : false);
 
     return (
@@ -32,7 +33,11 @@ const Home = () => {
             <ReviewSection />
 
             {/* Button */}
-            <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+            <TouchableOpacity 
+                style={styles.button} 
+                activeOpacity={0.8}
+                onPress={() => router.push('/reviews')}
+            >
                 <Text style={styles.buttonText}>View All Reviews</Text>
             </TouchableOpacity>
             <View style={{ height: 150 }}/>
