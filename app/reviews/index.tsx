@@ -2,7 +2,6 @@ import ReviewCard from "@/components/Review/ReviewCard";
 import Pagination from "@/components/ui/Pagination";
 import { useGetReviews } from "@/hooks/Review/use-get-reviews.hook";
 import COLOR from "@/lib/contants/color";
-import { getItemWidth } from "@/utils/utils";
 import { useState } from "react";
 import { Dimensions, View, StyleSheet, TouchableOpacity, Text, ScrollView, ActivityIndicator } from "react-native";
 
@@ -13,7 +12,7 @@ export default function Page () {
     const [rating, setRating] = useState(0);
 
     const { data, isFetching } = useGetReviews({
-        limit: 1,
+        limit: 20,
         page,
         rating
     });
