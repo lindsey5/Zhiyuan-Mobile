@@ -43,7 +43,7 @@ export const useGetProducts = (
     search?: string,
 ) => {
     return useQuery<GetProductsResponse, Error>({
-        queryKey: ['products', page, limit, sort.sortBy, sort.order, search, filter.categories],
+        queryKey: ['products', page, limit, sort.sortBy, sort.order, search, filter.categories, filter.maxPrice, filter.minPrice],
         queryFn: async () => await getProducts(
             page, 
             limit, 

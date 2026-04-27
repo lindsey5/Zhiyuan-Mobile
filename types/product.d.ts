@@ -5,7 +5,7 @@ interface Product{
     thumbnail_public_id: string;
     thumbnail_url: string;
     category: string;
-    variants: Variant[]
+    variants?: Variant[]
 }
 
 interface GetProductsResponse extends PaginationResponse {
@@ -14,4 +14,16 @@ interface GetProductsResponse extends PaginationResponse {
 
 interface GetProductResponse extends AxiosResponse {
     product: Product
+}
+
+interface MostSellingProduct {
+    _id: string;
+    totalSold: number;
+    totalRevenue: number;
+    variant: Variant;
+}
+
+
+interface GetMostSellingProductsResponse extends AxiosResponse{
+    mostSellingProducts: MostSellingProduct[];
 }

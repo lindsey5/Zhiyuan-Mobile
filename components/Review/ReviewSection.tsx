@@ -26,15 +26,17 @@ export default function ReviewSection() {
     const itemWidth = (screenWidth - padding - gap * (numColumns - 1)) / numColumns;
 
     return (
-        <View style={styles.container}>
-        {data?.reviews.map((review) => (
-            <View
-                key={review._id}
-                style={{ width: itemWidth}}
-            >
-                <ReviewCard review={review}/>
+        <View style={{ padding: 10 }}>
+            <View style={styles.container}>
+            {data?.reviews.map((review) => (
+                <View
+                    key={review._id}
+                    style={{ width: itemWidth}}
+                >
+                    <ReviewCard review={review}/>
+                </View>
+            ))}
             </View>
-        ))}
         </View>
     );
 }
@@ -43,7 +45,6 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         flexWrap: "wrap",
-        padding: 10,
         gap: 10,
     },
 });

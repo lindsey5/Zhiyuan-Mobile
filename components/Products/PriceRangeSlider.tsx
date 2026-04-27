@@ -25,7 +25,7 @@ export default function PriceRangeSlider({ priceRange, setPriceRange }: PriceRan
                 sliderLength={width - 65}
                 values={priceRange}
                 min={0}
-                max={50000}
+                max={20000}
                 step={1000}
                 onValuesChange={(values) => {
                     let [minVal, maxVal] = values;
@@ -66,7 +66,7 @@ export default function PriceRangeSlider({ priceRange, setPriceRange }: PriceRan
                     onChangeText={(text) => {
                         let val = Number(text) || 0;
                         if (val < priceRange[0]) val = priceRange[0];
-                        if(val > 10000) val = 10000;
+                        if(val > 20000) val = 20000;
                         setPriceRange([priceRange[0], val]);
                     }}
                 />

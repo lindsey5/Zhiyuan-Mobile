@@ -7,11 +7,12 @@ import { Ionicons } from "@expo/vector-icons";
 import SortMenu from "./SortMenu";
 import Filter from "./Filter";
 import ProductCardSkeleton from "./ProductCardSkeleton";
+import { getItemWidth } from "@/utils/utils";
 
 const { width } = Dimensions.get('screen');
 
 export default function ProductsScreen() {
-    const limit = 20;
+    const limit = 5;
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const searchDebounce = useDebounce(search, 200);
@@ -34,6 +35,11 @@ export default function ProductsScreen() {
 
     const numColumns = getNumColumns();
 
+    const padding = 10 * 2;
+    const gap = 10;
+
+    const itemWidth = (width - padding - gap * (numColumns - 1)) / numColumns;
+
     useEffect(() => {
         setPage(1);
         setHasMore(true);
@@ -50,21 +56,18 @@ export default function ProductsScreen() {
         if (!isFetching && hasMore) setPage(prev => prev + 1);
     };
 
+
     return (
         <FlatList<Product | { _id: string }>
             key={numColumns}
             style={{ paddingBottom: 150 }}
-            data={isFetching && !products.length ? skeletonData : products}
+            data={products}
             keyExtractor={(item, index) => item._id || index.toString()}
             onEndReachedThreshold={0.5}
             onEndReached={handleLoadMore}
             renderItem={({ item }) => (
                 <View style={[styles.item, { flex: 1 / numColumns, margin: 5 }]}>
-                    {item._id.startsWith("skeleton") ? (
-                        <ProductCardSkeleton />
-                    ) : (
-                        <ProductCard item={item as Product} />
-                    )}
+                    <ProductCard item={item as Product} />
                 </View>
             )}
             columnWrapperStyle={{ paddingHorizontal: 10 }}
@@ -91,10 +94,16 @@ export default function ProductsScreen() {
                 </>
             )}
             ListFooterComponent={() => (
-                isFetching ? <ActivityIndicator size="large" color="#000" style={{ marginVertical: 20 }} /> : null
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, paddingHorizontal: 10 }}>
+                {isFetching && skeletonData.map((_, i) => (
+                    <View style={[styles.item, { width: itemWidth }]}>
+                        <ProductCardSkeleton key={i}/>
+                    </View>
+                ))}
+                </View>
             )}
             ListEmptyComponent={() => (
-                !isFetching &&  (
+                !isFetching && products.length < 1 &&  (
                     <View style={styles.emptyContainer}>
                         <Text style={styles.emptyText}>No Products Found</Text>
                     </View>

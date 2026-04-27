@@ -5,6 +5,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import ReviewModal from "@/components/Review/ReviewModal";
 import COLOR from "@/lib/contants/color";
+import MostSellingProductsCarousel from "@/components/Home/MostSellingProducts";
 
 const Home = () => {
     const { review } = useLocalSearchParams();
@@ -13,6 +14,10 @@ const Home = () => {
 
     return (
         <ScrollView>
+            <Text style={styles.sectionTitle}>Most Selling Products</Text>
+            <MostSellingProductsCarousel />
+
+
             {/* New Products */}
             <Text style={styles.sectionTitle}>New Products</Text>
             <NewProductsCarousel />

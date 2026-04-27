@@ -91,7 +91,7 @@ export default function NewProductsCarousel() {
 			</CustomizedText>
 
 			<CustomizedText style={{ fontSize: font22, marginTop: 10 }}>
-			{formatToPeso(product.variants[0].price)}
+			{formatToPeso(product.variants?.[0].price || 0)}
 			</CustomizedText>
 
 			<TouchableOpacity

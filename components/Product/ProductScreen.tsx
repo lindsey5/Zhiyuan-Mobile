@@ -31,10 +31,10 @@ const ProductScreen = () => {
         if (quantity > 1) setQuantity((prev) => prev - 1);
     };
 
-    const totalPrice = useMemo(() => (product?.variants[selectedIndex]?.price || 0) * quantity, [quantity]);
+    const totalPrice = useMemo(() => (product?.variants?.[selectedIndex]?.price || 0) * quantity, [quantity]);
 
     const handleAddToCart = () => {
-        const selectedVariant = product?.variants[selectedIndex]
+        const selectedVariant = product?.variants?.[selectedIndex]
         if (selectedVariant) {
             addItem({
                 variant_id: selectedVariant._id,
@@ -60,7 +60,7 @@ const ProductScreen = () => {
     }
 
     const nextIndex = () => {
-        if(selectedIndex < product.variants.length -1) {
+        if(selectedIndex < (product.variants?.length || 1) -1) {
             setSelectedIndex(prev => prev + 1);
         }
     }
@@ -101,12 +101,12 @@ const ProductScreen = () => {
                         </TouchableOpacity>
                         <View style={styles.imageContainer}>
                             <Image
-                                source={{ uri: product.variants[selectedIndex]?.image_url }}
+                                source={{ uri: product.variants?.[selectedIndex]?.image_url }}
                                 style={styles.productImage}
                                 resizeMode='contain'
                             />
                         </View>
-                        <TouchableOpacity onPress={nextIndex} style={{ opacity: selectedIndex === product.variants.length -1 ? 0.2 : 1}}>
+                        <TouchableOpacity onPress={nextIndex} style={{ opacity: selectedIndex === (product.variants?.length || 1) -1 ? 0.2 : 1}}>
                             <Image 
                                 resizeMode='contain'
                                 style={{ width: 40, height: 40}}
@@ -117,7 +117,7 @@ const ProductScreen = () => {
 
                     <VariantContainer 
                         selectedIndex={selectedIndex}
-                        variants={product.variants}
+                        variants={product?.variants || []}
                         setSelectedIndex={setSelectedIndex}
                         setQuantity={setQuantity}
                     />
@@ -129,13 +129,13 @@ const ProductScreen = () => {
                     decrementQuantity={decrementQuantity}
                     incrementQuantity={incrementQuantity}
                     quantity={quantity}
-                    selectedVariant={product.variants[selectedIndex]}
+                    selectedVariant={product.variants?.[selectedIndex]}
                 />
                 <AddToCartButton
                     handleAddToCart={handleAddToCart}
                     buttonText="Add to Cart"
                     price={totalPrice}
-                    disabled={product.variants[selectedIndex].stock < quantity}
+                    disabled={(product.variants?.[selectedIndex].stock || 0) < quantity}
                 />
             </View>
         </View>
