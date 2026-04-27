@@ -12,12 +12,14 @@ export default function ReviewSection() {
         page: 1
     });
 
-    let numColumns = 2;
+    let numColumns = 1;
 
     if (screenWidth > 900) {
         numColumns = 4;
     } else if (screenWidth > 600) {
         numColumns = 3;
+    } else if (screenWidth > 400) {
+        numColumns = 2;
     }
 
     const padding = 10 * 2;

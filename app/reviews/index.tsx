@@ -17,12 +17,14 @@ export default function Page () {
         rating
     });
 
-    let numColumns = 2;
+    let numColumns = 1;
 
     if (screenWidth > 900) {
         numColumns = 4;
     } else if (screenWidth > 600) {
         numColumns = 3;
+    } else if (screenWidth > 400) {
+        numColumns = 2;
     }
 
     const padding = 10 * 2;
@@ -31,7 +33,7 @@ export default function Page () {
     const itemWidth = (screenWidth - padding - gap * (numColumns - 1)) / numColumns;
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>Reviews</Text>
                 <Text style={styles.eyebrow}>Customer feedback</Text>
@@ -93,7 +95,6 @@ export default function Page () {
 const styles = StyleSheet.create({
     container: {
         padding: 10,
-        flex: 1,
     },
 
     filterScroll: {
