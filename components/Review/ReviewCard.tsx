@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: "#E8E8E4",
         gap: 10,
+        margin: 5
     },
 
     /* TOP */

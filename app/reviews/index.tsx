@@ -26,7 +26,7 @@ export default function Page () {
     }
 
     const padding = 10 * 2;
-    const gap = 10;
+    const gap = 5;
 
     const itemWidth = (screenWidth - padding - gap * (numColumns - 1)) / numColumns;
 
@@ -149,7 +149,6 @@ const styles = StyleSheet.create({
     reviewsContainer: {
         flexDirection: "row",
         flexWrap: "wrap",
-        gap: 10,
     },
 
     center: {

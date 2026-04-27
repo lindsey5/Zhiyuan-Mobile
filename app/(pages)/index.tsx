@@ -14,12 +14,9 @@ const Home = () => {
 
     return (
         <ScrollView>
-            <Text style={styles.sectionTitle}>Most Selling Products</Text>
             <MostSellingProductsCarousel />
 
-
             {/* New Products */}
-            <Text style={styles.sectionTitle}>New Products</Text>
             <NewProductsCarousel />
 
             {/* Reviews */}

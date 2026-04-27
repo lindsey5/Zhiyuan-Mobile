@@ -20,6 +20,7 @@ import COLOR from "@/lib/contants/color";
 import usePulseAnimation from "@/hooks/usePulseAnimation";
 import { useGetMostSellingProducts } from "@/hooks/Product/use-get-most-selling-products.hook";
 import Chip from "../ui/Chip";
+import { ArrowRight } from "lucide-react-native";
 
 export default function MostSellingProductsCarousel() {
     const windowWidth = Dimensions.get("window").width;
@@ -115,7 +116,7 @@ export default function MostSellingProductsCarousel() {
                     <Text style={[styles.buttonText, { fontSize: font22 }]}>Add to Cart</Text>
                 </View>
 
-                <Text style={[styles.arrow, { fontSize: font22 }]}>›</Text>
+                <ArrowRight color="white" size={20} />
                 </TouchableOpacity>
             </Animated.View>
         );
@@ -145,7 +146,11 @@ export default function MostSellingProductsCarousel() {
       }
     };
 
+    if(!isFetching && (data?.mostSellingProducts.length || 0) < 1) return null
+
     return (
+        <>
+        <Text style={styles.sectionTitle}>Most Selling Products</Text>
         <View style={styles.carouselContainer}>
         <Carousel
             data={
@@ -167,10 +172,19 @@ export default function MostSellingProductsCarousel() {
             renderItem={renderItem}
         />
         </View>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
+    sectionTitle: {
+        marginTop: 24,
+        paddingHorizontal: 10,
+        fontSize: 22,
+        fontWeight: "700",
+        color: "#1a1a1a",
+    },
+
     carouselContainer: {
         flex: 1,
         width: "100%",
@@ -232,11 +246,6 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: "600",
         color: "white",
-    },
-
-    arrow: {
-        color: "#bbb",
-        fontWeight: "300",
     },
 
     /* Skeleton */

@@ -20,6 +20,7 @@ import { useGetProducts } from "@/hooks/Product/use-get-products.hook";
 import { formatToPeso } from "@/utils/format";
 import COLOR from "@/lib/contants/color";
 import usePulseAnimation from "@/hooks/usePulseAnimation";
+import { ArrowRight } from "lucide-react-native";
 
 export default function NewProductsCarousel() {
 	const windowWidth = Dimensions.get("window").width;
@@ -109,7 +110,7 @@ export default function NewProductsCarousel() {
 				<Text style={[styles.buttonText, { fontSize: font22 }]}>Add to Cart</Text>
 			</View>
 
-			<Text style={[styles.arrow, { fontSize: font22 }]}>›</Text>
+			<ArrowRight color="white" size={20} />
 			</TouchableOpacity>
 		</Animated.View>
 		);
@@ -137,6 +138,8 @@ export default function NewProductsCarousel() {
 	};
 
 	return (
+		<>
+		<Text style={styles.sectionTitle}>New Products</Text>
 		<View style={styles.carouselContainer}>
 		<Carousel
 			data={
@@ -158,10 +161,19 @@ export default function NewProductsCarousel() {
 			renderItem={renderItem}
 		/>
 		</View>
+		</>
 	);
 }
 
 const styles = StyleSheet.create({
+	sectionTitle: {
+        marginTop: 24,
+        paddingHorizontal: 10,
+        fontSize: 22,
+        fontWeight: "700",
+        color: "#1a1a1a",
+    },
+
 	carouselContainer: {
 		flex: 1,
 		width: "100%",
@@ -223,11 +235,6 @@ const styles = StyleSheet.create({
 	buttonText: {
 		fontWeight: "600",
 		color: "white",
-	},
-
-	arrow: {
-		color: "#bbb",
-		fontWeight: "300",
 	},
 
 	/* Skeleton */

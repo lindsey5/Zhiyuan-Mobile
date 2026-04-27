@@ -21,7 +21,7 @@ export default function ReviewSection() {
     }
 
     const padding = 10 * 2;
-    const gap = 10;
+    const gap = 5;
 
     const itemWidth = (screenWidth - padding - gap * (numColumns - 1)) / numColumns;
 
@@ -45,6 +45,5 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         flexWrap: "wrap",
-        gap: 10,
     },
 });
