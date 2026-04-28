@@ -23,7 +23,6 @@ interface MostSellingProduct {
     variant: Variant;
 }
 
-
 interface GetMostSellingProductsResponse extends AxiosResponse{
     mostSellingProducts: MostSellingProduct[];
 }
