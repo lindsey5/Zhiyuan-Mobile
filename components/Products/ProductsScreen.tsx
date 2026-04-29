@@ -10,7 +10,7 @@ import Filter from "./Filter";
 const { width } = Dimensions.get('screen');
 
 export default function ProductsScreen() {
-    const limit = 5;
+    const limit = 10;
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const searchDebounce = useDebounce(search, 200);

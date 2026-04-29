@@ -18,11 +18,11 @@ import { useRouter } from "expo-router";
 import { formatToPeso } from "@/utils/format";
 import COLOR from "@/lib/contants/color";
 import usePulseAnimation from "@/hooks/usePulseAnimation";
-import { useGetMostSellingProducts } from "@/hooks/Product/use-get-most-selling-products.hook";
+import { useGetMostSellingProducts } from "@/hooks/Product/use-get-best-selling-products.hook";
 import Chip from "../ui/Chip";
 import { ArrowRight } from "lucide-react-native";
 
-export default function MostSellingProductsCarousel() {
+export default function BestSellingProductsCarousel() {
     const windowWidth = Dimensions.get("window").width;
     const windowHeight = Dimensions.get("window").height;
     const progress = useSharedValue<number>(0);
@@ -38,7 +38,7 @@ export default function MostSellingProductsCarousel() {
 
     const { data, isFetching } = useGetMostSellingProducts();
     
-    function renderItem(info: { item: MostSellingProduct; index: number }) {
+    function renderItem(info: { item: BestSellingProduct; index: number }) {
         const product = info.item;
         const index = info.index;
 
@@ -122,7 +122,7 @@ export default function MostSellingProductsCarousel() {
         );
     }
 
-    const placeholderProduct: MostSellingProduct = {
+    const placeholderProduct: BestSellingProduct = {
       "_id": "",
       "totalSold": 0,
       "totalRevenue": 0,
@@ -146,17 +146,17 @@ export default function MostSellingProductsCarousel() {
       }
     };
 
-    if(!isFetching && (data?.mostSellingProducts.length || 0) < 1) return null
+    if(!isFetching && (data?.bestSellingProducts.length || 0) < 1) return null
 
     return (
         <>
-        <Text style={styles.sectionTitle}>Most Selling Products</Text>
+        <Text style={styles.sectionTitle}>Best Selling Products</Text>
         <View style={styles.carouselContainer}>
         <Carousel
             data={
             isFetching
                 ? Array.from({ length: 3 }, () => placeholderProduct)
-                : data?.mostSellingProducts || []
+                : data?.bestSellingProducts || []
             }
             loop
             width={windowWidth >= 768 ? itemWidth : windowWidth * 0.9}

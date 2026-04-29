@@ -16,13 +16,13 @@ interface GetProductResponse extends AxiosResponse {
     product: Product
 }
 
-interface MostSellingProduct {
+interface BestSellingProduct {
     _id: string;
     totalSold: number;
     totalRevenue: number;
     variant: Variant;
 }
 
-interface GetMostSellingProductsResponse extends AxiosResponse{
-    mostSellingProducts: MostSellingProduct[];
+interface GetBestSellingProductsResponse extends AxiosResponse{
+    bestSellingProducts: BestSellingProduct[];
 }
