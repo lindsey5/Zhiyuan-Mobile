@@ -135,7 +135,7 @@ const ProductScreen = () => {
                     handleAddToCart={handleAddToCart}
                     buttonText="Add to Cart"
                     price={totalPrice}
-                    disabled={(product.variants?.[selectedIndex].stock || 0) < quantity}
+                    disabled={(product.variants?.[selectedIndex]?.stock || 0) < quantity}
                 />
             </View>
         </View>

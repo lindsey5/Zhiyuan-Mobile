@@ -12,7 +12,7 @@ export async function apiAxios<T>(
     options?: ApiOptions
 ): Promise<T> {
     const { method = HttpMethod.GET, data, params } = options || {};
-
+    
     const res = await axiosClient.request<T>({
         url: endpoint,
         method,

@@ -11,6 +11,7 @@ async function getCategories() {
 export const useGetCategories = () => {
     return useQuery<GetCategoriesResponse, Error>({
         queryKey: ['product'],
-        queryFn: getCategories
+        queryFn: getCategories,
+        refetchOnWindowFocus: false,
     });
 };

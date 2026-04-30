@@ -11,6 +11,7 @@ async function getProduct(id : string) {
 export const useGetProduct = (id : string) => {
     return useQuery<GetProductResponse, Error>({
         queryKey: ['product'],
-        queryFn: async () => await getProduct(id)
+        queryFn: () => getProduct(id),
+        refetchOnWindowFocus: false,
     });
 };

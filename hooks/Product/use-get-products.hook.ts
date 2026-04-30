@@ -44,7 +44,7 @@ export const useGetProducts = (
 ) => {
     return useQuery<GetProductsResponse, Error>({
         queryKey: ['products', page, limit, sort.sortBy, sort.order, search, filter.categories, filter.maxPrice, filter.minPrice],
-        queryFn: async () => await getProducts(
+        queryFn: () => getProducts(
             page, 
             limit, 
             sort.sortBy, 
@@ -53,6 +53,7 @@ export const useGetProducts = (
             search,  
             filter.minPrice,
             filter.maxPrice
-        )
+        ),
+        refetchOnWindowFocus: false,
     });
 };

@@ -11,6 +11,7 @@ async function getBestSellingProducts() {
 export const useGetMostSellingProducts = () => {
     return useQuery<GetBestSellingProductsResponse, Error>({
         queryKey: ['products/best-selling'],
-        queryFn: () => getBestSellingProducts()
+        queryFn: () => getBestSellingProducts(),
+        refetchOnWindowFocus: false,
     });
 };

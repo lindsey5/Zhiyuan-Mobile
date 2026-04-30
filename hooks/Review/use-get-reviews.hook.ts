@@ -18,6 +18,7 @@ async function getReviews(params: GetReviewsParams) {
 export const useGetReviews = (params: GetReviewsParams) => {
     return useQuery<GetReviewsResponse, Error>({
         queryKey: ['reviews', params],
-        queryFn: () => getReviews(params)
+        queryFn: () => getReviews(params),
+        refetchOnWindowFocus: false,
     });
 };

@@ -11,6 +11,7 @@ async function getVariant(id : string) {
 export const useGetVariant = (id : string) => {
     return useQuery<GetVariantResponse, Error>({
         queryKey: [`variant/${id}`],
-        queryFn: async () => await getVariant(id)
+        queryFn: () => getVariant(id),
+        refetchOnWindowFocus: false,
     });
 };
