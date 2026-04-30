@@ -1,6 +1,6 @@
 import { Text, StyleSheet, ScrollView, View, TouchableOpacity } from "react-native";
 import NewProductsCarousel from "@/components/Home/NewProductsCarousel";
-import ReviewSection from "@/components/Review/ReviewSection";
+import ReviewSection from "@/components/Home/ReviewSection";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import ReviewModal from "@/components/Review/ReviewModal";

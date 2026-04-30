@@ -1,5 +1,5 @@
 import { View, StyleSheet, Dimensions } from "react-native";
-import ReviewCard from "./ReviewCard";
+import ReviewCard from "../Review/ReviewCard";
 import { getItemWidth } from "@/utils/utils";
 import { useGetReviews } from "@/hooks/Review/use-get-reviews.hook";
 
@@ -8,7 +8,7 @@ const screenWidth = Dimensions.get("window").width;
 export default function ReviewSection() {
 
     const { data } = useGetReviews({
-        limit: 12,
+        limit: 6,
         page: 1
     });
 
