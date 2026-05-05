@@ -4,7 +4,7 @@
     "slug": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/dark-logo.png",
+    "icon": "./assets/ball.png",
     "scheme": "mobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -16,7 +16,7 @@
         "backgroundColor": "#E6F4FE"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
+      "predictiveBackGestureEnabled": true,
       "package": "com.lindsey03.mobile"
     },
     "web": {
