@@ -12,7 +12,10 @@ import LoadingScreen from '../ui/LoadingScreen';
 import VariantContainer from './VariantContainer';
 import ProductDescription from './ProductDescription';
 
-const { height } = Dimensions.get('screen');
+import Modal from "react-native-modal";
+import ImageViewer from "react-native-image-zoom-viewer";
+
+const { height, width } = Dimensions.get('screen');
 
 const ProductScreen = () => {
     const { id } = useLocalSearchParams();
@@ -22,6 +25,8 @@ const ProductScreen = () => {
     const { data, isFetching } = useGetProduct(id as string);
     const product = data?.product;
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
+
+    const [showImageModal, setShowImageModal] = useState(false);
 
     const incrementQuantity = (): void => {
         setQuantity((prev) => prev + 1);
@@ -34,7 +39,8 @@ const ProductScreen = () => {
     const totalPrice = useMemo(() => (product?.variants?.[selectedIndex]?.price || 0) * quantity, [quantity]);
 
     const handleAddToCart = () => {
-        const selectedVariant = product?.variants?.[selectedIndex]
+        const selectedVariant = product?.variants?.[selectedIndex];
+
         if (selectedVariant) {
             addItem({
                 variant_id: selectedVariant._id,
@@ -53,23 +59,23 @@ const ProductScreen = () => {
     useEffect(() => {
         setSelectedIndex(0);
         setQuantity(1);
-    }, [id])
+    }, [id]);
 
-    if (isFetching || !product){
+    if (isFetching || !product) {
         return <LoadingScreen />
     }
 
     const nextIndex = () => {
-        if(selectedIndex < (product.variants?.length || 1) -1) {
+        if (selectedIndex < (product.variants?.length || 1) - 1) {
             setSelectedIndex(prev => prev + 1);
         }
-    }
+    };
 
     const prevIndex = () => {
-        if(selectedIndex > 0){
+        if (selectedIndex > 0) {
             setSelectedIndex(prev => prev - 1);
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
@@ -79,51 +85,92 @@ const ProductScreen = () => {
                     style={{ width: 50, height: 50 }}
                     resizeMode="contain"
                 />
-                <CustomizedText style={styles.headerText}>{product.product_name}</CustomizedText>
+                <CustomizedText style={styles.headerText}>
+                    {product.product_name}
+                </CustomizedText>
             </View>
 
             <MenuButton />
+
             <SuccessCard
                 message="Successfully added to cart"
                 visible={showSuccess}
                 onClose={() => setShowSuccess(false)}
             />
 
+            {/* IMAGE ZOOM MODAL */}
+            <Modal
+                isVisible={showImageModal}
+                onBackdropPress={() => setShowImageModal(false)}
+                onBackButtonPress={() => setShowImageModal(false)}
+                style={{ margin: 0 }}
+            >
+                <View style={styles.modalContainer}>
+                    <TouchableOpacity
+                        style={styles.closeButton}
+                        onPress={() => setShowImageModal(false)}
+                    >
+                        <Text style={styles.closeText}>✕</Text>
+                    </TouchableOpacity>
+
+                    <ImageViewer
+                        imageUrls={[
+                            { url: product.variants?.[selectedIndex]?.image_url || "" }
+                        ]}
+                        enableSwipeDown={true}
+                        onSwipeDown={() => setShowImageModal(false)}
+                        backgroundColor="black"
+                    />
+                </View>
+            </Modal>
+
             <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scrollContainer}>
                 <View style={styles.content}>
                     <View style={styles.imageSlider}>
-                        <TouchableOpacity onPress={prevIndex} style={{ opacity: selectedIndex === 0 ? 0.2 : 1}}>
-                            <Image 
-                                resizeMode='contain'
-                                style={{ width: 40, height: 40}}
+                        <TouchableOpacity
+                            onPress={prevIndex}
+                            style={{ opacity: selectedIndex === 0 ? 0.2 : 1 }}
+                        >
+                            <Image
+                                resizeMode="contain"
+                                style={{ width: 40, height: 40 }}
                                 source={require('../../assets/left.png')}
                             />
                         </TouchableOpacity>
+
                         <View style={styles.imageContainer}>
-                            <Image
-                                source={{ uri: product.variants?.[selectedIndex]?.image_url }}
-                                style={styles.productImage}
-                                resizeMode='contain'
-                            />
+                            <TouchableOpacity style={styles.productImage} onPress={() => setShowImageModal(true)}>
+                                <Image
+                                    source={{ uri: product.variants?.[selectedIndex]?.image_url }}
+                                    style={styles.productImage}
+                                    resizeMode="contain"
+                                />
+                            </TouchableOpacity>
                         </View>
-                        <TouchableOpacity onPress={nextIndex} style={{ opacity: selectedIndex === (product.variants?.length || 1) -1 ? 0.2 : 1}}>
-                            <Image 
-                                resizeMode='contain'
-                                style={{ width: 40, height: 40}}
+
+                        <TouchableOpacity
+                            onPress={nextIndex}
+                            style={{ opacity: selectedIndex === (product.variants?.length || 1) - 1 ? 0.2 : 1 }}
+                        >
+                            <Image
+                                resizeMode="contain"
+                                style={{ width: 40, height: 40 }}
                                 source={require('../../assets/right.png')}
                             />
                         </TouchableOpacity>
                     </View>
 
-                    <VariantContainer 
+                    <VariantContainer
                         selectedIndex={selectedIndex}
                         variants={product?.variants || []}
                         setSelectedIndex={setSelectedIndex}
                         setQuantity={setQuantity}
                     />
                 </View>
+
                 <ProductDescription description={product.description} />
             </ScrollView>
+
             <View style={styles.bottomContainer}>
                 <ProductQuantitySelector
                     decrementQuantity={decrementQuantity}
@@ -131,6 +178,7 @@ const ProductScreen = () => {
                     quantity={quantity}
                     selectedVariant={product.variants?.[selectedIndex]}
                 />
+
                 <AddToCartButton
                     handleAddToCart={handleAddToCart}
                     buttonText="Add to Cart"
@@ -167,27 +215,26 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         width: '100%',
     },
-    imageSlider: { 
-        flex: 1, 
+    imageSlider: {
         marginTop: 50,
         marginBottom: 20,
         width: '100%',
         maxWidth: 500,
-        flexDirection: 'row', 
-        justifyContent: 'space-between',
+        flexDirection: 'row',
         gap: 20,
         paddingHorizontal: 20,
         alignItems: 'center'
     },
     imageContainer: {
         flex: 1,
-        height: height * 0.25,
+        height: height * 0.30,
         justifyContent: 'center',
         alignItems: 'center',
     },
     productImage: {
         width: '100%',
         height: '100%',
+        resizeMode: 'cover',
     },
     description: {
         fontSize: 20,
@@ -200,6 +247,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 10,
         backgroundColor: 'transparent'
+    },
+
+    // MODAL STYLES
+    modalContainer: {
+        flex: 1,
+        backgroundColor: "black",
+    },
+    closeButton: {
+        position: "absolute",
+        top: 50,
+        right: 20,
+        zIndex: 999,
+        backgroundColor: "rgba(255,255,255,0.2)",
+        padding: 10,
+        borderRadius: 50,
+    },
+    closeText: {
+        color: "white",
+        fontSize: 20,
+        fontWeight: "bold",
     },
 });
 
