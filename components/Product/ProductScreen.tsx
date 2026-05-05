@@ -15,7 +15,7 @@ import ProductDescription from './ProductDescription';
 import Modal from "react-native-modal";
 import ImageViewer from "react-native-image-zoom-viewer";
 
-const { height, width } = Dimensions.get('screen');
+const { height } = Dimensions.get('screen');
 
 const ProductScreen = () => {
     const { id } = useLocalSearchParams();
